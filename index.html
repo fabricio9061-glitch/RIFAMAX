@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RifaMax - Sorteos en Línea</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #FF6B35;
@@ -15,6 +15,7 @@
             --light: #ffffff;
             --success: #06FFA5;
             --danger: #FF5252;
+            --purple: #9B5DE5;
         }
 
         * {
@@ -31,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* Fondo animado con puntos */
+        /* Fondo animado */
         .background-dots {
             position: fixed;
             top: 0;
@@ -63,7 +64,7 @@
         header {
             position: relative;
             z-index: 10;
-            padding: 2rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -85,11 +86,12 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 2px;
+            cursor: pointer;
         }
 
         nav {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
@@ -99,6 +101,7 @@
             font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
+            font-size: 0.95rem;
         }
 
         nav a::after {
@@ -116,27 +119,193 @@
             width: 100%;
         }
 
-        .btn-admin {
-            padding: 0.5rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            color: var(--light);
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .nav-buttons {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
         }
 
-        .btn-admin:hover {
-            background: var(--primary);
+        .btn-login {
+            padding: 0.5rem 1.2rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            border-radius: 25px;
+            color: var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-login:hover {
+            background: var(--accent);
+            color: var(--dark);
             transform: scale(1.05);
         }
 
-        /* Hero Section */
+        .btn-register {
+            padding: 0.5rem 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 25px;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-register:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Menú de Usuario */
+        .user-menu {
+            position: relative;
+            display: none;
+        }
+
+        .user-menu.active {
+            display: block;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+            overflow: hidden;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1rem;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .user-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 0.5rem;
+        }
+
+        .dropdown-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--secondary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--dark);
+            overflow: hidden;
+        }
+
+        .dropdown-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown-info h4 {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 0.2rem;
+        }
+
+        .dropdown-info p {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.7rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 107, 53, 0.2);
+        }
+
+        .dropdown-item.admin {
+            color: var(--purple);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+        }
+
+        .dropdown-item.logout {
+            color: var(--danger);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+        }
+
+        .balance-badge {
+            background: linear-gradient(135deg, var(--success), var(--accent));
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        /* Hero */
         .hero {
             position: relative;
             z-index: 5;
             text-align: center;
-            padding: 6rem 5% 4rem;
+            padding: 5rem 5% 3rem;
             animation: fadeIn 1s ease-out 0.3s backwards;
         }
 
@@ -147,7 +316,7 @@
 
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 5rem;
+            font-size: 4.5rem;
             line-height: 1;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
@@ -163,9 +332,30 @@
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.9;
             margin-bottom: 2rem;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .hero-feature {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-feature span {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         .cta-button {
@@ -179,6 +369,9 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
             animation: pulse 2s ease-in-out infinite;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         @keyframes pulse {
@@ -192,27 +385,28 @@
             animation: none;
         }
 
-        /* Rifas Activas */
-        .rifas-section {
+        /* Secciones */
+        .section {
             position: relative;
             z-index: 5;
-            padding: 4rem 5%;
+            padding: 3rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .section-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             letter-spacing: 2px;
         }
 
+        /* Grid de Rifas */
         .rifas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
         }
 
         .rifa-card {
@@ -222,16 +416,6 @@
             border-radius: 20px;
             overflow: hidden;
             transition: all 0.4s ease;
-            animation: fadeInUp 0.6s ease-out backwards;
-        }
-
-        .rifa-card.oculta {
-            display: none;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .rifa-card:hover {
@@ -242,7 +426,7 @@
 
         .rifa-image {
             width: 100%;
-            height: 250px;
+            height: 200px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
@@ -252,20 +436,16 @@
             overflow: hidden;
         }
 
-        .rifa-image::before {
-            content: '';
+        .rifa-badge {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            top: 10px;
+            right: 10px;
+            background: var(--success);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
         }
 
         .rifa-content {
@@ -274,20 +454,21 @@
 
         .rifa-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 0.5rem;
             color: var(--secondary);
         }
 
         .rifa-description {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             opacity: 0.8;
             margin-bottom: 1rem;
         }
 
         .rifa-stats {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
             margin-bottom: 1rem;
             padding: 1rem;
             background: rgba(0, 0, 0, 0.3);
@@ -300,12 +481,12 @@
 
         .stat-value {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--success);
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             opacity: 0.7;
         }
 
@@ -323,17 +504,11 @@
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 10px;
             transition: width 1s ease;
-            animation: progressGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes progressGlow {
-            0%, 100% { box-shadow: 0 0 10px var(--primary); }
-            50% { box-shadow: 0 0 20px var(--secondary); }
         }
 
         .btn-participar {
             width: 100%;
-            padding: 1rem;
+            padding: 0.9rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--dark);
             border: none;
@@ -345,19 +520,16 @@
         }
 
         .btn-participar:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
         }
 
-        /* Ganadores Recientes */
-        .ganadores-section {
-            position: relative;
-            z-index: 5;
-            padding: 4rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
+        .btn-participar:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
+        /* Ganadores */
         .ganadores-list {
             display: grid;
             gap: 1rem;
@@ -367,20 +539,14 @@
             background: rgba(6, 255, 165, 0.1);
             border: 1px solid var(--success);
             border-radius: 15px;
-            padding: 1.5rem;
+            padding: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            animation: slideInRight 0.6s ease-out backwards;
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            gap: 1rem;
         }
 
         .ganador-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
         }
 
         .ganador-info {
@@ -389,12 +555,12 @@
 
         .ganador-nombre {
             font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
         }
 
         .ganador-premio {
             opacity: 0.8;
+            font-size: 0.9rem;
         }
 
         /* Modal */
@@ -410,6 +576,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 1rem;
         }
 
         .modal.active {
@@ -423,7 +590,7 @@
             border-radius: 20px;
             padding: 2rem;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
@@ -442,7 +609,7 @@
             background: none;
             border: none;
             color: var(--light);
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -454,18 +621,30 @@
         .modal-title {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: var(--secondary);
+            text-align: center;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group label .required {
+            color: var(--danger);
         }
 
         .form-group input,
@@ -478,21 +657,40 @@
             border-radius: 10px;
             color: var(--light);
             font-family: 'Poppins', sans-serif;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
+            font-size: 0.95rem;
         }
 
         .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group select:focus {
             outline: none;
             border-color: var(--primary);
         }
 
-        .btn-confirmar {
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .phone-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .phone-input select {
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        .phone-input input {
+            flex: 1;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-top: 0.3rem;
+        }
+
+        .btn-submit {
             width: 100%;
             padding: 1rem;
             background: linear-gradient(135deg, var(--success), var(--accent));
@@ -503,14 +701,169 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-top: 0.5rem;
         }
 
-        .btn-confirmar:hover {
+        .btn-submit:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-link {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .form-link a {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .referido-section {
+            background: rgba(155, 93, 229, 0.1);
+            border: 1px solid var(--purple);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .referido-section label {
+            color: var(--purple);
+        }
+
+        /* Perfil */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .profile-avatar:hover {
             transform: scale(1.05);
         }
 
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger), #ff7700);
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-avatar .edit-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.3rem;
+            font-size: 0.7rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-avatar:hover .edit-overlay {
+            opacity: 1;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-stat {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--success);
+        }
+
+        .profile-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .referral-box {
+            background: linear-gradient(135deg, rgba(155, 93, 229, 0.2), rgba(0, 180, 216, 0.2));
+            border: 1px solid var(--purple);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .referral-box h4 {
+            color: var(--purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .referral-code {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 5px;
+            color: var(--secondary);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .referral-code:hover {
+            transform: scale(1.05);
+        }
+
+        .referral-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .referral-stat {
+            text-align: center;
+        }
+
+        .referral-stat-value {
+            font-weight: 700;
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        .referral-stat-label {
+            font-size: 0.7rem;
+            opacity: 0.7;
         }
 
         /* Panel Admin */
@@ -518,7 +871,7 @@
             display: none;
             position: relative;
             z-index: 5;
-            padding: 4rem 5%;
+            padding: 2rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -532,22 +885,25 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .admin-tabs {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .admin-tab {
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .admin-tab.active {
@@ -564,93 +920,70 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .stat-card {
             background: rgba(0, 0, 0, 0.3);
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 15px;
             text-align: center;
         }
 
         .stat-card-value {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--success);
-            margin-bottom: 0.5rem;
         }
 
         .stat-card-label {
             opacity: 0.8;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        .rifas-admin-list {
-            display: grid;
-            gap: 1rem;
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
         }
 
-        .rifa-admin-item {
+        .admin-table th,
+        .admin-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-table th {
             background: rgba(0, 0, 0, 0.3);
-            padding: 1.5rem;
-            border-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .rifa-admin-info {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .rifa-admin-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
+            font-weight: 600;
+            font-size: 0.85rem;
         }
 
         .btn-small {
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             border: none;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            margin-right: 0.3rem;
         }
 
-        .btn-edit {
-            background: var(--accent);
-            color: var(--dark);
-        }
-
-        .btn-toggle {
-            background: var(--secondary);
-            color: var(--dark);
-        }
-
-        .btn-delete {
-            background: var(--danger);
-            color: var(--light);
-        }
-
-        .btn-small:hover {
-            transform: scale(1.05);
-        }
+        .btn-edit { background: var(--accent); color: var(--dark); }
+        .btn-toggle { background: var(--secondary); color: var(--dark); }
+        .btn-delete { background: var(--danger); color: var(--light); }
 
         .btn-nuevo {
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
             background: linear-gradient(135deg, var(--success), var(--accent));
             color: var(--dark);
             border: none;
@@ -660,8 +993,23 @@
             transition: all 0.3s ease;
         }
 
-        .btn-nuevo:hover {
-            transform: scale(1.05);
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-active { background: rgba(6, 255, 165, 0.2); color: var(--success); }
+        .status-inactive { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
+
+        /* Boletos Selector */
+        .boletos-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
         }
 
         .btn-cantidad {
@@ -672,7 +1020,6 @@
             border: none;
             border-radius: 10px;
             font-size: 1.5rem;
-            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -685,8 +1032,11 @@
             transform: scale(1.1);
         }
 
-        .btn-cantidad:active {
-            transform: scale(0.95);
+        .cantidad-display {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            min-width: 60px;
+            text-align: center;
         }
 
         /* Footer */
@@ -694,291 +1044,447 @@
             position: relative;
             z-index: 5;
             text-align: center;
-            padding: 3rem 5%;
+            padding: 2rem 5%;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 4rem;
+            margin-top: 3rem;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--dark);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            z-index: 2000;
+            animation: slideInRight 0.3s ease;
+            max-width: 350px;
+        }
+
+        .toast.success { border-color: var(--success); }
+        .toast.error { border-color: var(--danger); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .rifas-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .admin-header {
-                flex-direction: column;
-                gap: 1rem;
-            }
+            header { flex-direction: column; gap: 1rem; }
+            nav { flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 2.8rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .rifas-grid { grid-template-columns: 1fr; }
         }
+
+        .auth-buttons.hidden { display: none; }
     </style>
 </head>
 <body>
-    <!-- Fondo animado -->
     <div class="background-dots" id="dots"></div>
 
     <!-- Header -->
     <header>
-        <div class="logo">RIFAMAX</div>
-        <nav id="mainNav">
-            <a href="#rifas">Rifas Activas</a>
+        <div class="logo" onclick="irInicio()">RIFAMAX</div>
+        <nav>
+            <a href="#rifas">Rifas</a>
             <a href="#ganadores">Ganadores</a>
-            <div id="userButtons">
-                <button class="btn-admin" onclick="mostrarLogin()">Iniciar Sesión</button>
+            <a href="#como-funciona">¿Cómo funciona?</a>
+            
+            <div class="nav-buttons auth-buttons" id="authButtons">
+                <button class="btn-login" onclick="abrirModal('modalLogin')">Iniciar Sesión</button>
+                <button class="btn-register" onclick="abrirModal('modalRegistro')">Registrarse</button>
+            </div>
+
+            <div class="user-menu" id="userMenu">
+                <div class="user-avatar" id="userAvatar" onclick="toggleUserDropdown()">
+                    <span id="avatarContent">👤</span>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dropdown-header">
+                        <div class="dropdown-avatar" id="dropdownAvatar">
+                            <span id="dropdownAvatarContent">👤</span>
+                        </div>
+                        <div class="dropdown-info">
+                            <h4 id="dropdownUserName">Usuario</h4>
+                            <p id="dropdownUserEmail">email@ejemplo.com</p>
+                        </div>
+                    </div>
+                    <div class="dropdown-item" onclick="abrirModal('modalPerfil')">
+                        <span>👤</span> Mi Perfil
+                    </div>
+                    <div class="dropdown-item" onclick="abrirModal('modalEstadisticas')">
+                        <span>📊</span> Mis Estadísticas
+                    </div>
+                    <div class="dropdown-item" onclick="abrirModal('modalMisBoletos')">
+                        <span>🎟️</span> Mis Boletos
+                    </div>
+                    <div class="dropdown-item" onclick="abrirModal('modalReferidos')">
+                        <span>🤝</span> Mis Referidos
+                        <span class="balance-badge" id="balanceReferidos">$0.00</span>
+                    </div>
+                    <div class="dropdown-item admin" id="adminMenuItem" style="display: none;" onclick="mostrarPanelAdmin()">
+                        <span>⚙️</span> Panel Admin
+                    </div>
+                    <div class="dropdown-item logout" onclick="cerrarSesion()">
+                        <span>🚪</span> Cerrar Sesión
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
 
-    <!-- Hero -->
-    <section class="hero" id="heroSection">
-        <h1>¡TU SUERTE EMPIEZA AQUÍ!</h1>
-        <p>Participa en las rifas más emocionantes y gana premios increíbles</p>
-        <a href="#rifas" class="cta-button">Ver Rifas Activas</a>
-    </section>
+    <!-- Main Content -->
+    <main id="mainContent">
+        <section class="hero" id="heroSection">
+            <h1>¡TU SUERTE EMPIEZA AQUÍ!</h1>
+            <p>Participa en las rifas más emocionantes y gana premios increíbles</p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <span>🎟️</span>
+                    <strong>$1 USD</strong>
+                    <small>por boleto</small>
+                </div>
+                <div class="hero-feature">
+                    <span>💰</span>
+                    <strong>$100 USD</strong>
+                    <small>premio</small>
+                </div>
+                <div class="hero-feature">
+                    <span>🤝</span>
+                    <strong>$0.10</strong>
+                    <small>por referido</small>
+                </div>
+            </div>
+            <button class="cta-button" onclick="abrirModal('modalRegistro')">¡Participa Ahora!</button>
+        </section>
 
-    <!-- Rifas Activas -->
-    <section class="rifas-section" id="rifas">
-        <h2 class="section-title">Rifas Activas</h2>
-        <div class="rifas-grid" id="rifasGrid"></div>
-    </section>
+        <section class="section" id="rifas">
+            <h2 class="section-title">🎰 Rifas Activas</h2>
+            <div class="rifas-grid" id="rifasGrid">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </section>
 
-    <!-- Ganadores Recientes -->
-    <section class="ganadores-section" id="ganadores">
-        <h2 class="section-title">Ganadores Recientes</h2>
-        <div class="ganadores-list" id="ganadoresList"></div>
-    </section>
+        <section class="section" id="ganadores">
+            <h2 class="section-title">🏆 Ganadores Recientes</h2>
+            <div class="ganadores-list" id="ganadoresList">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </section>
 
-    <!-- Panel Admin -->
+        <section class="section" id="como-funciona">
+            <h2 class="section-title">📖 ¿Cómo Funciona?</h2>
+            <div class="rifas-grid">
+                <div class="rifa-card">
+                    <div class="rifa-content" style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">1️⃣</div>
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Regístrate</h3>
+                        <p style="opacity: 0.8;">Crea tu cuenta gratis y obtén tu código de referido único.</p>
+                    </div>
+                </div>
+                <div class="rifa-card">
+                    <div class="rifa-content" style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">2️⃣</div>
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Compra Boletos</h3>
+                        <p style="opacity: 0.8;">Cada boleto cuesta solo $1 USD. ¡Compra los que quieras!</p>
+                    </div>
+                </div>
+                <div class="rifa-card">
+                    <div class="rifa-content" style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">3️⃣</div>
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">¡Gana!</h3>
+                        <p style="opacity: 0.8;">Espera el sorteo y gana hasta $100 USD. ¡Así de fácil!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Admin Panel -->
     <section class="admin-panel" id="adminPanel">
         <div class="admin-header">
-            <h2 class="section-title" style="margin-bottom: 0;">Panel de Administración</h2>
-            <button class="btn-admin" onclick="cerrarSesion()">Cerrar Sesión</button>
+            <h2 class="section-title" style="margin: 0;">⚙️ Panel de Administración</h2>
+            <button class="btn-login" onclick="cerrarPanelAdmin()">← Volver al Sitio</button>
         </div>
-
         <div class="admin-tabs">
-            <div class="admin-tab active" onclick="cambiarTab('estadisticas')">Estadísticas</div>
-            <div class="admin-tab" onclick="cambiarTab('rifas')">Gestionar Rifas</div>
-            <div class="admin-tab" onclick="cambiarTab('ganadores')">Ganadores</div>
+            <div class="admin-tab active" onclick="cambiarTabAdmin('dashboard')">Dashboard</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('rifas')">Rifas</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('usuarios')">Usuarios</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('compras')">Compras</div>
         </div>
-
         <div class="admin-content">
-            <!-- Estadísticas -->
-            <div id="tabEstadisticas" class="tab-content">
-                <h3 style="margin-bottom: 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 2rem;">Estadísticas Generales</h3>
+            <div id="tabDashboard" class="admin-tab-content">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-card-value" id="totalRifas">0</div>
+                        <div class="stat-card-value" id="adminTotalUsuarios">0</div>
+                        <div class="stat-card-label">Usuarios</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-value" id="adminTotalRifas">0</div>
                         <div class="stat-card-label">Rifas Activas</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-card-value" id="totalBoletos">0</div>
+                        <div class="stat-card-value" id="adminTotalBoletos">0</div>
                         <div class="stat-card-label">Boletos Vendidos</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-card-value" id="totalIngresos">$0</div>
-                        <div class="stat-card-label">Ingresos Totales</div>
+                        <div class="stat-card-value" id="adminTotalIngresos">$0</div>
+                        <div class="stat-card-label">Ingresos</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-card-value" id="totalGanadores">0</div>
-                        <div class="stat-card-label">Ganadores</div>
+                        <div class="stat-card-value" id="adminTotalReferidos">$0</div>
+                        <div class="stat-card-label">Comisiones</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Gestionar Rifas -->
-            <div id="tabRifas" class="tab-content" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem;">Gestionar Rifas</h3>
-                    <button class="btn-nuevo" onclick="abrirModalNuevaRifa()">+ Nueva Rifa</button>
+            <div id="tabRifas" class="admin-tab-content" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>Gestión de Rifas</h3>
+                    <button class="btn-nuevo" onclick="abrirModal('modalNuevaRifa')">+ Nueva Rifa</button>
                 </div>
-                <div class="rifas-admin-list" id="rifasAdminList"></div>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table"><thead><tr><th>Título</th><th>Premio</th><th>Boletos</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="rifasAdminBody"></tbody></table>
+                </div>
             </div>
-
-            <!-- Ganadores -->
-            <div id="tabGanadores" class="tab-content" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem;">Ganadores Registrados</h3>
-                    <button class="btn-nuevo" onclick="abrirModalNuevoGanador()">+ Nuevo Ganador</button>
+            <div id="tabUsuarios" class="admin-tab-content" style="display: none;">
+                <h3 style="margin-bottom: 1rem;">Usuarios</h3>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table"><thead><tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Referidos</th><th>Registro</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table>
                 </div>
-                <div class="ganadores-list" id="ganadoresAdminList"></div>
+            </div>
+            <div id="tabCompras" class="admin-tab-content" style="display: none;">
+                <h3 style="margin-bottom: 1rem;">Compras</h3>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Boletos</th><th>Total</th><th>Referidor</th><th>Fecha</th></tr></thead><tbody id="comprasAdminBody"></tbody></table>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal Login/Registro -->
+    <!-- Modales -->
     <div class="modal" id="modalLogin">
-        <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-content" style="max-width: 400px;">
             <button class="modal-close" onclick="cerrarModal('modalLogin')">×</button>
-            <h3 class="modal-title">Bienvenido a RifaMax</h3>
-            
-            <!-- Tabs -->
-            <div style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid rgba(255,255,255,0.1);">
-                <button class="tab-button active" onclick="cambiarTabAuth('login')" id="tabLogin" style="flex: 1; padding: 1rem; background: none; border: none; color: var(--light); font-weight: 600; cursor: pointer; border-bottom: 2px solid var(--primary); margin-bottom: -2px;">
-                    Iniciar Sesión
-                </button>
-                <button class="tab-button" onclick="cambiarTabAuth('registro')" id="tabRegistro" style="flex: 1; padding: 1rem; background: none; border: none; color: var(--light); font-weight: 600; cursor: pointer; opacity: 0.6;">
-                    Registrarse
-                </button>
-            </div>
-
-            <!-- Formulario Login -->
-            <form id="formLogin" onsubmit="iniciarSesion(event)">
+            <h3 class="modal-title">🔐 Iniciar Sesión</h3>
+            <form onsubmit="iniciarSesion(event)">
                 <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" required>
+                    <label>Correo Electrónico <span class="required">*</span></label>
+                    <input type="email" id="loginEmail" required placeholder="tu@email.com">
                 </div>
                 <div class="form-group">
-                    <label for="loginPassword">Contraseña</label>
-                    <input type="password" id="loginPassword" required>
+                    <label>Contraseña <span class="required">*</span></label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
                 </div>
-                <button type="submit" class="btn-confirmar">Iniciar Sesión</button>
-                <p style="text-align: center; margin-top: 1rem; opacity: 0.7; font-size: 0.9rem;">
-                    <a href="#" onclick="recuperarPassword(); return false;" style="color: var(--secondary);">¿Olvidaste tu contraseña?</a>
-                </p>
+                <button type="submit" class="btn-submit" id="btnLogin">Iniciar Sesión</button>
             </form>
-
-            <!-- Formulario Registro -->
-            <form id="formRegistro" onsubmit="registrarUsuario(event)" style="display: none;">
-                <div class="form-group">
-                    <label for="regNombre">Nombre *</label>
-                    <input type="text" id="regNombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="regApellido">Apellido *</label>
-                    <input type="text" id="regApellido" required>
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email *</label>
-                    <input type="email" id="regEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="regPassword">Contraseña *</label>
-                    <input type="password" id="regPassword" required minlength="6">
-                    <small style="opacity: 0.7; font-size: 0.85rem;">Mínimo 6 caracteres</small>
-                </div>
-                <div class="form-group">
-                    <label for="regPasswordConfirm">Confirmar Contraseña *</label>
-                    <input type="password" id="regPasswordConfirm" required minlength="6">
-                </div>
-                <button type="submit" class="btn-confirmar">Crear Cuenta</button>
-            </form>
+            <div class="form-link">¿No tienes cuenta? <a onclick="cambiarModal('modalLogin', 'modalRegistro')">Regístrate aquí</a></div>
         </div>
     </div>
 
-    <!-- Modal Participar -->
-    <div class="modal" id="modalParticipar">
+    <div class="modal" id="modalRegistro">
         <div class="modal-content">
-            <button class="modal-close" onclick="cerrarModal('modalParticipar')">×</button>
-            <h3 class="modal-title" id="modalParticiparTitle">Participar en Rifa</h3>
-            <form onsubmit="comprarBoleto(event)">
-                <div class="form-group">
-                    <label for="nombreParticipante">Nombre Completo</label>
-                    <input type="text" id="nombreParticipante" required>
-                </div>
-                <div class="form-group">
-                    <label for="emailParticipante">Email</label>
-                    <input type="email" id="emailParticipante" required>
-                </div>
-                <div class="form-group">
-                    <label for="emailConfirmar">Confirmar Email</label>
-                    <input type="email" id="emailConfirmar" required>
-                </div>
-                <div class="form-group">
-                    <label for="cantidadBoletos">Cantidad de Boletos</label>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <button type="button" class="btn-cantidad" onclick="cambiarCantidad(-1)">−</button>
-                        <input type="number" id="cantidadBoletos" value="1" min="1" readonly style="text-align: center; font-size: 1.2rem; font-weight: 600; cursor: pointer;" onclick="habilitarEdicion()">
-                        <button type="button" class="btn-cantidad" onclick="cambiarCantidad(1)">+</button>
+            <button class="modal-close" onclick="cerrarModal('modalRegistro')">×</button>
+            <h3 class="modal-title">📝 Crear Cuenta</h3>
+            <form onsubmit="registrarUsuario(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre <span class="required">*</span></label>
+                        <input type="text" id="regNombre" required placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido <span class="required">*</span></label>
+                        <input type="text" id="regApellido" required placeholder="Tu apellido">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Total a Pagar: <span id="totalPagar">$0</span></label>
+                    <label>Correo Electrónico <span class="required">*</span></label>
+                    <input type="email" id="regEmail" required placeholder="tu@email.com">
                 </div>
-                <button type="submit" class="btn-confirmar">Confirmar Compra</button>
+                <div class="form-group">
+                    <label>Confirmar Correo <span class="required">*</span></label>
+                    <input type="email" id="regEmailConfirm" required placeholder="Confirma tu correo">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono <span class="required">*</span></label>
+                    <div class="phone-input">
+                        <select id="regCodigoPais">
+                            <option value="+1">🇺🇸 +1</option>
+                            <option value="+52">🇲🇽 +52</option>
+                            <option value="+54">🇦🇷 +54</option>
+                            <option value="+55">🇧🇷 +55</option>
+                            <option value="+56">🇨🇱 +56</option>
+                            <option value="+57">🇨🇴 +57</option>
+                            <option value="+58">🇻🇪 +58</option>
+                            <option value="+34">🇪🇸 +34</option>
+                            <option value="+51">🇵🇪 +51</option>
+                            <option value="+593">🇪🇨 +593</option>
+                            <option value="+598">🇺🇾 +598</option>
+                        </select>
+                        <input type="tel" id="regTelefono" required placeholder="Número">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Contraseña <span class="required">*</span></label>
+                        <input type="password" id="regPassword" required placeholder="Mín. 6 caracteres" minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar <span class="required">*</span></label>
+                        <input type="password" id="regPasswordConfirm" required placeholder="Confirmar">
+                    </div>
+                </div>
+                <div class="referido-section">
+                    <div class="form-group" style="margin: 0;">
+                        <label>🎁 Código de Referido (opcional)</label>
+                        <input type="text" id="regCodigoReferido" placeholder="Ej: ABC123" maxlength="6" style="text-transform: uppercase;">
+                        <p class="form-hint">Si alguien te invitó, ingresa su código</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit" id="btnRegistro">Crear Cuenta</button>
+            </form>
+            <div class="form-link">¿Ya tienes cuenta? <a onclick="cambiarModal('modalRegistro', 'modalLogin')">Inicia sesión</a></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalPerfil">
+        <div class="modal-content" style="max-width: 450px;">
+            <button class="modal-close" onclick="cerrarModal('modalPerfil')">×</button>
+            <h3 class="modal-title">👤 Mi Perfil</h3>
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar" onclick="document.getElementById('avatarInput').click()">
+                    <span id="profileAvatarContent">👤</span>
+                    <div class="edit-overlay">📷 Cambiar</div>
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="cambiarAvatar(event)">
+                <h3 id="profileNombreCompleto">Usuario</h3>
+                <p style="opacity: 0.7;" id="profileEmail">email@ejemplo.com</p>
+            </div>
+            <form onsubmit="actualizarPerfil(event)">
+                <div class="form-row">
+                    <div class="form-group"><label>Nombre</label><input type="text" id="editNombre"></div>
+                    <div class="form-group"><label>Apellido</label><input type="text" id="editApellido"></div>
+                </div>
+                <div class="form-group"><label>Teléfono</label><input type="tel" id="editTelefono" readonly style="opacity: 0.6;"></div>
+                <button type="submit" class="btn-submit">Guardar Cambios</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal Nueva Rifa -->
+    <div class="modal" id="modalEstadisticas">
+        <div class="modal-content" style="max-width: 450px;">
+            <button class="modal-close" onclick="cerrarModal('modalEstadisticas')">×</button>
+            <h3 class="modal-title">📊 Mis Estadísticas</h3>
+            <div class="profile-stats">
+                <div class="profile-stat"><div class="profile-stat-value" id="statBoletosComprados">0</div><div class="profile-stat-label">Boletos</div></div>
+                <div class="profile-stat"><div class="profile-stat-value" id="statDineroGastado">$0</div><div class="profile-stat-label">Gastado</div></div>
+                <div class="profile-stat"><div class="profile-stat-value" id="statRifasParticipadas">0</div><div class="profile-stat-label">Rifas</div></div>
+                <div class="profile-stat"><div class="profile-stat-value" id="statPremiosGanados">0</div><div class="profile-stat-label">Premios</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalMisBoletos">
+        <div class="modal-content">
+            <button class="modal-close" onclick="cerrarModal('modalMisBoletos')">×</button>
+            <h3 class="modal-title">🎟️ Mis Boletos</h3>
+            <div id="listaMisBoletos"><p style="text-align: center; opacity: 0.7;">No tienes boletos aún</p></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalReferidos">
+        <div class="modal-content" style="max-width: 450px;">
+            <button class="modal-close" onclick="cerrarModal('modalReferidos')">×</button>
+            <h3 class="modal-title">🤝 Mis Referidos</h3>
+            <div class="referral-box">
+                <h4>Tu Código de Referido</h4>
+                <div class="referral-code" id="miCodigoReferido" onclick="copiarCodigoReferido()">------</div>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Click para copiar</p>
+                <div class="referral-stats">
+                    <div class="referral-stat"><div class="referral-stat-value" id="totalReferidos">0</div><div class="referral-stat-label">Referidos</div></div>
+                    <div class="referral-stat"><div class="referral-stat-value" id="boletosReferidos">0</div><div class="referral-stat-label">Sus Boletos</div></div>
+                    <div class="referral-stat"><div class="referral-stat-value" id="dineroReferidos">$0.00</div><div class="referral-stat-label">Ganado</div></div>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 0.85rem; opacity: 0.8;">Gana <strong style="color: var(--success);">$0.10 USD</strong> por cada boleto de tus referidos</p>
+        </div>
+    </div>
+
+    <div class="modal" id="modalParticipar">
+        <div class="modal-content" style="max-width: 400px;">
+            <button class="modal-close" onclick="cerrarModal('modalParticipar')">×</button>
+            <h3 class="modal-title" id="modalParticiparTitle">🎟️ Comprar Boletos</h3>
+            <div style="text-align: center; margin-bottom: 1.5rem;"><p style="opacity: 0.8;">Precio: <strong style="color: var(--success);">$1 USD</strong></p></div>
+            <div class="boletos-selector">
+                <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(-1)">−</button>
+                <div class="cantidad-display" id="cantidadBoletosDisplay">1</div>
+                <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(1)">+</button>
+            </div>
+            <div style="text-align: center; margin: 1.5rem 0;">
+                <p>Total:</p>
+                <p style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--secondary);" id="totalPagarBoletos">$1.00</p>
+            </div>
+            <button class="btn-submit" onclick="confirmarCompra()" id="btnConfirmarCompra">Confirmar Compra</button>
+        </div>
+    </div>
+
     <div class="modal" id="modalNuevaRifa">
         <div class="modal-content">
             <button class="modal-close" onclick="cerrarModal('modalNuevaRifa')">×</button>
-            <h3 class="modal-title" id="modalRifaTitle">Nueva Rifa</h3>
+            <h3 class="modal-title" id="modalRifaTitle">➕ Nueva Rifa</h3>
             <form onsubmit="guardarRifa(event)">
-                <div class="form-group">
-                    <label for="rifaTitulo">Título</label>
-                    <input type="text" id="rifaTitulo" required>
+                <div class="form-group"><label>Título <span class="required">*</span></label><input type="text" id="rifaTitulo" required placeholder="Ej: iPhone 15 Pro"></div>
+                <div class="form-group"><label>Descripción</label><textarea id="rifaDescripcion" placeholder="Descripción..."></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Ícono</label><input type="text" id="rifaIcono" value="🎁"></div>
+                    <div class="form-group"><label>Premio (USD)</label><input type="number" id="rifaPremio" value="100" min="1"></div>
                 </div>
-                <div class="form-group">
-                    <label for="rifaDescripcion">Descripción</label>
-                    <textarea id="rifaDescripcion" required></textarea>
+                <div class="form-row">
+                    <div class="form-group"><label>Total Boletos</label><input type="number" id="rifaTotalBoletos" value="100" min="10"></div>
+                    <div class="form-group"><label>Días</label><input type="number" id="rifaDias" value="7" min="1"></div>
                 </div>
-                <div class="form-group">
-                    <label for="rifaIcono">Ícono (emoji)</label>
-                    <input type="text" id="rifaIcono" value="🎁" required>
-                </div>
-                <div class="form-group">
-                    <label for="rifaPrecio">Precio por Boleto ($)</label>
-                    <input type="number" id="rifaPrecio" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label for="rifaTotalBoletos">Total de Boletos</label>
-                    <input type="number" id="rifaTotalBoletos" required>
-                </div>
-                <div class="form-group">
-                    <label for="rifaDias">Días restantes</label>
-                    <input type="number" id="rifaDias" required>
-                </div>
-                <button type="submit" class="btn-confirmar">Guardar Rifa</button>
+                <button type="submit" class="btn-submit">Guardar Rifa</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal Nuevo Ganador -->
-    <div class="modal" id="modalNuevoGanador">
-        <div class="modal-content" style="max-width: 400px;">
-            <button class="modal-close" onclick="cerrarModal('modalNuevoGanador')">×</button>
-            <h3 class="modal-title">Nuevo Ganador</h3>
-            <form onsubmit="guardarGanador(event)">
-                <div class="form-group">
-                    <label for="ganadorNombre">Nombre del Ganador</label>
-                    <input type="text" id="ganadorNombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="ganadorPremio">Premio Ganado</label>
-                    <input type="text" id="ganadorPremio" required>
-                </div>
-                <div class="form-group">
-                    <label for="ganadorIcono">Ícono (emoji)</label>
-                    <input type="text" id="ganadorIcono" value="🏆" required>
-                </div>
-                <button type="submit" class="btn-confirmar">Guardar Ganador</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Footer -->
     <footer>
         <p>&copy; 2025 RifaMax. Todos los derechos reservados.</p>
         <p style="opacity: 0.7; margin-top: 0.5rem;">Juega responsablemente. Mayores de 18 años.</p>
-        <p style="opacity: 0.5; margin-top: 1rem; font-size: 0.85rem;">Versión 1.0.0</p>
     </footer>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
 
     <script>
-        // CONFIGURACIÓN DE FIREBASE
+        // Config
         const firebaseConfig = {
             apiKey: "AIzaSyBrr8F9G93klUb-8Kk7fgmJ7t1D6ObRXic",
             authDomain: "rifamax.firebaseapp.com",
@@ -988,864 +1494,585 @@
             appId: "1:916004942628:web:02a27ba494358860f739b1"
         };
 
-        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
+        const storage = firebase.storage();
 
-        // Usuario actual
-        let usuarioActual = null;
-        let esAdmin = false;
+        // Constants
+        const ADMIN_EMAIL = 'fabricio9061@gmail.com';
+        const PRECIO_BOLETO = 1;
+        const COMISION_REFERIDO = 0.10;
 
-        // Base de datos simulada (ahora sincronizada con Firebase)
-        let rifas = [
-            {
-                id: 1,
-                titulo: "$100 USD en Efectivo",
-                descripcion: "Compra tu boleto por solo $1 dólar y gana $100 USD",
-                icono: "💵",
-                precio: 1,
-                vendidos: 0,
-                total: 100,
-                dias: 7,
-                visible: true
-            }
-        ];
-
-        let ganadores = [];
-
-        let boletosVendidos = [];
-
+        // State
+        let currentUser = null;
+        let userData = null;
+        let rifas = [];
+        let rifaSeleccionada = null;
+        let cantidadBoletos = 1;
         let rifaEditando = null;
 
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
             crearFondo();
-            cargarDatosDesdeFirebase();
-            
-            // Listener de autenticación
             auth.onAuthStateChanged(async (user) => {
                 if (user) {
-                    usuarioActual = user;
-                    
-                    // Verificar si es admin
-                    try {
-                        const userDoc = await db.collection('usuarios').doc(user.uid).get();
-                        if (userDoc.exists) {
-                            const userData = userDoc.data();
-                            esAdmin = userData.esAdmin || false;
-                            actualizarUIUsuario(user, userData);
-                        }
-                    } catch (error) {
-                        console.error('Error cargando datos de usuario:', error);
-                    }
+                    currentUser = user;
+                    await cargarDatosUsuario();
+                    actualizarUIUsuario();
                 } else {
-                    usuarioActual = null;
-                    esAdmin = false;
-                    actualizarUIUsuario(null, null);
+                    currentUser = null;
+                    userData = null;
+                    actualizarUIUsuario();
+                }
+            });
+            cargarRifas();
+            cargarGanadores();
+            document.addEventListener('click', (e) => {
+                const userMenu = document.getElementById('userMenu');
+                if (userMenu && !userMenu.contains(e.target)) {
+                    document.getElementById('userDropdown').classList.remove('show');
                 }
             });
         });
 
-        // Actualizar UI según usuario
-        function actualizarUIUsuario(user, userData) {
-            const userButtons = document.getElementById('userButtons');
-            
-            if (user) {
-                const nombre = userData ? userData.nombre : user.email.split('@')[0];
-                userButtons.innerHTML = `
-                    <span style="margin-right: 1rem; opacity: 0.9;">Hola, ${nombre}</span>
-                    ${esAdmin ? '<button class="btn-admin" onclick="mostrarPanelAdmin()" style="margin-right: 0.5rem;">Panel Admin</button>' : ''}
-                    <button class="btn-admin" onclick="cerrarSesion()">Cerrar Sesión</button>
-                `;
-            } else {
-                userButtons.innerHTML = `
-                    <button class="btn-admin" onclick="mostrarLogin()">Iniciar Sesión</button>
-                `;
-            }
-        }
-
-        // Cambiar entre tabs de login/registro
-        function cambiarTabAuth(tab) {
-            const tabLogin = document.getElementById('tabLogin');
-            const tabRegistro = document.getElementById('tabRegistro');
-            const formLogin = document.getElementById('formLogin');
-            const formRegistro = document.getElementById('formRegistro');
-
-            if (tab === 'login') {
-                tabLogin.classList.add('active');
-                tabRegistro.classList.remove('active');
-                tabLogin.style.borderBottom = '2px solid var(--primary)';
-                tabLogin.style.opacity = '1';
-                tabRegistro.style.borderBottom = 'none';
-                tabRegistro.style.opacity = '0.6';
-                formLogin.style.display = 'block';
-                formRegistro.style.display = 'none';
-            } else {
-                tabRegistro.classList.add('active');
-                tabLogin.classList.remove('active');
-                tabRegistro.style.borderBottom = '2px solid var(--primary)';
-                tabRegistro.style.opacity = '1';
-                tabLogin.style.borderBottom = 'none';
-                tabLogin.style.opacity = '0.6';
-                formRegistro.style.display = 'block';
-                formLogin.style.display = 'none';
-            }
-        }
-
-        // Registrar usuario
-        async function registrarUsuario(e) {
-            e.preventDefault();
-
-            const nombre = document.getElementById('regNombre').value.trim();
-            const apellido = document.getElementById('regApellido').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
-
-            // Validar contraseñas
-            if (password !== passwordConfirm) {
-                alert('Las contraseñas no coinciden. Por favor verifica e intenta nuevamente.');
-                return;
-            }
-
-            if (password.length < 6) {
-                alert('La contraseña debe tener al menos 6 caracteres.');
-                return;
-            }
-
-            try {
-                const btnSubmit = e.target.querySelector('button[type="submit"]');
-                btnSubmit.textContent = 'Creando cuenta...';
-                btnSubmit.disabled = true;
-
-                // Crear usuario en Firebase Auth
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-
-                // Enviar email de verificación
-                await user.sendEmailVerification();
-
-                // Guardar información adicional en Firestore
-                await db.collection('usuarios').doc(user.uid).set({
-                    nombre: nombre,
-                    apellido: apellido,
-                    email: email,
-                    esAdmin: false, // Por defecto no es admin
-                    fechaRegistro: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
-                alert(`¡Cuenta creada exitosamente!\n\nHemos enviado un código de verificación a ${email}.\n\nPor favor revisa tu correo (también la carpeta de spam) y verifica tu cuenta.`);
-
-                cerrarModal('modalLogin');
-                document.getElementById('formRegistro').reset();
-                btnSubmit.textContent = 'Crear Cuenta';
-                btnSubmit.disabled = false;
-
-            } catch (error) {
-                console.error('Error al registrar:', error);
-                let mensaje = 'Error al crear la cuenta. ';
-                
-                if (error.code === 'auth/email-already-in-use') {
-                    mensaje = 'Este email ya está registrado. Por favor inicia sesión o usa otro email.';
-                } else if (error.code === 'auth/invalid-email') {
-                    mensaje = 'El email ingresado no es válido.';
-                } else if (error.code === 'auth/weak-password') {
-                    mensaje = 'La contraseña es muy débil. Debe tener al menos 6 caracteres.';
-                } else {
-                    mensaje += error.message;
-                }
-                
-                alert(mensaje);
-                
-                const btnSubmit = e.target.querySelector('button[type="submit"]');
-                btnSubmit.textContent = 'Crear Cuenta';
-                btnSubmit.disabled = false;
-            }
-        }
-
-        // Iniciar sesión
-        async function iniciarSesion(e) {
-            e.preventDefault();
-
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                const btnSubmit = e.target.querySelector('button[type="submit"]');
-                btnSubmit.textContent = 'Iniciando sesión...';
-                btnSubmit.disabled = true;
-
-                await auth.signInWithEmailAndPassword(email, password);
-
-                alert('¡Sesión iniciada correctamente!');
-                cerrarModal('modalLogin');
-                document.getElementById('formLogin').reset();
-                btnSubmit.textContent = 'Iniciar Sesión';
-                btnSubmit.disabled = false;
-
-            } catch (error) {
-                console.error('Error al iniciar sesión:', error);
-                let mensaje = 'Error al iniciar sesión. ';
-                
-                if (error.code === 'auth/user-not-found') {
-                    mensaje = 'No existe una cuenta con este email.';
-                } else if (error.code === 'auth/wrong-password') {
-                    mensaje = 'Contraseña incorrecta.';
-                } else if (error.code === 'auth/invalid-email') {
-                    mensaje = 'El email ingresado no es válido.';
-                } else if (error.code === 'auth/user-disabled') {
-                    mensaje = 'Esta cuenta ha sido deshabilitada.';
-                } else {
-                    mensaje += error.message;
-                }
-                
-                alert(mensaje);
-                
-                const btnSubmit = e.target.querySelector('button[type="submit"]');
-                btnSubmit.textContent = 'Iniciar Sesión';
-                btnSubmit.disabled = false;
-            }
-        }
-
-        // Recuperar contraseña
-        async function recuperarPassword() {
-            const email = prompt('Ingresa tu email para recuperar tu contraseña:');
-            
-            if (!email) return;
-
-            try {
-                await auth.sendPasswordResetEmail(email);
-                alert(`Hemos enviado un enlace de recuperación a ${email}.\n\nRevisa tu correo (también la carpeta de spam).`);
-            } catch (error) {
-                console.error('Error al recuperar contraseña:', error);
-                if (error.code === 'auth/user-not-found') {
-                    alert('No existe una cuenta con este email.');
-                } else if (error.code === 'auth/invalid-email') {
-                    alert('El email ingresado no es válido.');
-                } else {
-                    alert('Error al enviar el correo de recuperación: ' + error.message);
-                }
-            }
-        }
-
-        // Cerrar sesión
-        async function cerrarSesion() {
-            try {
-                await auth.signOut();
-                alert('Sesión cerrada correctamente');
-                
-                // Ocultar panel admin si estaba abierto
-                document.getElementById('heroSection').style.display = 'block';
-                document.getElementById('rifas').style.display = 'block';
-                document.getElementById('ganadores').style.display = 'block';
-                document.getElementById('adminPanel').classList.remove('active');
-            } catch (error) {
-                console.error('Error al cerrar sesión:', error);
-                alert('Error al cerrar sesión: ' + error.message);
-            }
-        }
-
-        // Mostrar login
-        function mostrarLogin() {
-            if (usuarioActual) {
-                if (esAdmin) {
-                    mostrarPanelAdmin();
-                }
-            } else {
-                abrirModal('modalLogin');
-            }
-        }
-
-        // Cargar datos desde Firebase
-        async function cargarDatosDesdeFirebase() {
-            try {
-                // Cargar rifas
-                const rifasSnapshot = await db.collection('rifas').get();
-                if (!rifasSnapshot.empty) {
-                    rifas = [];
-                    rifasSnapshot.forEach(doc => {
-                        rifas.push({ id: doc.id, ...doc.data() });
-                    });
-                } else {
-                    // Si no hay rifas, crear la rifa inicial
-                    await crearRifaInicial();
-                }
-
-                // Cargar ganadores
-                const ganadoresSnapshot = await db.collection('ganadores').get();
-                if (!ganadoresSnapshot.empty) {
-                    ganadores = [];
-                    ganadoresSnapshot.forEach(doc => {
-                        ganadores.push({ id: doc.id, ...doc.data() });
-                    });
-                }
-
-                // Renderizar todo
-                renderizarRifas();
-                renderizarGanadores();
-                actualizarEstadisticas();
-            } catch (error) {
-                console.error('Error cargando datos:', error);
-                alert('Error al cargar los datos. Verifica tu conexión a Firebase.');
-            }
-        }
-
-        // Crear rifa inicial si no existe
-        async function crearRifaInicial() {
-            const rifaInicial = {
-                titulo: "$100 USD en Efectivo",
-                descripcion: "Compra tu boleto por solo $1 dólar y gana $100 USD",
-                icono: "💵",
-                precio: 1,
-                vendidos: 0,
-                total: 100,
-                dias: 7,
-                visible: true
-            };
-
-            try {
-                const docRef = await db.collection('rifas').add(rifaInicial);
-                rifas.push({ id: docRef.id, ...rifaInicial });
-            } catch (error) {
-                console.error('Error creando rifa inicial:', error);
-            }
-        }
-
-        // Crear fondo animado
         function crearFondo() {
-            const dotsContainer = document.getElementById('dots');
+            const container = document.getElementById('dots');
             for (let i = 0; i < 50; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'dot';
                 dot.style.left = Math.random() * 100 + '%';
                 dot.style.top = Math.random() * 100 + '%';
                 dot.style.animationDelay = Math.random() * 20 + 's';
-                dotsContainer.appendChild(dot);
+                container.appendChild(dot);
             }
         }
 
-        // Renderizar rifas públicas
+        // Auth
+        async function registrarUsuario(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('regNombre').value.trim();
+            const apellido = document.getElementById('regApellido').value.trim();
+            const email = document.getElementById('regEmail').value.trim().toLowerCase();
+            const emailConfirm = document.getElementById('regEmailConfirm').value.trim().toLowerCase();
+            const codigoPais = document.getElementById('regCodigoPais').value;
+            const telefono = document.getElementById('regTelefono').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+            const codigoReferido = document.getElementById('regCodigoReferido').value.trim().toUpperCase();
+
+            if (email !== emailConfirm) { mostrarToast('Los correos no coinciden', 'error'); return; }
+            if (password !== passwordConfirm) { mostrarToast('Las contraseñas no coinciden', 'error'); return; }
+
+            const btn = document.getElementById('btnRegistro');
+            btn.disabled = true;
+            btn.textContent = 'Creando...';
+
+            try {
+                let referidorId = null;
+                if (codigoReferido) {
+                    const refQuery = await db.collection('usuarios').where('codigoReferido', '==', codigoReferido).get();
+                    if (refQuery.empty) { mostrarToast('Código de referido inválido', 'error'); btn.disabled = false; btn.textContent = 'Crear Cuenta'; return; }
+                    referidorId = refQuery.docs[0].id;
+                }
+
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const miCodigoReferido = generarCodigoReferido();
+
+                await db.collection('usuarios').doc(userCredential.user.uid).set({
+                    nombre, apellido, email,
+                    telefono: codigoPais + telefono,
+                    codigoReferido: miCodigoReferido,
+                    referidoPor: referidorId,
+                    avatarUrl: null,
+                    totalReferidos: 0,
+                    boletosDeReferidos: 0,
+                    dineroDeReferidos: 0,
+                    fechaRegistro: firebase.firestore.FieldValue.serverTimestamp(),
+                    esAdmin: email === ADMIN_EMAIL
+                });
+
+                if (referidorId) {
+                    await db.collection('usuarios').doc(referidorId).update({
+                        totalReferidos: firebase.firestore.FieldValue.increment(1)
+                    });
+                }
+
+                cerrarModal('modalRegistro');
+                mostrarToast('¡Cuenta creada!', 'success');
+            } catch (error) {
+                let msg = 'Error al crear cuenta';
+                if (error.code === 'auth/email-already-in-use') msg = 'Correo ya registrado';
+                mostrarToast(msg, 'error');
+            }
+            btn.disabled = false;
+            btn.textContent = 'Crear Cuenta';
+        }
+
+        async function iniciarSesion(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('btnLogin');
+            btn.disabled = true;
+            btn.textContent = 'Entrando...';
+
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                cerrarModal('modalLogin');
+                mostrarToast('¡Bienvenido!', 'success');
+            } catch (error) {
+                mostrarToast('Correo o contraseña incorrectos', 'error');
+            }
+            btn.disabled = false;
+            btn.textContent = 'Iniciar Sesión';
+        }
+
+        async function cerrarSesion() {
+            await auth.signOut();
+            cerrarPanelAdmin();
+            document.getElementById('userDropdown').classList.remove('show');
+            mostrarToast('Sesión cerrada', 'success');
+        }
+
+        async function cargarDatosUsuario() {
+            if (!currentUser) return;
+            const doc = await db.collection('usuarios').doc(currentUser.uid).get();
+            if (doc.exists) userData = { id: doc.id, ...doc.data() };
+        }
+
+        function actualizarUIUsuario() {
+            const authButtons = document.getElementById('authButtons');
+            const userMenu = document.getElementById('userMenu');
+            const adminMenuItem = document.getElementById('adminMenuItem');
+
+            if (currentUser && userData) {
+                authButtons.classList.add('hidden');
+                userMenu.classList.add('active');
+                const inicial = userData.nombre ? userData.nombre.charAt(0).toUpperCase() : '👤';
+                const avatarContent = userData.avatarUrl ? `<img src="${userData.avatarUrl}">` : inicial;
+                document.getElementById('avatarContent').innerHTML = avatarContent;
+                document.getElementById('dropdownAvatarContent').innerHTML = avatarContent;
+                document.getElementById('dropdownUserName').textContent = `${userData.nombre} ${userData.apellido}`;
+                document.getElementById('dropdownUserEmail').textContent = userData.email;
+                adminMenuItem.style.display = (userData.esAdmin || userData.email === ADMIN_EMAIL) ? 'flex' : 'none';
+                actualizarBalanceReferidos();
+            } else {
+                authButtons.classList.remove('hidden');
+                userMenu.classList.remove('active');
+            }
+        }
+
+        async function actualizarBalanceReferidos() {
+            if (!currentUser) return;
+            const comprasQuery = await db.collection('compras').where('referidorId', '==', currentUser.uid).get();
+            let totalBoletos = 0;
+            comprasQuery.forEach(doc => totalBoletos += doc.data().cantidad || 0);
+            document.getElementById('balanceReferidos').textContent = `$${(totalBoletos * COMISION_REFERIDO).toFixed(2)}`;
+        }
+
+        function generarCodigoReferido() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let codigo = '';
+            for (let i = 0; i < 6; i++) codigo += chars.charAt(Math.floor(Math.random() * chars.length));
+            return codigo;
+        }
+
+        function copiarCodigoReferido() {
+            navigator.clipboard.writeText(document.getElementById('miCodigoReferido').textContent);
+            mostrarToast('¡Código copiado!', 'success');
+        }
+
+        // Rifas
+        async function cargarRifas() {
+            const snapshot = await db.collection('rifas').where('activa', '==', true).get();
+            rifas = [];
+            snapshot.forEach(doc => rifas.push({ id: doc.id, ...doc.data() }));
+            if (rifas.length === 0) await crearRifaInicial();
+            renderizarRifas();
+        }
+
+        async function crearRifaInicial() {
+            const rifa = {
+                titulo: "$100 USD en Efectivo",
+                descripcion: "¡Compra tu boleto por $1 y gana $100!",
+                icono: "💵", premio: 100, precioBoleto: 1,
+                totalBoletos: 100, boletosVendidos: 0, dias: 7,
+                activa: true, finalizada: false,
+                fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            const docRef = await db.collection('rifas').add(rifa);
+            rifas.push({ id: docRef.id, ...rifa });
+        }
+
         function renderizarRifas() {
             const grid = document.getElementById('rifasGrid');
-            grid.innerHTML = '';
-
-            const rifasVisibles = rifas.filter(r => r.visible);
-
-            if (rifasVisibles.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; opacity: 0.7;">No hay rifas activas en este momento</p>';
-                return;
-            }
-
-            rifasVisibles.forEach((rifa, index) => {
-                const progreso = (rifa.vendidos / rifa.total) * 100;
-                const card = document.createElement('div');
-                card.className = 'rifa-card';
-                card.style.animationDelay = (index * 0.1) + 's';
-                card.innerHTML = `
-                    <div class="rifa-image">${rifa.icono}</div>
-                    <div class="rifa-content">
-                        <h3 class="rifa-title">${rifa.titulo}</h3>
-                        <p class="rifa-description">${rifa.descripcion}</p>
-                        <div class="rifa-stats">
-                            <div class="stat">
-                                <div class="stat-value">$${rifa.precio}</div>
-                                <div class="stat-label">Precio Boleto</div>
+            if (rifas.length === 0) { grid.innerHTML = '<p style="text-align: center; opacity: 0.7;">No hay rifas activas</p>'; return; }
+            grid.innerHTML = rifas.map(r => {
+                const progreso = (r.boletosVendidos / r.totalBoletos) * 100;
+                const disponibles = r.totalBoletos - r.boletosVendidos;
+                return `
+                    <div class="rifa-card">
+                        <div class="rifa-image">${r.icono || '🎁'}<span class="rifa-badge">🔥 Activa</span></div>
+                        <div class="rifa-content">
+                            <h3 class="rifa-title">${r.titulo}</h3>
+                            <p class="rifa-description">${r.descripcion || ''}</p>
+                            <div class="rifa-stats">
+                                <div class="stat"><div class="stat-value">$${r.precioBoleto || 1}</div><div class="stat-label">Boleto</div></div>
+                                <div class="stat"><div class="stat-value">$${r.premio}</div><div class="stat-label">Premio</div></div>
+                                <div class="stat"><div class="stat-value">${disponibles}</div><div class="stat-label">Disp.</div></div>
                             </div>
-                            <div class="stat">
-                                <div class="stat-value">${rifa.vendidos}/${rifa.total}</div>
-                                <div class="stat-label">Vendidos</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${rifa.dias}d</div>
-                                <div class="stat-label">Quedan</div>
-                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: ${progreso}%"></div></div>
+                            <button class="btn-participar" onclick="abrirModalParticipar('${r.id}')" ${disponibles <= 0 ? 'disabled' : ''}>${disponibles <= 0 ? 'Agotada' : '🎟️ Comprar'}</button>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${progreso}%"></div>
-                        </div>
-                        <button class="btn-participar" onclick="abrirModalParticipacion(${rifa.id})">Participar Ahora</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+                    </div>`;
+            }).join('');
         }
 
-        // Renderizar ganadores
-        function renderizarGanadores() {
+        // Ganadores
+        async function cargarGanadores() {
+            const snapshot = await db.collection('ganadores').orderBy('fecha', 'desc').limit(5).get();
             const lista = document.getElementById('ganadoresList');
+            if (snapshot.empty) { lista.innerHTML = '<p style="text-align: center; opacity: 0.7;">Próximamente ganadores</p>'; return; }
             lista.innerHTML = '';
-
-            if (ganadores.length === 0) {
-                lista.innerHTML = '<p style="text-align: center; opacity: 0.7;">Próximamente se anunciarán los ganadores</p>';
-                return;
-            }
-
-            ganadores.forEach((ganador, index) => {
-                const item = document.createElement('div');
-                item.className = 'ganador-item';
-                item.style.animationDelay = (index * 0.1) + 's';
-                item.innerHTML = `
-                    <div class="ganador-icon">${ganador.icono}</div>
-                    <div class="ganador-info">
-                        <div class="ganador-nombre">${ganador.nombre}</div>
-                        <div class="ganador-premio">Ganó: ${ganador.premio}</div>
-                    </div>
-                `;
-                lista.appendChild(item);
+            snapshot.forEach(doc => {
+                const g = doc.data();
+                lista.innerHTML += `<div class="ganador-item"><div class="ganador-icon">${g.icono || '🏆'}</div><div class="ganador-info"><div class="ganador-nombre">${g.nombre}</div><div class="ganador-premio">Ganó: ${g.premio}</div></div></div>`;
             });
         }
 
-        // Modal participación
-        let rifaActual = null;
-        function abrirModalParticipacion(rifaId) {
-            // Verificar que el usuario esté autenticado
-            if (!usuarioActual) {
-                alert('Debes iniciar sesión o registrarte para participar en las rifas.');
-                mostrarLogin();
-                return;
-            }
-
-            rifaActual = rifas.find(r => r.id === rifaId);
-            if (!rifaActual) return;
-
-            const boletosDisponibles = rifaActual.total - rifaActual.vendidos;
-            
-            if (boletosDisponibles <= 0) {
-                alert('Lo sentimos, ya no hay boletos disponibles para esta rifa.');
-                return;
-            }
-
-            document.getElementById('modalParticiparTitle').textContent = 'Participar: ' + rifaActual.titulo;
-            
-            // Pre-llenar con datos del usuario autenticado
-            db.collection('usuarios').doc(usuarioActual.uid).get().then(doc => {
-                if (doc.exists) {
-                    const userData = doc.data();
-                    document.getElementById('nombreParticipante').value = userData.nombre + ' ' + userData.apellido;
-                    document.getElementById('emailParticipante').value = userData.email;
-                    document.getElementById('emailConfirmar').value = userData.email;
-                    // Hacer los campos de solo lectura ya que están autenticados
-                    document.getElementById('nombreParticipante').readOnly = true;
-                    document.getElementById('emailParticipante').readOnly = true;
-                    document.getElementById('emailConfirmar').readOnly = true;
-                }
-            });
-
-            document.getElementById('cantidadBoletos').value = 1;
-            document.getElementById('cantidadBoletos').max = boletosDisponibles;
-            document.getElementById('cantidadBoletos').setAttribute('data-max', boletosDisponibles);
-            actualizarTotal();
+        // Compra
+        function abrirModalParticipar(rifaId) {
+            if (!currentUser) { mostrarToast('Debes iniciar sesión', 'error'); abrirModal('modalLogin'); return; }
+            rifaSeleccionada = rifas.find(r => r.id === rifaId);
+            if (!rifaSeleccionada) return;
+            cantidadBoletos = 1;
+            document.getElementById('modalParticiparTitle').textContent = `🎟️ ${rifaSeleccionada.titulo}`;
+            actualizarDisplayBoletos();
             abrirModal('modalParticipar');
         }
 
-        // Funciones para cambiar cantidad de boletos
-        function cambiarCantidad(delta) {
-            const input = document.getElementById('cantidadBoletos');
-            const max = parseInt(input.getAttribute('data-max'));
-            let valor = parseInt(input.value) + delta;
-            
-            if (valor < 1) valor = 1;
-            if (valor > max) valor = max;
-            
-            input.value = valor;
-            actualizarTotal();
+        function cambiarCantidadBoletos(delta) {
+            const disponibles = rifaSeleccionada.totalBoletos - rifaSeleccionada.boletosVendidos;
+            cantidadBoletos = Math.max(1, Math.min(cantidadBoletos + delta, disponibles));
+            actualizarDisplayBoletos();
         }
 
-        function habilitarEdicion() {
-            const input = document.getElementById('cantidadBoletos');
-            input.removeAttribute('readonly');
-            input.select();
-            
-            input.addEventListener('blur', function() {
-                validarCantidad();
-                input.setAttribute('readonly', true);
-            }, { once: true });
-            
-            input.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    validarCantidad();
-                    input.setAttribute('readonly', true);
-                    input.blur();
-                }
-            }, { once: true });
+        function actualizarDisplayBoletos() {
+            document.getElementById('cantidadBoletosDisplay').textContent = cantidadBoletos;
+            document.getElementById('totalPagarBoletos').textContent = `$${(cantidadBoletos * PRECIO_BOLETO).toFixed(2)}`;
         }
 
-        function validarCantidad() {
-            const input = document.getElementById('cantidadBoletos');
-            const max = parseInt(input.getAttribute('data-max'));
-            let valor = parseInt(input.value);
-            
-            if (isNaN(valor) || valor < 1) {
-                valor = 1;
-            } else if (valor > max) {
-                valor = max;
-                alert(`Solo hay ${max} boletos disponibles`);
-            }
-            
-            input.value = valor;
-            actualizarTotal();
-        }
-
-        // Actualizar total
-
-        function actualizarTotal() {
-            if (!rifaActual) return;
-            const cantidad = parseInt(document.getElementById('cantidadBoletos').value);
-            const total = rifaActual.precio * cantidad;
-            document.getElementById('totalPagar').textContent = '$' + total.toFixed(2);
-        }
-
-        // Comprar boleto
-        async function comprarBoleto(e) {
-            e.preventDefault();
-            if (!rifaActual) return;
-            
-            // Verificar autenticación
-            if (!usuarioActual) {
-                alert('Debes iniciar sesión para comprar boletos.');
-                cerrarModal('modalParticipar');
-                mostrarLogin();
-                return;
-            }
-
-            const nombre = document.getElementById('nombreParticipante').value;
-            const email = document.getElementById('emailParticipante').value;
-            const emailConfirmar = document.getElementById('emailConfirmar').value;
-            const cantidad = parseInt(document.getElementById('cantidadBoletos').value);
-
-            // Validar emails coinciden
-            if (email !== emailConfirmar) {
-                alert('Los emails no coinciden. Por favor verifica e intenta nuevamente.');
-                return;
-            }
-
-            // Validar boletos disponibles
-            const boletosDisponibles = rifaActual.total - rifaActual.vendidos;
-            if (cantidad > boletosDisponibles) {
-                alert(`Solo hay ${boletosDisponibles} boletos disponibles.`);
-                return;
-            }
+        async function confirmarCompra() {
+            if (!currentUser || !rifaSeleccionada) return;
+            const btn = document.getElementById('btnConfirmarCompra');
+            btn.disabled = true;
+            btn.textContent = 'Procesando...';
 
             try {
-                // Mostrar indicador de carga
-                const btnSubmit = e.target.querySelector('button[type="submit"]');
-                const textoOriginal = btnSubmit.textContent;
-                btnSubmit.textContent = 'Procesando...';
-                btnSubmit.disabled = true;
-
-                // Generar número de confirmación
-                const numeroConfirmacion = Math.floor(Math.random() * 1000000);
-
-                // Guardar compra en Firebase
                 const compra = {
-                    rifaId: rifaActual.id,
-                    rifaTitulo: rifaActual.titulo,
-                    userId: usuarioActual.uid,
-                    nombre: nombre,
-                    email: email,
-                    cantidad: cantidad,
-                    precioUnitario: rifaActual.precio,
-                    total: rifaActual.precio * cantidad,
-                    numeroConfirmacion: numeroConfirmacion,
+                    usuarioId: currentUser.uid,
+                    usuarioNombre: `${userData.nombre} ${userData.apellido}`,
+                    usuarioEmail: userData.email,
+                    rifaId: rifaSeleccionada.id,
+                    rifaTitulo: rifaSeleccionada.titulo,
+                    cantidad: cantidadBoletos,
+                    precioUnitario: PRECIO_BOLETO,
+                    total: cantidadBoletos * PRECIO_BOLETO,
+                    referidorId: userData.referidoPor || null,
                     fecha: firebase.firestore.FieldValue.serverTimestamp()
                 };
-
                 await db.collection('compras').add(compra);
-
-                // Actualizar vendidos en la rifa
-                rifaActual.vendidos += cantidad;
-                await db.collection('rifas').doc(rifaActual.id).update({
-                    vendidos: rifaActual.vendidos
+                await db.collection('rifas').doc(rifaSeleccionada.id).update({
+                    boletosVendidos: firebase.firestore.FieldValue.increment(cantidadBoletos)
                 });
-
-                // Actualizar array local
-                const rifaIndex = rifas.findIndex(r => r.id === rifaActual.id);
-                if (rifaIndex !== -1) {
-                    rifas[rifaIndex].vendidos = rifaActual.vendidos;
+                if (userData.referidoPor) {
+                    await db.collection('usuarios').doc(userData.referidoPor).update({
+                        boletosDeReferidos: firebase.firestore.FieldValue.increment(cantidadBoletos),
+                        dineroDeReferidos: firebase.firestore.FieldValue.increment(cantidadBoletos * COMISION_REFERIDO)
+                    });
                 }
-
-                alert(`¡Felicidades ${nombre}! Has comprado ${cantidad} boleto(s).\n\nTu número de confirmación es: #${numeroConfirmacion}\n\nRecibirás un email con los detalles.`);
-
                 cerrarModal('modalParticipar');
-                document.querySelector('#modalParticipar form').reset();
-                // Remover readonly para siguiente compra
-                document.getElementById('nombreParticipante').readOnly = false;
-                document.getElementById('emailParticipante').readOnly = false;
-                document.getElementById('emailConfirmar').readOnly = false;
-                btnSubmit.textContent = textoOriginal;
-                btnSubmit.disabled = false;
-                
-                renderizarRifas();
-                if (esAdmin) {
-                    actualizarEstadisticas();
-                    renderizarRifasAdmin();
-                }
+                mostrarToast(`¡Compraste ${cantidadBoletos} boleto(s)!`, 'success');
+                await cargarRifas();
             } catch (error) {
-                console.error('Error al procesar la compra:', error);
-                alert('Hubo un error al procesar tu compra. Por favor intenta nuevamente.');
-                const btnSubmit = e.target.querySelector('button[type="submit"]');
-                btnSubmit.textContent = 'Confirmar Compra';
-                btnSubmit.disabled = false;
+                mostrarToast('Error al comprar', 'error');
             }
+            btn.disabled = false;
+            btn.textContent = 'Confirmar Compra';
         }
 
-        // Login admin
-        function mostrarPanelAdmin() {
-            if (!esAdmin) {
-                alert('No tienes permisos de administrador.');
-                return;
-            }
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('rifas').style.display = 'none';
-            document.getElementById('ganadores').style.display = 'none';
-            document.getElementById('adminPanel').classList.add('active');
-            actualizarEstadisticas();
-            renderizarRifasAdmin();
-            renderizarGanadoresAdmin();
+        // Profile
+        async function cambiarAvatar(event) {
+            const file = event.target.files[0];
+            if (!file || !currentUser) return;
+            mostrarToast('Subiendo...', 'success');
+            const storageRef = storage.ref(`avatars/${currentUser.uid}`);
+            await storageRef.put(file);
+            const url = await storageRef.getDownloadURL();
+            await db.collection('usuarios').doc(currentUser.uid).update({ avatarUrl: url });
+            userData.avatarUrl = url;
+            actualizarUIUsuario();
+            document.getElementById('profileAvatarContent').innerHTML = `<img src="${url}">`;
+            mostrarToast('¡Avatar actualizado!', 'success');
         }
 
-        // Estadísticas
-        function actualizarEstadisticas() {
-            const rifasActivas = rifas.filter(r => r.visible).length;
-            const totalBoletos = rifas.reduce((sum, r) => sum + r.vendidos, 0);
-            const totalIngresos = rifas.reduce((sum, r) => sum + (r.vendidos * r.precio), 0);
-            
-            document.getElementById('totalRifas').textContent = rifasActivas;
-            document.getElementById('totalBoletos').textContent = totalBoletos;
-            document.getElementById('totalIngresos').textContent = '$' + totalIngresos.toFixed(2);
-            document.getElementById('totalGanadores').textContent = ganadores.length;
+        async function actualizarPerfil(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('editNombre').value.trim();
+            const apellido = document.getElementById('editApellido').value.trim();
+            await db.collection('usuarios').doc(currentUser.uid).update({ nombre, apellido });
+            userData.nombre = nombre;
+            userData.apellido = apellido;
+            actualizarUIUsuario();
+            cerrarModal('modalPerfil');
+            mostrarToast('¡Perfil actualizado!', 'success');
         }
 
-        // Tabs admin
-        function cambiarTab(tab) {
-            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-
-            event.target.classList.add('active');
-            document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).style.display = 'block';
+        // Modal loaders
+        async function cargarModalPerfil() {
+            if (!userData) return;
+            document.getElementById('profileNombreCompleto').textContent = `${userData.nombre} ${userData.apellido}`;
+            document.getElementById('profileEmail').textContent = userData.email;
+            document.getElementById('editNombre').value = userData.nombre || '';
+            document.getElementById('editApellido').value = userData.apellido || '';
+            document.getElementById('editTelefono').value = userData.telefono || '';
+            document.getElementById('profileAvatarContent').innerHTML = userData.avatarUrl ? `<img src="${userData.avatarUrl}">` : (userData.nombre ? userData.nombre.charAt(0).toUpperCase() : '👤');
         }
 
-        // Gestionar rifas admin
-        function renderizarRifasAdmin() {
-            const lista = document.getElementById('rifasAdminList');
+        async function cargarModalEstadisticas() {
+            if (!currentUser) return;
+            const comprasQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).get();
+            let totalBoletos = 0, totalGastado = 0, rifasSet = new Set();
+            comprasQuery.forEach(doc => {
+                const d = doc.data();
+                totalBoletos += d.cantidad || 0;
+                totalGastado += d.total || 0;
+                rifasSet.add(d.rifaId);
+            });
+            document.getElementById('statBoletosComprados').textContent = totalBoletos;
+            document.getElementById('statDineroGastado').textContent = `$${totalGastado.toFixed(2)}`;
+            document.getElementById('statRifasParticipadas').textContent = rifasSet.size;
+        }
+
+        async function cargarModalMisBoletos() {
+            if (!currentUser) return;
+            const lista = document.getElementById('listaMisBoletos');
+            lista.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+            const comprasQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).orderBy('fecha', 'desc').get();
+            if (comprasQuery.empty) { lista.innerHTML = '<p style="text-align: center; opacity: 0.7;">No tienes boletos</p>'; return; }
             lista.innerHTML = '';
-
-            rifas.forEach(rifa => {
-                const item = document.createElement('div');
-                item.className = 'rifa-admin-item';
-                item.innerHTML = `
-                    <div class="rifa-admin-info">
-                        <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--secondary); margin-bottom: 0.5rem;">${rifa.icono} ${rifa.titulo}</h4>
-                        <p style="opacity: 0.8; margin-bottom: 0.5rem;">${rifa.descripcion}</p>
-                        <p style="font-size: 0.9rem;"><strong>Precio:</strong> $${rifa.precio} | <strong>Vendidos:</strong> ${rifa.vendidos}/${rifa.total} | <strong>Estado:</strong> ${rifa.visible ? '✅ Visible' : '❌ Oculta'}</p>
-                    </div>
-                    <div class="rifa-admin-actions">
-                        <button class="btn-small btn-edit" onclick="editarRifa(${rifa.id})">Editar</button>
-                        <button class="btn-small btn-toggle" onclick="toggleRifa(${rifa.id})">${rifa.visible ? 'Ocultar' : 'Mostrar'}</button>
-                        <button class="btn-small btn-delete" onclick="eliminarRifa(${rifa.id})">Eliminar</button>
-                    </div>
-                `;
-                lista.appendChild(item);
+            comprasQuery.forEach(doc => {
+                const c = doc.data();
+                const fecha = c.fecha ? new Date(c.fecha.toDate()).toLocaleDateString() : 'N/A';
+                lista.innerHTML += `<div class="ganador-item" style="border-color: var(--primary); background: rgba(255, 107, 53, 0.1);"><div class="ganador-icon">🎟️</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total} - ${fecha}</div></div></div>`;
             });
         }
 
-        function abrirModalNuevaRifa() {
-            rifaEditando = null;
-            document.getElementById('modalRifaTitle').textContent = 'Nueva Rifa';
-            document.getElementById('rifaTitulo').value = '';
-            document.getElementById('rifaDescripcion').value = '';
-            document.getElementById('rifaIcono').value = '🎁';
-            document.getElementById('rifaPrecio').value = '';
-            document.getElementById('rifaTotalBoletos').value = '';
-            document.getElementById('rifaDias').value = '';
-            abrirModal('modalNuevaRifa');
+        async function cargarModalReferidos() {
+            if (!userData) return;
+            document.getElementById('miCodigoReferido').textContent = userData.codigoReferido || '------';
+            const referidosQuery = await db.collection('usuarios').where('referidoPor', '==', currentUser.uid).get();
+            document.getElementById('totalReferidos').textContent = referidosQuery.size;
+            const comprasQuery = await db.collection('compras').where('referidorId', '==', currentUser.uid).get();
+            let totalBoletos = 0;
+            comprasQuery.forEach(doc => totalBoletos += doc.data().cantidad || 0);
+            document.getElementById('boletosReferidos').textContent = totalBoletos;
+            document.getElementById('dineroReferidos').textContent = `$${(totalBoletos * COMISION_REFERIDO).toFixed(2)}`;
         }
 
-        function editarRifa(id) {
-            rifaEditando = rifas.find(r => r.id === id);
-            if (!rifaEditando) return;
+        // Admin
+        function mostrarPanelAdmin() {
+            if (!userData || (userData.email !== ADMIN_EMAIL && !userData.esAdmin)) { mostrarToast('Sin permisos', 'error'); return; }
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('adminPanel').classList.add('active');
+            document.getElementById('userDropdown').classList.remove('show');
+            cargarDashboardAdmin();
+        }
 
-            document.getElementById('modalRifaTitle').textContent = 'Editar Rifa';
-            document.getElementById('rifaTitulo').value = rifaEditando.titulo;
-            document.getElementById('rifaDescripcion').value = rifaEditando.descripcion;
-            document.getElementById('rifaIcono').value = rifaEditando.icono;
-            document.getElementById('rifaPrecio').value = rifaEditando.precio;
-            document.getElementById('rifaTotalBoletos').value = rifaEditando.total;
-            document.getElementById('rifaDias').value = rifaEditando.dias;
-            abrirModal('modalNuevaRifa');
+        function cerrarPanelAdmin() {
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('adminPanel').classList.remove('active');
+        }
+
+        function cambiarTabAdmin(tab) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
+            event.target.classList.add('active');
+            document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).style.display = 'block';
+            if (tab === 'dashboard') cargarDashboardAdmin();
+            if (tab === 'rifas') cargarRifasAdmin();
+            if (tab === 'usuarios') cargarUsuariosAdmin();
+            if (tab === 'compras') cargarComprasAdmin();
+        }
+
+        async function cargarDashboardAdmin() {
+            const [usuariosSnap, rifasSnap, comprasSnap] = await Promise.all([
+                db.collection('usuarios').get(),
+                db.collection('rifas').where('activa', '==', true).get(),
+                db.collection('compras').get()
+            ]);
+            let totalBoletos = 0, totalIngresos = 0, totalComisiones = 0;
+            comprasSnap.forEach(doc => {
+                const d = doc.data();
+                totalBoletos += d.cantidad || 0;
+                totalIngresos += d.total || 0;
+                if (d.referidorId) totalComisiones += (d.cantidad || 0) * COMISION_REFERIDO;
+            });
+            document.getElementById('adminTotalUsuarios').textContent = usuariosSnap.size;
+            document.getElementById('adminTotalRifas').textContent = rifasSnap.size;
+            document.getElementById('adminTotalBoletos').textContent = totalBoletos;
+            document.getElementById('adminTotalIngresos').textContent = `$${totalIngresos.toFixed(2)}`;
+            document.getElementById('adminTotalReferidos').textContent = `$${totalComisiones.toFixed(2)}`;
+        }
+
+        async function cargarRifasAdmin() {
+            const tbody = document.getElementById('rifasAdminBody');
+            tbody.innerHTML = '<tr><td colspan="5"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            const snapshot = await db.collection('rifas').get();
+            tbody.innerHTML = '';
+            snapshot.forEach(doc => {
+                const r = { id: doc.id, ...doc.data() };
+                const status = r.activa ? 'active' : 'inactive';
+                tbody.innerHTML += `<tr><td>${r.icono || '🎁'} ${r.titulo}</td><td>$${r.premio}</td><td>${r.boletosVendidos || 0}/${r.totalBoletos}</td><td><span class="status-badge status-${status}">${r.activa ? 'Activa' : 'Inactiva'}</span></td><td><button class="btn-small btn-edit" onclick="editarRifaAdmin('${r.id}')">Editar</button><button class="btn-small btn-toggle" onclick="toggleRifaAdmin('${r.id}', ${r.activa})">${r.activa ? 'Desact.' : 'Activar'}</button><button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">Eliminar</button></td></tr>`;
+            });
+        }
+
+        async function cargarUsuariosAdmin() {
+            const tbody = document.getElementById('usuariosAdminBody');
+            tbody.innerHTML = '<tr><td colspan="5"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            const snapshot = await db.collection('usuarios').orderBy('fechaRegistro', 'desc').get();
+            tbody.innerHTML = '';
+            snapshot.forEach(doc => {
+                const u = doc.data();
+                const fecha = u.fechaRegistro ? new Date(u.fechaRegistro.toDate()).toLocaleDateString() : 'N/A';
+                tbody.innerHTML += `<tr><td>${u.nombre} ${u.apellido}</td><td>${u.email}</td><td>${u.telefono || 'N/A'}</td><td>${u.totalReferidos || 0}</td><td>${fecha}</td></tr>`;
+            });
+        }
+
+        async function cargarComprasAdmin() {
+            const tbody = document.getElementById('comprasAdminBody');
+            tbody.innerHTML = '<tr><td colspan="6"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            const snapshot = await db.collection('compras').orderBy('fecha', 'desc').limit(50).get();
+            tbody.innerHTML = '';
+            snapshot.forEach(doc => {
+                const c = doc.data();
+                const fecha = c.fecha ? new Date(c.fecha.toDate()).toLocaleDateString() : 'N/A';
+                tbody.innerHTML += `<tr><td>${c.usuarioNombre}</td><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td>$${c.total}</td><td>${c.referidorId ? '✅' : '❌'}</td><td>${fecha}</td></tr>`;
+            });
         }
 
         async function guardarRifa(e) {
             e.preventDefault();
-
             const datos = {
                 titulo: document.getElementById('rifaTitulo').value,
                 descripcion: document.getElementById('rifaDescripcion').value,
                 icono: document.getElementById('rifaIcono').value,
-                precio: parseFloat(document.getElementById('rifaPrecio').value),
-                total: parseInt(document.getElementById('rifaTotalBoletos').value),
+                premio: parseFloat(document.getElementById('rifaPremio').value),
+                precioBoleto: PRECIO_BOLETO,
+                totalBoletos: parseInt(document.getElementById('rifaTotalBoletos').value),
                 dias: parseInt(document.getElementById('rifaDias').value)
             };
+            if (rifaEditando) {
+                await db.collection('rifas').doc(rifaEditando).update(datos);
+            } else {
+                datos.boletosVendidos = 0;
+                datos.activa = true;
+                datos.finalizada = false;
+                datos.fechaCreacion = firebase.firestore.FieldValue.serverTimestamp();
+                await db.collection('rifas').add(datos);
+            }
+            cerrarModal('modalNuevaRifa');
+            rifaEditando = null;
+            cargarRifasAdmin();
+            cargarRifas();
+            mostrarToast('Rifa guardada', 'success');
+        }
 
-            try {
-                if (rifaEditando) {
-                    // Editar rifa existente
-                    await db.collection('rifas').doc(rifaEditando.id).update(datos);
-                    Object.assign(rifaEditando, datos);
-                } else {
-                    // Nueva rifa
-                    datos.vendidos = 0;
-                    datos.visible = true;
-                    const docRef = await db.collection('rifas').add(datos);
-                    rifas.push({ id: docRef.id, ...datos });
-                }
+        async function editarRifaAdmin(id) {
+            const doc = await db.collection('rifas').doc(id).get();
+            if (!doc.exists) return;
+            const r = doc.data();
+            rifaEditando = id;
+            document.getElementById('modalRifaTitle').textContent = '✏️ Editar Rifa';
+            document.getElementById('rifaTitulo').value = r.titulo;
+            document.getElementById('rifaDescripcion').value = r.descripcion || '';
+            document.getElementById('rifaIcono').value = r.icono || '🎁';
+            document.getElementById('rifaPremio').value = r.premio;
+            document.getElementById('rifaTotalBoletos').value = r.totalBoletos;
+            document.getElementById('rifaDias').value = r.dias || 7;
+            abrirModal('modalNuevaRifa');
+        }
 
-                cerrarModal('modalNuevaRifa');
-                renderizarRifas();
-                renderizarRifasAdmin();
-                actualizarEstadisticas();
-                alert('Rifa guardada correctamente');
-            } catch (error) {
-                console.error('Error guardando rifa:', error);
-                alert('Error al guardar la rifa. Intenta nuevamente.');
+        async function toggleRifaAdmin(id, activa) {
+            await db.collection('rifas').doc(id).update({ activa: !activa });
+            cargarRifasAdmin();
+            cargarRifas();
+            mostrarToast(`Rifa ${activa ? 'desactivada' : 'activada'}`, 'success');
+        }
+
+        async function eliminarRifaAdmin(id) {
+            if (!confirm('¿Eliminar rifa?')) return;
+            await db.collection('rifas').doc(id).delete();
+            cargarRifasAdmin();
+            cargarRifas();
+            mostrarToast('Rifa eliminada', 'success');
+        }
+
+        // Utils
+        function abrirModal(id) {
+            document.getElementById(id).classList.add('active');
+            if (id === 'modalPerfil') cargarModalPerfil();
+            if (id === 'modalEstadisticas') cargarModalEstadisticas();
+            if (id === 'modalMisBoletos') cargarModalMisBoletos();
+            if (id === 'modalReferidos') cargarModalReferidos();
+            if (id === 'modalNuevaRifa' && !rifaEditando) {
+                document.getElementById('modalRifaTitle').textContent = '➕ Nueva Rifa';
+                document.querySelector('#modalNuevaRifa form').reset();
+                document.getElementById('rifaIcono').value = '🎁';
+                document.getElementById('rifaPremio').value = '100';
+                document.getElementById('rifaTotalBoletos').value = '100';
+                document.getElementById('rifaDias').value = '7';
             }
         }
 
-        async function toggleRifa(id) {
-            const rifa = rifas.find(r => r.id === id);
-            if (rifa) {
-                try {
-                    rifa.visible = !rifa.visible;
-                    await db.collection('rifas').doc(id).update({ visible: rifa.visible });
-                    renderizarRifas();
-                    renderizarRifasAdmin();
-                    actualizarEstadisticas();
-                } catch (error) {
-                    console.error('Error actualizando visibilidad:', error);
-                    alert('Error al actualizar la rifa. Intenta nuevamente.');
-                }
-            }
+        function cerrarModal(id) {
+            document.getElementById(id).classList.remove('active');
+            if (id === 'modalNuevaRifa') rifaEditando = null;
         }
 
-        async function eliminarRifa(id) {
-            if (confirm('¿Estás seguro de eliminar esta rifa?')) {
-                try {
-                    await db.collection('rifas').doc(id).delete();
-                    rifas = rifas.filter(r => r.id !== id);
-                    renderizarRifas();
-                    renderizarRifasAdmin();
-                    actualizarEstadisticas();
-                } catch (error) {
-                    console.error('Error eliminando rifa:', error);
-                    alert('Error al eliminar la rifa. Intenta nuevamente.');
-                }
-            }
+        function cambiarModal(cerrar, abrir) {
+            cerrarModal(cerrar);
+            setTimeout(() => abrirModal(abrir), 200);
         }
 
-        // Gestionar ganadores admin
-        function renderizarGanadoresAdmin() {
-            const lista = document.getElementById('ganadoresAdminList');
-            lista.innerHTML = '';
-
-            if (ganadores.length === 0) {
-                lista.innerHTML = '<p style="text-align: center; opacity: 0.7;">No hay ganadores registrados</p>';
-                return;
-            }
-
-            ganadores.forEach((ganador, index) => {
-                const item = document.createElement('div');
-                item.className = 'ganador-item';
-                item.innerHTML = `
-                    <div class="ganador-icon">${ganador.icono}</div>
-                    <div class="ganador-info">
-                        <div class="ganador-nombre">${ganador.nombre}</div>
-                        <div class="ganador-premio">Ganó: ${ganador.premio}</div>
-                    </div>
-                    <button class="btn-small btn-delete" onclick="eliminarGanador(${index})">Eliminar</button>
-                `;
-                lista.appendChild(item);
-            });
+        function toggleUserDropdown() {
+            event.stopPropagation();
+            document.getElementById('userDropdown').classList.toggle('show');
         }
 
-        function abrirModalNuevoGanador() {
-            document.getElementById('ganadorNombre').value = '';
-            document.getElementById('ganadorPremio').value = '';
-            document.getElementById('ganadorIcono').value = '🏆';
-            abrirModal('modalNuevoGanador');
+        function irInicio() {
+            cerrarPanelAdmin();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        async function guardarGanador(e) {
-            e.preventDefault();
-
-            const ganador = {
-                nombre: document.getElementById('ganadorNombre').value,
-                premio: document.getElementById('ganadorPremio').value,
-                icono: document.getElementById('ganadorIcono').value,
-                fecha: firebase.firestore.FieldValue.serverTimestamp()
-            };
-
-            try {
-                const docRef = await db.collection('ganadores').add(ganador);
-                ganadores.push({ id: docRef.id, ...ganador });
-
-                cerrarModal('modalNuevoGanador');
-                renderizarGanadores();
-                renderizarGanadoresAdmin();
-                actualizarEstadisticas();
-                alert('Ganador guardado correctamente');
-            } catch (error) {
-                console.error('Error guardando ganador:', error);
-                alert('Error al guardar el ganador. Intenta nuevamente.');
-            }
+        function mostrarToast(msg, tipo = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${tipo}`;
+            toast.innerHTML = `<span>${tipo === 'success' ? '✅' : '❌'}</span> ${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.animation = 'slideInRight 0.3s ease reverse'; setTimeout(() => toast.remove(), 300); }, 3000);
         }
 
-        async function eliminarGanador(index) {
-            if (confirm('¿Estás seguro de eliminar este ganador?')) {
-                try {
-                    const ganador = ganadores[index];
-                    await db.collection('ganadores').doc(ganador.id).delete();
-                    ganadores.splice(index, 1);
-                    renderizarGanadores();
-                    renderizarGanadoresAdmin();
-                    actualizarEstadisticas();
-                } catch (error) {
-                    console.error('Error eliminando ganador:', error);
-                    alert('Error al eliminar el ganador. Intenta nuevamente.');
-                }
-            }
-        }
-
-        // Utilidades modales
-        function abrirModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
-
-        function cerrarModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        // Cerrar modal al hacer click fuera
         document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
         });
 
-        // Scroll suave
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
     </script>
