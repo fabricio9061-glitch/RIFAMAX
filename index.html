@@ -16,13 +16,10 @@
             --success: #06FFA5;
             --danger: #FF5252;
             --purple: #9B5DE5;
+            --warning: #FFA726;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -32,13 +29,10 @@
             overflow-x: hidden;
         }
 
-        /* Fondo animado */
         .background-dots {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 0;
             opacity: 0.1;
             pointer-events: none;
@@ -46,8 +40,7 @@
 
         .dot {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 4px; height: 4px;
             background: var(--secondary);
             border-radius: 50%;
             animation: float 20s infinite ease-in-out;
@@ -55,12 +48,9 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-30px) translateX(20px); }
             50% { transform: translateY(-60px) translateX(-20px); }
-            75% { transform: translateY(-30px) translateX(20px); }
         }
 
-        /* Header */
         header {
             position: relative;
             z-index: 10;
@@ -70,12 +60,6 @@
             align-items: center;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            animation: slideDown 0.6s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .logo {
@@ -85,45 +69,22 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: 2px;
             cursor: pointer;
         }
 
-        nav {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
+        nav { display: flex; gap: 1.5rem; align-items: center; }
 
         nav a {
             color: var(--light);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
-            position: relative;
             font-size: 0.95rem;
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary);
-            transition: width 0.3s ease;
-        }
+        nav a:hover { color: var(--secondary); }
 
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-        }
+        .nav-buttons { display: flex; gap: 0.8rem; align-items: center; }
 
         .btn-login {
             padding: 0.5rem 1.2rem;
@@ -137,11 +98,7 @@
             font-size: 0.9rem;
         }
 
-        .btn-login:hover {
-            background: var(--accent);
-            color: var(--dark);
-            transform: scale(1.05);
-        }
+        .btn-login:hover { background: var(--accent); color: var(--dark); }
 
         .btn-register {
             padding: 0.5rem 1.2rem;
@@ -150,33 +107,18 @@
             border-radius: 25px;
             color: var(--dark);
             cursor: pointer;
-            transition: all 0.3s ease;
             font-weight: 600;
             font-size: 0.9rem;
         }
 
-        .btn-register:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
-        }
-
-        /* Menú de Usuario */
-        .user-menu {
-            position: relative;
-            display: none;
-        }
-
-        .user-menu.active {
-            display: block;
-        }
+        .user-menu { position: relative; display: none; }
+        .user-menu.active { display: block; }
 
         .user-avatar {
-            width: 45px;
-            height: 45px;
+            width: 45px; height: 45px;
             border-radius: 50%;
             border: 2px solid var(--primary);
             cursor: pointer;
-            transition: all 0.3s ease;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
@@ -187,21 +129,11 @@
             overflow: hidden;
         }
 
-        .user-avatar:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
         .user-dropdown {
             position: absolute;
-            top: 55px;
-            right: 0;
+            top: 55px; right: 0;
             background: var(--dark);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
@@ -215,11 +147,7 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
-        .user-dropdown.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+        .user-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
 
         .user-dropdown-header {
             display: flex;
@@ -231,35 +159,20 @@
         }
 
         .dropdown-avatar {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             border-radius: 50%;
             border: 2px solid var(--secondary);
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            color: var(--dark);
             overflow: hidden;
         }
 
-        .dropdown-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .dropdown-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .dropdown-info h4 {
-            font-size: 1rem;
-            color: var(--secondary);
-            margin-bottom: 0.2rem;
-        }
-
-        .dropdown-info p {
-            font-size: 0.75rem;
-            opacity: 0.7;
-        }
+        .dropdown-info h4 { font-size: 1rem; color: var(--secondary); }
+        .dropdown-info p { font-size: 0.75rem; opacity: 0.7; }
 
         .dropdown-item {
             display: flex;
@@ -272,23 +185,10 @@
             font-size: 0.9rem;
         }
 
-        .dropdown-item:hover {
-            background: rgba(255, 107, 53, 0.2);
-        }
-
-        .dropdown-item.admin {
-            color: var(--purple);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 0.5rem;
-            padding-top: 1rem;
-        }
-
-        .dropdown-item.logout {
-            color: var(--danger);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 0.5rem;
-            padding-top: 1rem;
-        }
+        .dropdown-item:hover { background: rgba(255, 107, 53, 0.2); }
+        .dropdown-item.admin { color: var(--purple); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 0.5rem; padding-top: 1rem; }
+        .dropdown-item.logout { color: var(--danger); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 0.5rem; padding-top: 1rem; }
+        .dropdown-item.redes { color: var(--accent); }
 
         .balance-badge {
             background: linear-gradient(135deg, var(--success), var(--accent));
@@ -300,49 +200,30 @@
             margin-left: 0.5rem;
         }
 
-        /* Hero */
         .hero {
             position: relative;
             z-index: 5;
             text-align: center;
-            padding: 5rem 5% 3rem;
-            animation: fadeIn 1s ease-out 0.3s backwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            padding: 4rem 5% 2rem;
         }
 
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 4.5rem;
-            line-height: 1;
-            margin-bottom: 1rem;
+            font-size: 4rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: glow 3s ease-in-out infinite;
         }
 
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5)); }
-            50% { filter: drop-shadow(0 0 40px rgba(255, 210, 63, 0.8)); }
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
+        .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 1.5rem; }
 
         .hero-features {
             display: flex;
             justify-content: center;
             gap: 2rem;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .hero-feature {
@@ -352,44 +233,24 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .hero-feature span {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
+        .hero-feature span { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
 
         .cta-button {
             display: inline-block;
             padding: 1rem 3rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--dark);
-            text-decoration: none;
             font-weight: 600;
             border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
-            animation: pulse 2s ease-in-out infinite;
             border: none;
             cursor: pointer;
             font-size: 1rem;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
-            animation: none;
-        }
-
-        /* Secciones */
         .section {
             position: relative;
             z-index: 5;
-            padding: 3rem 5%;
+            padding: 2rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -399,13 +260,11 @@
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 2rem;
-            letter-spacing: 2px;
         }
 
-        /* Grid de Rifas */
         .rifas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 1.5rem;
         }
 
@@ -426,7 +285,7 @@
 
         .rifa-image {
             width: 100%;
-            height: 200px;
+            height: 180px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
@@ -436,10 +295,15 @@
             overflow: hidden;
         }
 
+        .rifa-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .rifa-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 10px; right: 10px;
             background: var(--success);
             color: var(--dark);
             padding: 0.3rem 0.8rem;
@@ -448,22 +312,44 @@
             font-weight: 700;
         }
 
-        .rifa-content {
-            padding: 1.5rem;
+        .rifa-timer {
+            position: absolute;
+            bottom: 10px; left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
+
+        .rifa-content { padding: 1.5rem; }
 
         .rifa-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
             color: var(--secondary);
+            margin-bottom: 0.3rem;
         }
 
         .rifa-description {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.8;
             margin-bottom: 1rem;
         }
+
+        .rifa-tipo-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .tipo-dinero { background: rgba(6, 255, 165, 0.2); color: var(--success); }
+        .tipo-objeto { background: rgba(0, 180, 216, 0.2); color: var(--accent); }
+        .tipo-otro { background: rgba(155, 93, 229, 0.2); color: var(--purple); }
 
         .rifa-stats {
             display: grid;
@@ -475,20 +361,9 @@
             border-radius: 10px;
         }
 
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.3rem;
-            color: var(--success);
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            opacity: 0.7;
-        }
+        .stat { text-align: center; }
+        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--success); }
+        .stat-label { font-size: 0.7rem; opacity: 0.7; }
 
         .progress-bar {
             width: 100%;
@@ -503,7 +378,6 @@
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 10px;
-            transition: width 1s ease;
         }
 
         .btn-participar {
@@ -516,24 +390,11 @@
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .btn-participar:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
-        }
+        .btn-participar:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .btn-participar:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Ganadores */
-        .ganadores-list {
-            display: grid;
-            gap: 1rem;
-        }
+        .ganadores-list { display: grid; gap: 1rem; }
 
         .ganador-item {
             background: rgba(6, 255, 165, 0.1);
@@ -545,32 +406,17 @@
             gap: 1rem;
         }
 
-        .ganador-icon {
-            font-size: 2.5rem;
-        }
-
-        .ganador-info {
-            flex: 1;
-        }
-
-        .ganador-nombre {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .ganador-premio {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
+        .ganador-icon { font-size: 2.5rem; }
+        .ganador-info { flex: 1; }
+        .ganador-nombre { font-weight: 600; font-size: 1.1rem; }
+        .ganador-premio { opacity: 0.8; font-size: 0.9rem; }
 
         /* Modal */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(10px);
             z-index: 1000;
@@ -579,10 +425,7 @@
             padding: 1rem;
         }
 
-        .modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: var(--dark);
@@ -594,58 +437,32 @@
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
-            animation: scaleIn 0.3s ease;
         }
 
-        @keyframes scaleIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+        .modal-content.wide { max-width: 800px; }
 
         .modal-close {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 1rem; right: 1rem;
             background: none;
             border: none;
             color: var(--light);
             font-size: 1.8rem;
             cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .modal-close:hover {
-            transform: rotate(90deg);
         }
 
         .modal-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 1.5rem;
             color: var(--secondary);
             text-align: center;
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .form-group label .required {
-            color: var(--danger);
-        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
+        .form-group label .required { color: var(--danger); }
 
         .form-group input,
         .form-group select,
@@ -661,34 +478,14 @@
         }
 
         .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
+        .form-group select:focus { outline: none; border-color: var(--primary); }
+        .form-group input::placeholder { color: rgba(255, 255, 255, 0.4); }
 
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
+        .phone-input { display: flex; gap: 0.5rem; }
+        .phone-input select { width: 120px; flex-shrink: 0; }
+        .phone-input input { flex: 1; }
 
-        .phone-input {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .phone-input select {
-            width: 120px;
-            flex-shrink: 0;
-        }
-
-        .phone-input input {
-            flex: 1;
-        }
-
-        .form-hint {
-            font-size: 0.75rem;
-            opacity: 0.6;
-            margin-top: 0.3rem;
-        }
+        .form-hint { font-size: 0.75rem; opacity: 0.6; margin-top: 0.3rem; }
 
         .btn-submit {
             width: 100%;
@@ -700,30 +497,13 @@
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
             margin-top: 0.5rem;
         }
 
-        .btn-submit:hover {
-            transform: scale(1.02);
-        }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .form-link {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .form-link a {
-            color: var(--accent);
-            cursor: pointer;
-            text-decoration: underline;
-        }
+        .form-link { text-align: center; margin-top: 1rem; font-size: 0.9rem; }
+        .form-link a { color: var(--accent); cursor: pointer; text-decoration: underline; }
 
         .referido-section {
             background: rgba(155, 93, 229, 0.1);
@@ -733,19 +513,59 @@
             margin-bottom: 1.2rem;
         }
 
-        .referido-section label {
-            color: var(--purple);
+        .referido-section label { color: var(--purple); }
+
+        /* Payment Box */
+        .payment-box {
+            background: linear-gradient(135deg, rgba(255, 210, 63, 0.1), rgba(255, 107, 53, 0.1));
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
         }
 
-        /* Perfil */
-        .profile-header {
-            text-align: center;
-            margin-bottom: 2rem;
+        .payment-box h4 { color: var(--secondary); margin-bottom: 1rem; font-size: 1.1rem; }
+
+        .payment-info {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
         }
+
+        .payment-info p { margin: 0.5rem 0; font-size: 0.9rem; }
+        .payment-info strong { color: var(--secondary); }
+
+        .payment-email {
+            font-family: monospace;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .file-upload {
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+        }
+
+        .file-upload:hover { border-color: var(--primary); background: rgba(255,107,53,0.1); }
+        .file-upload.has-file { border-color: var(--success); background: rgba(6,255,165,0.1); }
+        .file-upload input { display: none; }
+
+        /* Profile Stats */
+        .profile-header { text-align: center; margin-bottom: 2rem; }
 
         .profile-avatar {
-            width: 100px;
-            height: 100px;
+            width: 100px; height: 100px;
             border-radius: 50%;
             border: 3px solid var(--primary);
             margin: 0 auto 1rem;
@@ -758,24 +578,13 @@
             position: relative;
             cursor: pointer;
             overflow: hidden;
-            transition: all 0.3s ease;
         }
 
-        .profile-avatar:hover {
-            transform: scale(1.05);
-        }
-
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
         .profile-avatar .edit-overlay {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: rgba(0, 0, 0, 0.7);
             padding: 0.3rem;
             font-size: 0.7rem;
@@ -783,9 +592,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .profile-avatar:hover .edit-overlay {
-            opacity: 1;
-        }
+        .profile-avatar:hover .edit-overlay { opacity: 1; }
 
         .profile-stats {
             display: grid;
@@ -801,16 +608,8 @@
             text-align: center;
         }
 
-        .profile-stat-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            color: var(--success);
-        }
-
-        .profile-stat-label {
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
+        .profile-stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--success); }
+        .profile-stat-label { font-size: 0.8rem; opacity: 0.7; }
 
         .referral-box {
             background: linear-gradient(135deg, rgba(155, 93, 229, 0.2), rgba(0, 180, 216, 0.2));
@@ -821,10 +620,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .referral-box h4 {
-            color: var(--purple);
-            margin-bottom: 0.5rem;
-        }
+        .referral-box h4 { color: var(--purple); margin-bottom: 0.5rem; }
 
         .referral-code {
             font-family: 'Bebas Neue', sans-serif;
@@ -835,13 +631,7 @@
             padding: 0.5rem 1.5rem;
             border-radius: 10px;
             display: inline-block;
-            margin: 0.5rem 0;
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .referral-code:hover {
-            transform: scale(1.05);
         }
 
         .referral-stats {
@@ -851,22 +641,11 @@
             margin-top: 1rem;
         }
 
-        .referral-stat {
-            text-align: center;
-        }
+        .referral-stat { text-align: center; }
+        .referral-stat-value { font-weight: 700; color: var(--success); font-size: 1.2rem; }
+        .referral-stat-label { font-size: 0.7rem; opacity: 0.7; }
 
-        .referral-stat-value {
-            font-weight: 700;
-            color: var(--success);
-            font-size: 1.2rem;
-        }
-
-        .referral-stat-label {
-            font-size: 0.7rem;
-            opacity: 0.7;
-        }
-
-        /* Panel Admin */
+        /* Admin Panel */
         .admin-panel {
             display: none;
             position: relative;
@@ -876,9 +655,7 @@
             margin: 0 auto;
         }
 
-        .admin-panel.active {
-            display: block;
-        }
+        .admin-panel.active { display: block; }
 
         .admin-header {
             display: flex;
@@ -906,14 +683,8 @@
             font-size: 0.9rem;
         }
 
-        .admin-tab.active {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .admin-tab:hover {
-            background: rgba(255, 107, 53, 0.3);
-        }
+        .admin-tab.active { background: var(--primary); border-color: var(--primary); }
+        .admin-tab:hover { background: rgba(255, 107, 53, 0.3); }
 
         .admin-content {
             background: rgba(255, 255, 255, 0.05);
@@ -925,7 +696,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
@@ -937,16 +708,8 @@
             text-align: center;
         }
 
-        .stat-card-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            color: var(--success);
-        }
-
-        .stat-card-label {
-            opacity: 0.8;
-            font-size: 0.85rem;
-        }
+        .stat-card-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--success); }
+        .stat-card-label { opacity: 0.8; font-size: 0.8rem; }
 
         .admin-table {
             width: 100%;
@@ -956,16 +719,14 @@
 
         .admin-table th,
         .admin-table td {
-            padding: 1rem;
+            padding: 0.8rem;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .admin-table th {
-            background: rgba(0, 0, 0, 0.3);
-            font-weight: 600;
             font-size: 0.85rem;
         }
+
+        .admin-table th { background: rgba(0, 0, 0, 0.3); font-weight: 600; }
+        .admin-table tr:hover { background: rgba(255, 255, 255, 0.02); }
 
         .btn-small {
             padding: 0.4rem 0.8rem;
@@ -973,14 +734,16 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-            margin-right: 0.3rem;
+            font-size: 0.75rem;
+            margin: 0.1rem;
         }
 
         .btn-edit { background: var(--accent); color: var(--dark); }
         .btn-toggle { background: var(--secondary); color: var(--dark); }
         .btn-delete { background: var(--danger); color: var(--light); }
+        .btn-approve { background: var(--success); color: var(--dark); }
+        .btn-reject { background: var(--danger); color: var(--light); }
+        .btn-view { background: var(--purple); color: var(--light); }
 
         .btn-nuevo {
             padding: 0.8rem 1.5rem;
@@ -990,18 +753,47 @@
             border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
         .status-badge {
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
         }
 
         .status-active { background: rgba(6, 255, 165, 0.2); color: var(--success); }
         .status-inactive { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
+        .status-pending { background: rgba(255, 167, 38, 0.2); color: var(--warning); }
+        .status-approved { background: rgba(6, 255, 165, 0.2); color: var(--success); }
+        .status-rejected { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
+
+        /* Toggle Switch */
+        .toggle-container { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0; }
+
+        .toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle.active { background: var(--success); }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px; left: 3px;
+            width: 20px; height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle.active::after { transform: translateX(24px); }
 
         /* Boletos Selector */
         .boletos-selector {
@@ -1013,23 +805,16 @@
         }
 
         .btn-cantidad {
-            width: 45px;
-            height: 45px;
+            width: 45px; height: 45px;
             background: var(--primary);
             color: var(--light);
             border: none;
             border-radius: 10px;
             font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .btn-cantidad:hover {
-            background: var(--secondary);
-            transform: scale(1.1);
         }
 
         .cantidad-display {
@@ -1037,6 +822,48 @@
             font-size: 2rem;
             min-width: 60px;
             text-align: center;
+        }
+
+        /* Redes Sociales */
+        .redes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .red-social {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .red-social:hover { background: rgba(255,255,255,0.1); transform: translateX(5px); }
+        .red-social-icon { font-size: 2rem; }
+        .red-social-info h4 { color: var(--secondary); }
+        .red-social-info p { font-size: 0.85rem; opacity: 0.7; }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            opacity: 0.7;
+        }
+
+        .empty-state span { font-size: 3rem; display: block; margin-bottom: 1rem; }
+
+        /* Comprobante Preview */
+        .comprobante-preview {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 10px;
+            margin: 1rem auto;
+            display: block;
         }
 
         /* Footer */
@@ -1049,32 +876,21 @@
             margin-top: 3rem;
         }
 
-        /* Loading */
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem;
-        }
+        .loading { display: flex; align-items: center; justify-content: center; padding: 3rem; }
 
         .spinner {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border: 4px solid rgba(255, 255, 255, 0.1);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Toast */
         .toast {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 20px; right: 20px;
             background: var(--dark);
             border: 1px solid var(--primary);
             border-radius: 10px;
@@ -1092,11 +908,32 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Responsive */
+        /* Tabs inside modal */
+        .modal-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .modal-tab {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: none;
+            color: var(--light);
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .modal-tab.active { opacity: 1; border-bottom: 2px solid var(--primary); }
+
         @media (max-width: 768px) {
             header { flex-direction: column; gap: 1rem; }
             nav { flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 2.8rem; }
+            .hero h1 { font-size: 2.5rem; }
             .form-row { grid-template-columns: 1fr; }
             .rifas-grid { grid-template-columns: 1fr; }
         }
@@ -1107,7 +944,6 @@
 <body>
     <div class="background-dots" id="dots"></div>
 
-    <!-- Header -->
     <header>
         <div class="logo" onclick="irInicio()">RIFAMAX</div>
         <nav>
@@ -1143,9 +979,15 @@
                     <div class="dropdown-item" onclick="abrirModal('modalMisBoletos')">
                         <span>🎟️</span> Mis Boletos
                     </div>
+                    <div class="dropdown-item" onclick="abrirModal('modalMisPremios')">
+                        <span>🏆</span> Mis Premios
+                    </div>
                     <div class="dropdown-item" onclick="abrirModal('modalReferidos')">
                         <span>🤝</span> Mis Referidos
                         <span class="balance-badge" id="balanceReferidos">$0.00</span>
+                    </div>
+                    <div class="dropdown-item redes" onclick="abrirModal('modalRedes')">
+                        <span>🌐</span> Redes Sociales
                     </div>
                     <div class="dropdown-item admin" id="adminMenuItem" style="display: none;" onclick="mostrarPanelAdmin()">
                         <span>⚙️</span> Panel Admin
@@ -1158,27 +1000,14 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main id="mainContent">
-        <section class="hero" id="heroSection">
+        <section class="hero">
             <h1>¡TU SUERTE EMPIEZA AQUÍ!</h1>
             <p>Participa en las rifas más emocionantes y gana premios increíbles</p>
             <div class="hero-features">
-                <div class="hero-feature">
-                    <span>🎟️</span>
-                    <strong>$1 USD</strong>
-                    <small>por boleto</small>
-                </div>
-                <div class="hero-feature">
-                    <span>💰</span>
-                    <strong>$100 USD</strong>
-                    <small>premio</small>
-                </div>
-                <div class="hero-feature">
-                    <span>🤝</span>
-                    <strong>$0.10</strong>
-                    <small>por referido</small>
-                </div>
+                <div class="hero-feature"><span>🎟️</span><strong>$1 USD</strong><small>por boleto</small></div>
+                <div class="hero-feature"><span>💰</span><strong>$100 USD</strong><small>premio</small></div>
+                <div class="hero-feature"><span>🤝</span><strong>$0.10</strong><small>por referido</small></div>
             </div>
             <button class="cta-button" onclick="abrirModal('modalRegistro')">¡Participa Ahora!</button>
         </section>
@@ -1203,21 +1032,21 @@
                 <div class="rifa-card">
                     <div class="rifa-content" style="text-align: center;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">1️⃣</div>
-                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Regístrate</h3>
+                        <h3 style="color: var(--secondary);">Regístrate</h3>
                         <p style="opacity: 0.8;">Crea tu cuenta gratis y obtén tu código de referido único.</p>
                     </div>
                 </div>
                 <div class="rifa-card">
                     <div class="rifa-content" style="text-align: center;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">2️⃣</div>
-                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Compra Boletos</h3>
-                        <p style="opacity: 0.8;">Cada boleto cuesta solo $1 USD. ¡Compra los que quieras!</p>
+                        <h3 style="color: var(--secondary);">Compra Boletos</h3>
+                        <p style="opacity: 0.8;">Transfiere a Binance y adjunta tu comprobante.</p>
                     </div>
                 </div>
                 <div class="rifa-card">
                     <div class="rifa-content" style="text-align: center;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">3️⃣</div>
-                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">¡Gana!</h3>
+                        <h3 style="color: var(--secondary);">¡Gana!</h3>
                         <p style="opacity: 0.8;">Espera el sorteo y gana hasta $100 USD. ¡Así de fácil!</p>
                     </div>
                 </div>
@@ -1229,140 +1058,95 @@
     <section class="admin-panel" id="adminPanel">
         <div class="admin-header">
             <h2 class="section-title" style="margin: 0;">⚙️ Panel de Administración</h2>
-            <button class="btn-login" onclick="cerrarPanelAdmin()">← Volver al Sitio</button>
+            <button class="btn-login" onclick="cerrarPanelAdmin()">← Volver</button>
         </div>
         <div class="admin-tabs">
-            <div class="admin-tab active" onclick="cambiarTabAdmin('dashboard')">Dashboard</div>
-            <div class="admin-tab" onclick="cambiarTabAdmin('rifas')">Rifas</div>
-            <div class="admin-tab" onclick="cambiarTabAdmin('usuarios')">Usuarios</div>
-            <div class="admin-tab" onclick="cambiarTabAdmin('compras')">Compras</div>
+            <div class="admin-tab active" onclick="cambiarTabAdmin('dashboard', this)">Dashboard</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('rifas', this)">Rifas</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('usuarios', this)">Usuarios</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('compras', this)">Compras</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('pagos', this)">📥 Pagos Pendientes</div>
         </div>
         <div class="admin-content">
             <div id="tabDashboard" class="admin-tab-content">
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-card-value" id="adminTotalUsuarios">0</div>
-                        <div class="stat-card-label">Usuarios</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card-value" id="adminTotalRifas">0</div>
-                        <div class="stat-card-label">Rifas Activas</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card-value" id="adminTotalBoletos">0</div>
-                        <div class="stat-card-label">Boletos Vendidos</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card-value" id="adminTotalIngresos">$0</div>
-                        <div class="stat-card-label">Ingresos</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card-value" id="adminTotalReferidos">$0</div>
-                        <div class="stat-card-label">Comisiones</div>
-                    </div>
+                    <div class="stat-card"><div class="stat-card-value" id="adminTotalUsuarios">0</div><div class="stat-card-label">Usuarios</div></div>
+                    <div class="stat-card"><div class="stat-card-value" id="adminTotalRifas">0</div><div class="stat-card-label">Rifas Activas</div></div>
+                    <div class="stat-card"><div class="stat-card-value" id="adminTotalBoletos">0</div><div class="stat-card-label">Boletos Vendidos</div></div>
+                    <div class="stat-card"><div class="stat-card-value" id="adminTotalIngresos">$0</div><div class="stat-card-label">Ingresos</div></div>
+                    <div class="stat-card"><div class="stat-card-value" id="adminTotalComisiones">$0</div><div class="stat-card-label">Comisiones</div></div>
+                    <div class="stat-card"><div class="stat-card-value" id="adminPagosPendientes">0</div><div class="stat-card-label">Pagos Pendientes</div></div>
                 </div>
             </div>
             <div id="tabRifas" class="admin-tab-content" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
                     <h3>Gestión de Rifas</h3>
-                    <button class="btn-nuevo" onclick="abrirModal('modalNuevaRifa')">+ Nueva Rifa</button>
+                    <button class="btn-nuevo" onclick="abrirModalNuevaRifa()">+ Nueva Rifa</button>
                 </div>
-                <div style="overflow-x: auto;">
-                    <table class="admin-table"><thead><tr><th>Título</th><th>Premio</th><th>Boletos</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="rifasAdminBody"></tbody></table>
-                </div>
+                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Rifa</th><th>Tipo</th><th>Premio</th><th>Boletos</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="rifasAdminBody"></tbody></table></div>
             </div>
             <div id="tabUsuarios" class="admin-tab-content" style="display: none;">
                 <h3 style="margin-bottom: 1rem;">Usuarios</h3>
-                <div style="overflow-x: auto;">
-                    <table class="admin-table"><thead><tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Referidos</th><th>Registro</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table>
-                </div>
+                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Teléfono</th><th>Balance Email</th><th>Referidos</th><th>Acciones</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table></div>
             </div>
             <div id="tabCompras" class="admin-tab-content" style="display: none;">
-                <h3 style="margin-bottom: 1rem;">Compras</h3>
-                <div style="overflow-x: auto;">
-                    <table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Boletos</th><th>Total</th><th>Referidor</th><th>Fecha</th></tr></thead><tbody id="comprasAdminBody"></tbody></table>
-                </div>
+                <h3 style="margin-bottom: 1rem;">Compras Aprobadas</h3>
+                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th><th>Fecha</th></tr></thead><tbody id="comprasAdminBody"></tbody></table></div>
+            </div>
+            <div id="tabPagos" class="admin-tab-content" style="display: none;">
+                <h3 style="margin-bottom: 1rem;">📥 Pagos Pendientes de Aprobación</h3>
+                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Boletos</th><th>Total</th><th>Comprobante</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="pagosAdminBody"></tbody></table></div>
             </div>
         </div>
     </section>
 
-    <!-- Modales -->
+    <!-- MODALES -->
+    
+    <!-- Login -->
     <div class="modal" id="modalLogin">
         <div class="modal-content" style="max-width: 400px;">
             <button class="modal-close" onclick="cerrarModal('modalLogin')">×</button>
             <h3 class="modal-title">🔐 Iniciar Sesión</h3>
             <form onsubmit="iniciarSesion(event)">
-                <div class="form-group">
-                    <label>Correo Electrónico <span class="required">*</span></label>
-                    <input type="email" id="loginEmail" required placeholder="tu@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Contraseña <span class="required">*</span></label>
-                    <input type="password" id="loginPassword" required placeholder="••••••••">
-                </div>
+                <div class="form-group"><label>Correo <span class="required">*</span></label><input type="email" id="loginEmail" required placeholder="tu@email.com"></div>
+                <div class="form-group"><label>Contraseña <span class="required">*</span></label><input type="password" id="loginPassword" required placeholder="••••••••"></div>
                 <button type="submit" class="btn-submit" id="btnLogin">Iniciar Sesión</button>
             </form>
-            <div class="form-link">¿No tienes cuenta? <a onclick="cambiarModal('modalLogin', 'modalRegistro')">Regístrate aquí</a></div>
+            <div class="form-link">¿No tienes cuenta? <a onclick="cambiarModal('modalLogin', 'modalRegistro')">Regístrate</a></div>
         </div>
     </div>
 
+    <!-- Registro -->
     <div class="modal" id="modalRegistro">
         <div class="modal-content">
             <button class="modal-close" onclick="cerrarModal('modalRegistro')">×</button>
             <h3 class="modal-title">📝 Crear Cuenta</h3>
             <form onsubmit="registrarUsuario(event)">
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Nombre <span class="required">*</span></label>
-                        <input type="text" id="regNombre" required placeholder="Tu nombre">
-                    </div>
-                    <div class="form-group">
-                        <label>Apellido <span class="required">*</span></label>
-                        <input type="text" id="regApellido" required placeholder="Tu apellido">
-                    </div>
+                    <div class="form-group"><label>Nombre <span class="required">*</span></label><input type="text" id="regNombre" required></div>
+                    <div class="form-group"><label>Apellido <span class="required">*</span></label><input type="text" id="regApellido" required></div>
                 </div>
-                <div class="form-group">
-                    <label>Correo Electrónico <span class="required">*</span></label>
-                    <input type="email" id="regEmail" required placeholder="tu@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Confirmar Correo <span class="required">*</span></label>
-                    <input type="email" id="regEmailConfirm" required placeholder="Confirma tu correo">
-                </div>
+                <div class="form-group"><label>Correo <span class="required">*</span></label><input type="email" id="regEmail" required></div>
+                <div class="form-group"><label>Confirmar Correo <span class="required">*</span></label><input type="email" id="regEmailConfirm" required></div>
                 <div class="form-group">
                     <label>Teléfono <span class="required">*</span></label>
                     <div class="phone-input">
                         <select id="regCodigoPais">
-                            <option value="+1">🇺🇸 +1</option>
-                            <option value="+52">🇲🇽 +52</option>
-                            <option value="+54">🇦🇷 +54</option>
-                            <option value="+55">🇧🇷 +55</option>
-                            <option value="+56">🇨🇱 +56</option>
-                            <option value="+57">🇨🇴 +57</option>
-                            <option value="+58">🇻🇪 +58</option>
-                            <option value="+34">🇪🇸 +34</option>
-                            <option value="+51">🇵🇪 +51</option>
-                            <option value="+593">🇪🇨 +593</option>
-                            <option value="+598">🇺🇾 +598</option>
+                            <option value="+1">🇺🇸 +1</option><option value="+52">🇲🇽 +52</option><option value="+54">🇦🇷 +54</option>
+                            <option value="+55">🇧🇷 +55</option><option value="+56">🇨🇱 +56</option><option value="+57">🇨🇴 +57</option>
+                            <option value="+58">🇻🇪 +58</option><option value="+34">🇪🇸 +34</option><option value="+51">🇵🇪 +51</option>
                         </select>
                         <input type="tel" id="regTelefono" required placeholder="Número">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Contraseña <span class="required">*</span></label>
-                        <input type="password" id="regPassword" required placeholder="Mín. 6 caracteres" minlength="6">
-                    </div>
-                    <div class="form-group">
-                        <label>Confirmar <span class="required">*</span></label>
-                        <input type="password" id="regPasswordConfirm" required placeholder="Confirmar">
-                    </div>
+                    <div class="form-group"><label>Contraseña <span class="required">*</span></label><input type="password" id="regPassword" required minlength="6"></div>
+                    <div class="form-group"><label>Confirmar <span class="required">*</span></label><input type="password" id="regPasswordConfirm" required></div>
                 </div>
                 <div class="referido-section">
                     <div class="form-group" style="margin: 0;">
                         <label>🎁 Código de Referido (opcional)</label>
-                        <input type="text" id="regCodigoReferido" placeholder="Ej: ABC123" maxlength="6" style="text-transform: uppercase;">
-                        <p class="form-hint">Si alguien te invitó, ingresa su código</p>
+                        <input type="text" id="regCodigoReferido" maxlength="6" style="text-transform: uppercase;">
                     </div>
                 </div>
                 <button type="submit" class="btn-submit" id="btnRegistro">Crear Cuenta</button>
@@ -1371,12 +1155,13 @@
         </div>
     </div>
 
+    <!-- Perfil -->
     <div class="modal" id="modalPerfil">
         <div class="modal-content" style="max-width: 450px;">
             <button class="modal-close" onclick="cerrarModal('modalPerfil')">×</button>
             <h3 class="modal-title">👤 Mi Perfil</h3>
             <div class="profile-header">
-                <div class="profile-avatar" id="profileAvatar" onclick="document.getElementById('avatarInput').click()">
+                <div class="profile-avatar" onclick="document.getElementById('avatarInput').click()">
                     <span id="profileAvatarContent">👤</span>
                     <div class="edit-overlay">📷 Cambiar</div>
                 </div>
@@ -1390,11 +1175,17 @@
                     <div class="form-group"><label>Apellido</label><input type="text" id="editApellido"></div>
                 </div>
                 <div class="form-group"><label>Teléfono</label><input type="tel" id="editTelefono" readonly style="opacity: 0.6;"></div>
+                <div class="form-group">
+                    <label>📧 Correo de Balance (para reembolsos)</label>
+                    <input type="email" id="editBalanceEmail" placeholder="correo@binance.com">
+                    <p class="form-hint">Este correo se usará para reembolsos vía Binance</p>
+                </div>
                 <button type="submit" class="btn-submit">Guardar Cambios</button>
             </form>
         </div>
     </div>
 
+    <!-- Estadísticas -->
     <div class="modal" id="modalEstadisticas">
         <div class="modal-content" style="max-width: 450px;">
             <button class="modal-close" onclick="cerrarModal('modalEstadisticas')">×</button>
@@ -1408,14 +1199,30 @@
         </div>
     </div>
 
+    <!-- Mis Boletos -->
     <div class="modal" id="modalMisBoletos">
         <div class="modal-content">
             <button class="modal-close" onclick="cerrarModal('modalMisBoletos')">×</button>
             <h3 class="modal-title">🎟️ Mis Boletos</h3>
-            <div id="listaMisBoletos"><p style="text-align: center; opacity: 0.7;">No tienes boletos aún</p></div>
+            <div class="modal-tabs">
+                <button class="modal-tab active" onclick="cambiarTabBoletos('aprobados', this)">Aprobados</button>
+                <button class="modal-tab" onclick="cambiarTabBoletos('pendientes', this)">Pendientes</button>
+            </div>
+            <div id="listaMisBoletosAprobados"></div>
+            <div id="listaMisBoletospendientes" style="display: none;"></div>
         </div>
     </div>
 
+    <!-- Mis Premios -->
+    <div class="modal" id="modalMisPremios">
+        <div class="modal-content">
+            <button class="modal-close" onclick="cerrarModal('modalMisPremios')">×</button>
+            <h3 class="modal-title">🏆 Mis Premios Ganados</h3>
+            <div id="listaMisPremios"></div>
+        </div>
+    </div>
+
+    <!-- Referidos -->
     <div class="modal" id="modalReferidos">
         <div class="modal-content" style="max-width: 450px;">
             <button class="modal-close" onclick="cerrarModal('modalReferidos')">×</button>
@@ -1430,45 +1237,139 @@
                     <div class="referral-stat"><div class="referral-stat-value" id="dineroReferidos">$0.00</div><div class="referral-stat-label">Ganado</div></div>
                 </div>
             </div>
-            <p style="text-align: center; font-size: 0.85rem; opacity: 0.8;">Gana <strong style="color: var(--success);">$0.10 USD</strong> por cada boleto de tus referidos</p>
         </div>
     </div>
 
+    <!-- Redes Sociales -->
+    <div class="modal" id="modalRedes">
+        <div class="modal-content" style="max-width: 450px;">
+            <button class="modal-close" onclick="cerrarModal('modalRedes')">×</button>
+            <h3 class="modal-title">🌐 Redes Sociales</h3>
+            <p style="text-align: center; margin-bottom: 1.5rem; opacity: 0.8;">Síguenos para verificar la autenticidad del proyecto</p>
+            <div class="redes-container">
+                <a href="https://www.instagram.com/mal_ave_/" target="_blank" class="red-social">
+                    <div class="red-social-icon">📸</div>
+                    <div class="red-social-info">
+                        <h4>Instagram</h4>
+                        <p>@mal_ave_</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Participar / Comprar -->
     <div class="modal" id="modalParticipar">
-        <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-content" style="max-width: 450px;">
             <button class="modal-close" onclick="cerrarModal('modalParticipar')">×</button>
             <h3 class="modal-title" id="modalParticiparTitle">🎟️ Comprar Boletos</h3>
-            <div style="text-align: center; margin-bottom: 1.5rem;"><p style="opacity: 0.8;">Precio: <strong style="color: var(--success);">$1 USD</strong></p></div>
-            <div class="boletos-selector">
-                <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(-1)">−</button>
-                <div class="cantidad-display" id="cantidadBoletosDisplay">1</div>
-                <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(1)">+</button>
+            
+            <div id="pasoSeleccion">
+                <div style="text-align: center; margin-bottom: 1rem;"><p>Precio: <strong style="color: var(--success);" id="precioBoletoPaso1">$1 USD</strong></p></div>
+                <div class="boletos-selector">
+                    <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(-1)">−</button>
+                    <div class="cantidad-display" id="cantidadBoletosDisplay">1</div>
+                    <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(1)">+</button>
+                </div>
+                <div style="text-align: center; margin: 1rem 0;">
+                    <p>Total a pagar:</p>
+                    <p style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--secondary);" id="totalPagarBoletos">$1.00</p>
+                </div>
+                <button class="btn-submit" onclick="irPasoPago()">Continuar al Pago →</button>
             </div>
-            <div style="text-align: center; margin: 1.5rem 0;">
-                <p>Total:</p>
-                <p style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--secondary);" id="totalPagarBoletos">$1.00</p>
+
+            <div id="pasoPago" style="display: none;">
+                <div class="payment-box">
+                    <h4>💳 Datos de Pago - Binance</h4>
+                    <div class="payment-info">
+                        <p>Envía el monto exacto a:</p>
+                        <div class="payment-email" onclick="copiarEmailPago()">Fabricio9061@gmail.com</div>
+                        <p style="font-size: 0.8rem; opacity: 0.7;">Click para copiar</p>
+                        <p style="margin-top: 1rem;"><strong>Monto:</strong> <span id="montoPagar" style="color: var(--success); font-size: 1.2rem;">$1.00 USD</span></p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>📎 Adjuntar Comprobante de Pago <span class="required">*</span></label>
+                    <div class="file-upload" id="fileUploadZone" onclick="document.getElementById('comprobanteInput').click()">
+                        <span>📄</span>
+                        <p id="fileUploadText">Click para subir imagen o PDF</p>
+                    </div>
+                    <input type="file" id="comprobanteInput" accept="image/*,.pdf" style="display: none;" onchange="previewComprobante(event)">
+                    <img id="comprobantePreview" class="comprobante-preview" style="display: none;">
+                </div>
+
+                <button class="btn-submit" onclick="enviarComprobante()" id="btnEnviarComprobante">Enviar Comprobante</button>
+                <button class="btn-submit" style="background: transparent; border: 1px solid var(--accent); color: var(--accent); margin-top: 0.5rem;" onclick="volverPasoSeleccion()">← Volver</button>
             </div>
-            <button class="btn-submit" onclick="confirmarCompra()" id="btnConfirmarCompra">Confirmar Compra</button>
         </div>
     </div>
 
+    <!-- Nueva/Editar Rifa Admin -->
     <div class="modal" id="modalNuevaRifa">
-        <div class="modal-content">
+        <div class="modal-content wide">
             <button class="modal-close" onclick="cerrarModal('modalNuevaRifa')">×</button>
             <h3 class="modal-title" id="modalRifaTitle">➕ Nueva Rifa</h3>
             <form onsubmit="guardarRifa(event)">
-                <div class="form-group"><label>Título <span class="required">*</span></label><input type="text" id="rifaTitulo" required placeholder="Ej: iPhone 15 Pro"></div>
-                <div class="form-group"><label>Descripción</label><textarea id="rifaDescripcion" placeholder="Descripción..."></textarea></div>
                 <div class="form-row">
-                    <div class="form-group"><label>Ícono</label><input type="text" id="rifaIcono" value="🎁"></div>
-                    <div class="form-group"><label>Premio (USD)</label><input type="number" id="rifaPremio" value="100" min="1"></div>
+                    <div class="form-group"><label>Título <span class="required">*</span></label><input type="text" id="rifaTitulo" required></div>
+                    <div class="form-group">
+                        <label>Tipo de Premio</label>
+                        <select id="rifaTipoPremio">
+                            <option value="dinero">💵 Dinero</option>
+                            <option value="objeto">🎁 Objeto</option>
+                            <option value="otro">✨ Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group"><label>Descripción</label><textarea id="rifaDescripcion" rows="2"></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Ícono (emoji)</label><input type="text" id="rifaIcono" value="🎁"></div>
+                    <div class="form-group"><label>Premio (USD o descripción)</label><input type="text" id="rifaPremio" value="100"></div>
                 </div>
                 <div class="form-row">
+                    <div class="form-group"><label>Precio Boleto (USD)</label><input type="number" id="rifaPrecioBoleto" value="1" min="0.1" step="0.1"></div>
                     <div class="form-group"><label>Total Boletos</label><input type="number" id="rifaTotalBoletos" value="100" min="10"></div>
-                    <div class="form-group"><label>Días</label><input type="number" id="rifaDias" value="7" min="1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Días de Duración</label><input type="number" id="rifaDias" value="7" min="1"></div>
+                    <div class="form-group">
+                        <label>Imagen/Flyer</label>
+                        <input type="file" id="rifaImagen" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Comisiones por Referido</label>
+                    <div class="toggle-container">
+                        <div class="toggle" id="toggleComisiones" onclick="toggleComisiones()"></div>
+                        <span>Activar comisiones</span>
+                    </div>
+                    <div id="comisionesConfig" style="display: none; margin-top: 0.5rem;">
+                        <div class="form-row">
+                            <div class="form-group"><label>Porcentaje (%)</label><input type="number" id="rifaComisionPorcentaje" value="10" min="1" max="50"></div>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn-submit">Guardar Rifa</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Ver Usuario Admin -->
+    <div class="modal" id="modalVerUsuario">
+        <div class="modal-content wide">
+            <button class="modal-close" onclick="cerrarModal('modalVerUsuario')">×</button>
+            <h3 class="modal-title">👤 Detalles del Usuario</h3>
+            <div id="detalleUsuarioContent"></div>
+        </div>
+    </div>
+
+    <!-- Ver Comprobante -->
+    <div class="modal" id="modalVerComprobante">
+        <div class="modal-content">
+            <button class="modal-close" onclick="cerrarModal('modalVerComprobante')">×</button>
+            <h3 class="modal-title">📎 Comprobante de Pago</h3>
+            <img id="comprobanteViewer" style="max-width: 100%; border-radius: 10px;">
         </div>
     </div>
 
@@ -1477,14 +1378,13 @@
         <p style="opacity: 0.7; margin-top: 0.5rem;">Juega responsablemente. Mayores de 18 años.</p>
     </footer>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
 
     <script>
-        // Config
         const firebaseConfig = {
             apiKey: "AIzaSyBrr8F9G93klUb-8Kk7fgmJ7t1D6ObRXic",
             authDomain: "rifamax.firebaseapp.com",
@@ -1499,35 +1399,37 @@
         const auth = firebase.auth();
         const storage = firebase.storage();
 
-        // Constants
         const ADMIN_EMAIL = 'fabricio9061@gmail.com';
-        const PRECIO_BOLETO = 1;
-        const COMISION_REFERIDO = 0.10;
+        const BINANCE_EMAIL = 'Fabricio9061@gmail.com';
 
-        // State
         let currentUser = null;
         let userData = null;
         let rifas = [];
         let rifaSeleccionada = null;
         let cantidadBoletos = 1;
         let rifaEditando = null;
+        let comprobanteFile = null;
+        let comisionesActivas = false;
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             crearFondo();
             auth.onAuthStateChanged(async (user) => {
+                currentUser = user;
                 if (user) {
-                    currentUser = user;
                     await cargarDatosUsuario();
                     actualizarUIUsuario();
                 } else {
-                    currentUser = null;
                     userData = null;
                     actualizarUIUsuario();
                 }
             });
             cargarRifas();
             cargarGanadores();
+            
+            // Actualizar temporizadores cada segundo
+            setInterval(actualizarTemporizadores, 1000);
+            
             document.addEventListener('click', (e) => {
                 const userMenu = document.getElementById('userMenu');
                 if (userMenu && !userMenu.contains(e.target)) {
@@ -1565,8 +1467,7 @@
             if (password !== passwordConfirm) { mostrarToast('Las contraseñas no coinciden', 'error'); return; }
 
             const btn = document.getElementById('btnRegistro');
-            btn.disabled = true;
-            btn.textContent = 'Creando...';
+            btn.disabled = true; btn.textContent = 'Creando...';
 
             try {
                 let referidorId = null;
@@ -1585,9 +1486,8 @@
                     codigoReferido: miCodigoReferido,
                     referidoPor: referidorId,
                     avatarUrl: null,
+                    balanceEmail: null,
                     totalReferidos: 0,
-                    boletosDeReferidos: 0,
-                    dineroDeReferidos: 0,
                     fechaRegistro: firebase.firestore.FieldValue.serverTimestamp(),
                     esAdmin: email === ADMIN_EMAIL
                 });
@@ -1601,38 +1501,30 @@
                 cerrarModal('modalRegistro');
                 mostrarToast('¡Cuenta creada!', 'success');
             } catch (error) {
-                let msg = 'Error al crear cuenta';
-                if (error.code === 'auth/email-already-in-use') msg = 'Correo ya registrado';
-                mostrarToast(msg, 'error');
+                mostrarToast(error.code === 'auth/email-already-in-use' ? 'Correo ya registrado' : 'Error al crear cuenta', 'error');
             }
-            btn.disabled = false;
-            btn.textContent = 'Crear Cuenta';
+            btn.disabled = false; btn.textContent = 'Crear Cuenta';
         }
 
         async function iniciarSesion(e) {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
             const btn = document.getElementById('btnLogin');
-            btn.disabled = true;
-            btn.textContent = 'Entrando...';
-
+            btn.disabled = true; btn.textContent = 'Entrando...';
             try {
-                await auth.signInWithEmailAndPassword(email, password);
+                await auth.signInWithEmailAndPassword(
+                    document.getElementById('loginEmail').value.trim(),
+                    document.getElementById('loginPassword').value
+                );
                 cerrarModal('modalLogin');
                 mostrarToast('¡Bienvenido!', 'success');
-            } catch (error) {
-                mostrarToast('Correo o contraseña incorrectos', 'error');
-            }
-            btn.disabled = false;
-            btn.textContent = 'Iniciar Sesión';
+            } catch { mostrarToast('Credenciales incorrectas', 'error'); }
+            btn.disabled = false; btn.textContent = 'Iniciar Sesión';
         }
 
         async function cerrarSesion() {
             await auth.signOut();
             cerrarPanelAdmin();
             document.getElementById('userDropdown').classList.remove('show');
-            mostrarToast('Sesión cerrada', 'success');
         }
 
         async function cargarDatosUsuario() {
@@ -1644,18 +1536,17 @@
         function actualizarUIUsuario() {
             const authButtons = document.getElementById('authButtons');
             const userMenu = document.getElementById('userMenu');
-            const adminMenuItem = document.getElementById('adminMenuItem');
-
+            
             if (currentUser && userData) {
                 authButtons.classList.add('hidden');
                 userMenu.classList.add('active');
                 const inicial = userData.nombre ? userData.nombre.charAt(0).toUpperCase() : '👤';
-                const avatarContent = userData.avatarUrl ? `<img src="${userData.avatarUrl}">` : inicial;
-                document.getElementById('avatarContent').innerHTML = avatarContent;
-                document.getElementById('dropdownAvatarContent').innerHTML = avatarContent;
+                const avatarHTML = userData.avatarUrl ? `<img src="${userData.avatarUrl}">` : inicial;
+                document.getElementById('avatarContent').innerHTML = avatarHTML;
+                document.getElementById('dropdownAvatarContent').innerHTML = avatarHTML;
                 document.getElementById('dropdownUserName').textContent = `${userData.nombre} ${userData.apellido}`;
                 document.getElementById('dropdownUserEmail').textContent = userData.email;
-                adminMenuItem.style.display = (userData.esAdmin || userData.email === ADMIN_EMAIL) ? 'flex' : 'none';
+                document.getElementById('adminMenuItem').style.display = (userData.esAdmin || userData.email === ADMIN_EMAIL) ? 'flex' : 'none';
                 actualizarBalanceReferidos();
             } else {
                 authButtons.classList.remove('hidden');
@@ -1665,10 +1556,15 @@
 
         async function actualizarBalanceReferidos() {
             if (!currentUser) return;
-            const comprasQuery = await db.collection('compras').where('referidorId', '==', currentUser.uid).get();
-            let totalBoletos = 0;
-            comprasQuery.forEach(doc => totalBoletos += doc.data().cantidad || 0);
-            document.getElementById('balanceReferidos').textContent = `$${(totalBoletos * COMISION_REFERIDO).toFixed(2)}`;
+            try {
+                const comprasQuery = await db.collection('compras').where('referidorId', '==', currentUser.uid).where('estado', '==', 'aprobado').get();
+                let total = 0;
+                comprasQuery.forEach(doc => {
+                    const d = doc.data();
+                    total += (d.cantidad || 0) * (d.comisionPorBoleto || 0.10);
+                });
+                document.getElementById('balanceReferidos').textContent = `$${total.toFixed(2)}`;
+            } catch {}
         }
 
         function generarCodigoReferido() {
@@ -1683,202 +1579,357 @@
             mostrarToast('¡Código copiado!', 'success');
         }
 
-        // Rifas
-        async function cargarRifas() {
-            const snapshot = await db.collection('rifas').where('activa', '==', true).get();
-            rifas = [];
-            snapshot.forEach(doc => rifas.push({ id: doc.id, ...doc.data() }));
-            if (rifas.length === 0) await crearRifaInicial();
-            renderizarRifas();
+        function copiarEmailPago() {
+            navigator.clipboard.writeText(BINANCE_EMAIL);
+            mostrarToast('¡Email copiado!', 'success');
         }
 
-        async function crearRifaInicial() {
-            const rifa = {
-                titulo: "$100 USD en Efectivo",
-                descripcion: "¡Compra tu boleto por $1 y gana $100!",
-                icono: "💵", premio: 100, precioBoleto: 1,
-                totalBoletos: 100, boletosVendidos: 0, dias: 7,
-                activa: true, finalizada: false,
-                fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
-            };
-            const docRef = await db.collection('rifas').add(rifa);
-            rifas.push({ id: docRef.id, ...rifa });
+        // Rifas
+        async function cargarRifas() {
+            try {
+                const snapshot = await db.collection('rifas').where('activa', '==', true).get();
+                rifas = [];
+                snapshot.forEach(doc => rifas.push({ id: doc.id, ...doc.data() }));
+                renderizarRifas();
+            } catch { document.getElementById('rifasGrid').innerHTML = '<p style="text-align: center;">Error al cargar</p>'; }
         }
 
         function renderizarRifas() {
             const grid = document.getElementById('rifasGrid');
-            if (rifas.length === 0) { grid.innerHTML = '<p style="text-align: center; opacity: 0.7;">No hay rifas activas</p>'; return; }
+            if (rifas.length === 0) { grid.innerHTML = '<div class="empty-state"><span>🎰</span><p>No hay rifas activas</p></div>'; return; }
+            
             grid.innerHTML = rifas.map(r => {
-                const progreso = (r.boletosVendidos / r.totalBoletos) * 100;
-                const disponibles = r.totalBoletos - r.boletosVendidos;
+                const progreso = ((r.boletosVendidos || 0) / r.totalBoletos) * 100;
+                const disponibles = r.totalBoletos - (r.boletosVendidos || 0);
+                const tipoClass = r.tipoPremio === 'dinero' ? 'tipo-dinero' : r.tipoPremio === 'objeto' ? 'tipo-objeto' : 'tipo-otro';
+                const tipoText = r.tipoPremio === 'dinero' ? '💵 Dinero' : r.tipoPremio === 'objeto' ? '🎁 Objeto' : '✨ Premio';
+                
                 return `
                     <div class="rifa-card">
-                        <div class="rifa-image">${r.icono || '🎁'}<span class="rifa-badge">🔥 Activa</span></div>
+                        <div class="rifa-image">
+                            ${r.imagenUrl ? `<img src="${r.imagenUrl}">` : (r.icono || '🎁')}
+                            <span class="rifa-badge">🔥 Activa</span>
+                            <div class="rifa-timer" data-fecha="${r.fechaFin || ''}" data-id="${r.id}">⏱️ Cargando...</div>
+                        </div>
                         <div class="rifa-content">
+                            <span class="rifa-tipo-badge ${tipoClass}">${tipoText}</span>
                             <h3 class="rifa-title">${r.titulo}</h3>
                             <p class="rifa-description">${r.descripcion || ''}</p>
                             <div class="rifa-stats">
                                 <div class="stat"><div class="stat-value">$${r.precioBoleto || 1}</div><div class="stat-label">Boleto</div></div>
-                                <div class="stat"><div class="stat-value">$${r.premio}</div><div class="stat-label">Premio</div></div>
-                                <div class="stat"><div class="stat-value">${disponibles}</div><div class="stat-label">Disp.</div></div>
+                                <div class="stat"><div class="stat-value">${r.tipoPremio === 'dinero' ? '$' : ''}${r.premio}</div><div class="stat-label">Premio</div></div>
+                                <div class="stat"><div class="stat-value">${disponibles}</div><div class="stat-label">Disponibles</div></div>
                             </div>
                             <div class="progress-bar"><div class="progress-fill" style="width: ${progreso}%"></div></div>
-                            <button class="btn-participar" onclick="abrirModalParticipar('${r.id}')" ${disponibles <= 0 ? 'disabled' : ''}>${disponibles <= 0 ? 'Agotada' : '🎟️ Comprar'}</button>
+                            <button class="btn-participar" onclick="abrirModalParticipar('${r.id}')" ${disponibles <= 0 ? 'disabled' : ''}>${disponibles <= 0 ? 'Agotada' : '🎟️ Comprar Boletos'}</button>
                         </div>
                     </div>`;
             }).join('');
+            
+            actualizarTemporizadores();
         }
 
-        // Ganadores
-        async function cargarGanadores() {
-            const snapshot = await db.collection('ganadores').orderBy('fecha', 'desc').limit(5).get();
-            const lista = document.getElementById('ganadoresList');
-            if (snapshot.empty) { lista.innerHTML = '<p style="text-align: center; opacity: 0.7;">Próximamente ganadores</p>'; return; }
-            lista.innerHTML = '';
-            snapshot.forEach(doc => {
-                const g = doc.data();
-                lista.innerHTML += `<div class="ganador-item"><div class="ganador-icon">${g.icono || '🏆'}</div><div class="ganador-info"><div class="ganador-nombre">${g.nombre}</div><div class="ganador-premio">Ganó: ${g.premio}</div></div></div>`;
+        function actualizarTemporizadores() {
+            document.querySelectorAll('.rifa-timer').forEach(timer => {
+                const rifaId = timer.dataset.id;
+                const rifa = rifas.find(r => r.id === rifaId);
+                if (!rifa) return;
+                
+                let fechaFin;
+                if (rifa.fechaFin && rifa.fechaFin.toDate) {
+                    fechaFin = rifa.fechaFin.toDate();
+                } else if (rifa.fechaCreacion && rifa.dias) {
+                    const fechaInicio = rifa.fechaCreacion.toDate ? rifa.fechaCreacion.toDate() : new Date(rifa.fechaCreacion);
+                    fechaFin = new Date(fechaInicio.getTime() + (rifa.dias * 24 * 60 * 60 * 1000));
+                } else {
+                    timer.textContent = '⏱️ Sin fecha';
+                    return;
+                }
+                
+                const ahora = new Date();
+                const diff = fechaFin - ahora;
+                
+                if (diff <= 0) {
+                    timer.textContent = '⏱️ Finalizado';
+                    return;
+                }
+                
+                const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                
+                if (dias > 0) {
+                    timer.textContent = `⏱️ ${dias}d ${horas}h`;
+                } else {
+                    timer.textContent = `⏱️ ${horas}h ${minutos}m`;
+                }
             });
+        }
+
+        async function cargarGanadores() {
+            try {
+                const snapshot = await db.collection('ganadores').orderBy('fecha', 'desc').limit(5).get();
+                const lista = document.getElementById('ganadoresList');
+                if (snapshot.empty) { lista.innerHTML = '<div class="empty-state"><span>🏆</span><p>Próximamente ganadores</p></div>'; return; }
+                lista.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const g = doc.data();
+                    lista.innerHTML += `<div class="ganador-item"><div class="ganador-icon">${g.icono || '🏆'}</div><div class="ganador-info"><div class="ganador-nombre">${g.nombre}</div><div class="ganador-premio">Ganó: ${g.premio}</div></div></div>`;
+                });
+            } catch {}
         }
 
         // Compra
         function abrirModalParticipar(rifaId) {
-            if (!currentUser) { mostrarToast('Debes iniciar sesión', 'error'); abrirModal('modalLogin'); return; }
+            if (!currentUser) { mostrarToast('Inicia sesión para participar', 'error'); abrirModal('modalLogin'); return; }
             rifaSeleccionada = rifas.find(r => r.id === rifaId);
             if (!rifaSeleccionada) return;
+            
             cantidadBoletos = 1;
+            comprobanteFile = null;
             document.getElementById('modalParticiparTitle').textContent = `🎟️ ${rifaSeleccionada.titulo}`;
+            document.getElementById('precioBoletoPaso1').textContent = `$${rifaSeleccionada.precioBoleto || 1} USD`;
+            document.getElementById('pasoSeleccion').style.display = 'block';
+            document.getElementById('pasoPago').style.display = 'none';
+            document.getElementById('fileUploadZone').classList.remove('has-file');
+            document.getElementById('fileUploadText').textContent = 'Click para subir imagen o PDF';
+            document.getElementById('comprobantePreview').style.display = 'none';
             actualizarDisplayBoletos();
             abrirModal('modalParticipar');
         }
 
         function cambiarCantidadBoletos(delta) {
-            const disponibles = rifaSeleccionada.totalBoletos - rifaSeleccionada.boletosVendidos;
-            cantidadBoletos = Math.max(1, Math.min(cantidadBoletos + delta, disponibles));
+            const disponibles = rifaSeleccionada.totalBoletos - (rifaSeleccionada.boletosVendidos || 0);
+            cantidadBoletos = Math.max(1, Math.min(cantidadBoletos + delta, disponibles, 100));
             actualizarDisplayBoletos();
         }
 
         function actualizarDisplayBoletos() {
+            const precio = rifaSeleccionada.precioBoleto || 1;
             document.getElementById('cantidadBoletosDisplay').textContent = cantidadBoletos;
-            document.getElementById('totalPagarBoletos').textContent = `$${(cantidadBoletos * PRECIO_BOLETO).toFixed(2)}`;
+            document.getElementById('totalPagarBoletos').textContent = `$${(cantidadBoletos * precio).toFixed(2)}`;
         }
 
-        async function confirmarCompra() {
-            if (!currentUser || !rifaSeleccionada) return;
-            const btn = document.getElementById('btnConfirmarCompra');
-            btn.disabled = true;
-            btn.textContent = 'Procesando...';
+        function irPasoPago() {
+            const precio = rifaSeleccionada.precioBoleto || 1;
+            document.getElementById('montoPagar').textContent = `$${(cantidadBoletos * precio).toFixed(2)} USD`;
+            document.getElementById('pasoSeleccion').style.display = 'none';
+            document.getElementById('pasoPago').style.display = 'block';
+        }
 
+        function volverPasoSeleccion() {
+            document.getElementById('pasoSeleccion').style.display = 'block';
+            document.getElementById('pasoPago').style.display = 'none';
+        }
+
+        function previewComprobante(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            comprobanteFile = file;
+            document.getElementById('fileUploadZone').classList.add('has-file');
+            document.getElementById('fileUploadText').textContent = file.name;
+            
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    document.getElementById('comprobantePreview').src = e.target.result;
+                    document.getElementById('comprobantePreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function enviarComprobante() {
+            if (!comprobanteFile) { mostrarToast('Adjunta el comprobante', 'error'); return; }
+            
+            const btn = document.getElementById('btnEnviarComprobante');
+            btn.disabled = true; btn.textContent = 'Enviando...';
+            
             try {
-                const compra = {
+                const precio = rifaSeleccionada.precioBoleto || 1;
+                const total = cantidadBoletos * precio;
+                const comisionPorBoleto = rifaSeleccionada.comisionesActivas ? (precio * (rifaSeleccionada.comisionPorcentaje || 10) / 100) : 0.10;
+                
+                // Subir comprobante
+                const storageRef = storage.ref(`comprobantes/${currentUser.uid}/${Date.now()}_${comprobanteFile.name}`);
+                await storageRef.put(comprobanteFile);
+                const comprobanteUrl = await storageRef.getDownloadURL();
+                
+                // Crear compra pendiente
+                await db.collection('compras').add({
                     usuarioId: currentUser.uid,
                     usuarioNombre: `${userData.nombre} ${userData.apellido}`,
                     usuarioEmail: userData.email,
                     rifaId: rifaSeleccionada.id,
                     rifaTitulo: rifaSeleccionada.titulo,
                     cantidad: cantidadBoletos,
-                    precioUnitario: PRECIO_BOLETO,
-                    total: cantidadBoletos * PRECIO_BOLETO,
+                    precioUnitario: precio,
+                    total: total,
+                    comisionPorBoleto: comisionPorBoleto,
                     referidorId: userData.referidoPor || null,
+                    comprobanteUrl: comprobanteUrl,
+                    estado: 'pendiente',
                     fecha: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                await db.collection('compras').add(compra);
-                await db.collection('rifas').doc(rifaSeleccionada.id).update({
-                    boletosVendidos: firebase.firestore.FieldValue.increment(cantidadBoletos)
                 });
-                if (userData.referidoPor) {
-                    await db.collection('usuarios').doc(userData.referidoPor).update({
-                        boletosDeReferidos: firebase.firestore.FieldValue.increment(cantidadBoletos),
-                        dineroDeReferidos: firebase.firestore.FieldValue.increment(cantidadBoletos * COMISION_REFERIDO)
-                    });
-                }
+                
                 cerrarModal('modalParticipar');
-                mostrarToast(`¡Compraste ${cantidadBoletos} boleto(s)!`, 'success');
-                await cargarRifas();
+                mostrarToast('¡Comprobante enviado! Espera aprobación.', 'success');
             } catch (error) {
-                mostrarToast('Error al comprar', 'error');
+                console.error(error);
+                mostrarToast('Error al enviar', 'error');
             }
-            btn.disabled = false;
-            btn.textContent = 'Confirmar Compra';
+            
+            btn.disabled = false; btn.textContent = 'Enviar Comprobante';
         }
 
-        // Profile
+        // Perfil
         async function cambiarAvatar(event) {
             const file = event.target.files[0];
-            if (!file || !currentUser) return;
-            mostrarToast('Subiendo...', 'success');
-            const storageRef = storage.ref(`avatars/${currentUser.uid}`);
-            await storageRef.put(file);
-            const url = await storageRef.getDownloadURL();
-            await db.collection('usuarios').doc(currentUser.uid).update({ avatarUrl: url });
-            userData.avatarUrl = url;
-            actualizarUIUsuario();
-            document.getElementById('profileAvatarContent').innerHTML = `<img src="${url}">`;
-            mostrarToast('¡Avatar actualizado!', 'success');
+            if (!file) return;
+            try {
+                const storageRef = storage.ref(`avatars/${currentUser.uid}`);
+                await storageRef.put(file);
+                const url = await storageRef.getDownloadURL();
+                await db.collection('usuarios').doc(currentUser.uid).update({ avatarUrl: url });
+                userData.avatarUrl = url;
+                actualizarUIUsuario();
+                document.getElementById('profileAvatarContent').innerHTML = `<img src="${url}">`;
+                mostrarToast('¡Avatar actualizado!', 'success');
+            } catch { mostrarToast('Error al subir', 'error'); }
         }
 
         async function actualizarPerfil(e) {
             e.preventDefault();
-            const nombre = document.getElementById('editNombre').value.trim();
-            const apellido = document.getElementById('editApellido').value.trim();
-            await db.collection('usuarios').doc(currentUser.uid).update({ nombre, apellido });
-            userData.nombre = nombre;
-            userData.apellido = apellido;
-            actualizarUIUsuario();
-            cerrarModal('modalPerfil');
-            mostrarToast('¡Perfil actualizado!', 'success');
+            try {
+                await db.collection('usuarios').doc(currentUser.uid).update({
+                    nombre: document.getElementById('editNombre').value.trim(),
+                    apellido: document.getElementById('editApellido').value.trim(),
+                    balanceEmail: document.getElementById('editBalanceEmail').value.trim() || null
+                });
+                await cargarDatosUsuario();
+                actualizarUIUsuario();
+                cerrarModal('modalPerfil');
+                mostrarToast('¡Perfil actualizado!', 'success');
+            } catch { mostrarToast('Error', 'error'); }
         }
 
-        // Modal loaders
-        async function cargarModalPerfil() {
+        // Modales Usuario
+        function cargarModalPerfil() {
             if (!userData) return;
             document.getElementById('profileNombreCompleto').textContent = `${userData.nombre} ${userData.apellido}`;
             document.getElementById('profileEmail').textContent = userData.email;
             document.getElementById('editNombre').value = userData.nombre || '';
             document.getElementById('editApellido').value = userData.apellido || '';
             document.getElementById('editTelefono').value = userData.telefono || '';
+            document.getElementById('editBalanceEmail').value = userData.balanceEmail || '';
             document.getElementById('profileAvatarContent').innerHTML = userData.avatarUrl ? `<img src="${userData.avatarUrl}">` : (userData.nombre ? userData.nombre.charAt(0).toUpperCase() : '👤');
         }
 
         async function cargarModalEstadisticas() {
             if (!currentUser) return;
-            const comprasQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).get();
-            let totalBoletos = 0, totalGastado = 0, rifasSet = new Set();
-            comprasQuery.forEach(doc => {
-                const d = doc.data();
-                totalBoletos += d.cantidad || 0;
-                totalGastado += d.total || 0;
-                rifasSet.add(d.rifaId);
-            });
-            document.getElementById('statBoletosComprados').textContent = totalBoletos;
-            document.getElementById('statDineroGastado').textContent = `$${totalGastado.toFixed(2)}`;
-            document.getElementById('statRifasParticipadas').textContent = rifasSet.size;
+            try {
+                const comprasQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).where('estado', '==', 'aprobado').get();
+                let totalBoletos = 0, totalGastado = 0, rifasSet = new Set();
+                comprasQuery.forEach(doc => {
+                    const d = doc.data();
+                    totalBoletos += d.cantidad || 0;
+                    totalGastado += d.total || 0;
+                    rifasSet.add(d.rifaId);
+                });
+                
+                const premiosQuery = await db.collection('ganadores').where('usuarioId', '==', currentUser.uid).get();
+                
+                document.getElementById('statBoletosComprados').textContent = totalBoletos;
+                document.getElementById('statDineroGastado').textContent = `$${totalGastado.toFixed(2)}`;
+                document.getElementById('statRifasParticipadas').textContent = rifasSet.size;
+                document.getElementById('statPremiosGanados').textContent = premiosQuery.size;
+            } catch {}
+        }
+
+        function cambiarTabBoletos(tab, btn) {
+            document.querySelectorAll('#modalMisBoletos .modal-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('listaMisBoletosAprobados').style.display = tab === 'aprobados' ? 'block' : 'none';
+            document.getElementById('listaMisBoletospendientes').style.display = tab === 'pendientes' ? 'block' : 'none';
         }
 
         async function cargarModalMisBoletos() {
             if (!currentUser) return;
-            const lista = document.getElementById('listaMisBoletos');
+            
+            const listaAprobados = document.getElementById('listaMisBoletosAprobados');
+            const listaPendientes = document.getElementById('listaMisBoletospendientes');
+            listaAprobados.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+            listaPendientes.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+            
+            try {
+                // Aprobados
+                const aprobadosQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).where('estado', '==', 'aprobado').get();
+                if (aprobadosQuery.empty) {
+                    listaAprobados.innerHTML = '<div class="empty-state"><span>🎟️</span><p>No tienes boletos aprobados</p></div>';
+                } else {
+                    listaAprobados.innerHTML = '';
+                    aprobadosQuery.forEach(doc => {
+                        const c = doc.data();
+                        const fecha = c.fecha?.toDate ? c.fecha.toDate().toLocaleDateString() : 'N/A';
+                        listaAprobados.innerHTML += `<div class="ganador-item" style="border-color: var(--success);"><div class="ganador-icon">🎟️</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total} - ${fecha}</div></div><span class="status-badge status-approved">Aprobado</span></div>`;
+                    });
+                }
+                
+                // Pendientes
+                const pendientesQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).where('estado', '==', 'pendiente').get();
+                if (pendientesQuery.empty) {
+                    listaPendientes.innerHTML = '<div class="empty-state"><span>⏳</span><p>No tienes pagos pendientes</p></div>';
+                } else {
+                    listaPendientes.innerHTML = '';
+                    pendientesQuery.forEach(doc => {
+                        const c = doc.data();
+                        const fecha = c.fecha?.toDate ? c.fecha.toDate().toLocaleDateString() : 'N/A';
+                        listaPendientes.innerHTML += `<div class="ganador-item" style="border-color: var(--warning); background: rgba(255,167,38,0.1);"><div class="ganador-icon">⏳</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total} - ${fecha}</div></div><span class="status-badge status-pending">Pendiente</span></div>`;
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+                listaAprobados.innerHTML = '<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>';
+            }
+        }
+
+        async function cargarModalMisPremios() {
+            if (!currentUser) return;
+            const lista = document.getElementById('listaMisPremios');
             lista.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-            const comprasQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).orderBy('fecha', 'desc').get();
-            if (comprasQuery.empty) { lista.innerHTML = '<p style="text-align: center; opacity: 0.7;">No tienes boletos</p>'; return; }
-            lista.innerHTML = '';
-            comprasQuery.forEach(doc => {
-                const c = doc.data();
-                const fecha = c.fecha ? new Date(c.fecha.toDate()).toLocaleDateString() : 'N/A';
-                lista.innerHTML += `<div class="ganador-item" style="border-color: var(--primary); background: rgba(255, 107, 53, 0.1);"><div class="ganador-icon">🎟️</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total} - ${fecha}</div></div></div>`;
-            });
+            
+            try {
+                const premiosQuery = await db.collection('ganadores').where('usuarioId', '==', currentUser.uid).get();
+                if (premiosQuery.empty) {
+                    lista.innerHTML = '<div class="empty-state"><span>🏆</span><p>Aún no has ganado ningún sorteo</p></div>';
+                } else {
+                    lista.innerHTML = '';
+                    premiosQuery.forEach(doc => {
+                        const p = doc.data();
+                        const fecha = p.fecha?.toDate ? p.fecha.toDate().toLocaleDateString() : 'N/A';
+                        lista.innerHTML += `<div class="ganador-item"><div class="ganador-icon">${p.icono || '🏆'}</div><div class="ganador-info"><div class="ganador-nombre">${p.rifaTitulo || 'Sorteo'}</div><div class="ganador-premio">Premio: ${p.premio} - ${fecha}</div></div></div>`;
+                    });
+                }
+            } catch { lista.innerHTML = '<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>'; }
         }
 
         async function cargarModalReferidos() {
             if (!userData) return;
             document.getElementById('miCodigoReferido').textContent = userData.codigoReferido || '------';
-            const referidosQuery = await db.collection('usuarios').where('referidoPor', '==', currentUser.uid).get();
-            document.getElementById('totalReferidos').textContent = referidosQuery.size;
-            const comprasQuery = await db.collection('compras').where('referidorId', '==', currentUser.uid).get();
-            let totalBoletos = 0;
-            comprasQuery.forEach(doc => totalBoletos += doc.data().cantidad || 0);
-            document.getElementById('boletosReferidos').textContent = totalBoletos;
-            document.getElementById('dineroReferidos').textContent = `$${(totalBoletos * COMISION_REFERIDO).toFixed(2)}`;
+            try {
+                const referidosQuery = await db.collection('usuarios').where('referidoPor', '==', currentUser.uid).get();
+                document.getElementById('totalReferidos').textContent = referidosQuery.size;
+                
+                const comprasQuery = await db.collection('compras').where('referidorId', '==', currentUser.uid).where('estado', '==', 'aprobado').get();
+                let totalBoletos = 0, totalDinero = 0;
+                comprasQuery.forEach(doc => {
+                    const d = doc.data();
+                    totalBoletos += d.cantidad || 0;
+                    totalDinero += (d.cantidad || 0) * (d.comisionPorBoleto || 0.10);
+                });
+                document.getElementById('boletosReferidos').textContent = totalBoletos;
+                document.getElementById('dineroReferidos').textContent = `$${totalDinero.toFixed(2)}`;
+            } catch {}
         }
 
         // Admin
@@ -1895,120 +1946,343 @@
             document.getElementById('adminPanel').classList.remove('active');
         }
 
-        function cambiarTabAdmin(tab) {
+        function cambiarTabAdmin(tab, btn) {
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
-            event.target.classList.add('active');
+            btn.classList.add('active');
             document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).style.display = 'block';
+            
             if (tab === 'dashboard') cargarDashboardAdmin();
             if (tab === 'rifas') cargarRifasAdmin();
             if (tab === 'usuarios') cargarUsuariosAdmin();
             if (tab === 'compras') cargarComprasAdmin();
+            if (tab === 'pagos') cargarPagosAdmin();
         }
 
         async function cargarDashboardAdmin() {
-            const [usuariosSnap, rifasSnap, comprasSnap] = await Promise.all([
-                db.collection('usuarios').get(),
-                db.collection('rifas').where('activa', '==', true).get(),
-                db.collection('compras').get()
-            ]);
-            let totalBoletos = 0, totalIngresos = 0, totalComisiones = 0;
-            comprasSnap.forEach(doc => {
-                const d = doc.data();
-                totalBoletos += d.cantidad || 0;
-                totalIngresos += d.total || 0;
-                if (d.referidorId) totalComisiones += (d.cantidad || 0) * COMISION_REFERIDO;
-            });
-            document.getElementById('adminTotalUsuarios').textContent = usuariosSnap.size;
-            document.getElementById('adminTotalRifas').textContent = rifasSnap.size;
-            document.getElementById('adminTotalBoletos').textContent = totalBoletos;
-            document.getElementById('adminTotalIngresos').textContent = `$${totalIngresos.toFixed(2)}`;
-            document.getElementById('adminTotalReferidos').textContent = `$${totalComisiones.toFixed(2)}`;
+            try {
+                const [usuarios, rifas, compras, pagosPend] = await Promise.all([
+                    db.collection('usuarios').get(),
+                    db.collection('rifas').where('activa', '==', true).get(),
+                    db.collection('compras').where('estado', '==', 'aprobado').get(),
+                    db.collection('compras').where('estado', '==', 'pendiente').get()
+                ]);
+                
+                let totalBoletos = 0, totalIngresos = 0, totalComisiones = 0;
+                compras.forEach(doc => {
+                    const d = doc.data();
+                    totalBoletos += d.cantidad || 0;
+                    totalIngresos += d.total || 0;
+                    if (d.referidorId) totalComisiones += (d.cantidad || 0) * (d.comisionPorBoleto || 0.10);
+                });
+                
+                document.getElementById('adminTotalUsuarios').textContent = usuarios.size;
+                document.getElementById('adminTotalRifas').textContent = rifas.size;
+                document.getElementById('adminTotalBoletos').textContent = totalBoletos;
+                document.getElementById('adminTotalIngresos').textContent = `$${totalIngresos.toFixed(2)}`;
+                document.getElementById('adminTotalComisiones').textContent = `$${totalComisiones.toFixed(2)}`;
+                document.getElementById('adminPagosPendientes').textContent = pagosPend.size;
+            } catch {}
         }
 
         async function cargarRifasAdmin() {
             const tbody = document.getElementById('rifasAdminBody');
-            tbody.innerHTML = '<tr><td colspan="5"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
-            const snapshot = await db.collection('rifas').get();
-            tbody.innerHTML = '';
-            snapshot.forEach(doc => {
-                const r = { id: doc.id, ...doc.data() };
-                const status = r.activa ? 'active' : 'inactive';
-                tbody.innerHTML += `<tr><td>${r.icono || '🎁'} ${r.titulo}</td><td>$${r.premio}</td><td>${r.boletosVendidos || 0}/${r.totalBoletos}</td><td><span class="status-badge status-${status}">${r.activa ? 'Activa' : 'Inactiva'}</span></td><td><button class="btn-small btn-edit" onclick="editarRifaAdmin('${r.id}')">Editar</button><button class="btn-small btn-toggle" onclick="toggleRifaAdmin('${r.id}', ${r.activa})">${r.activa ? 'Desact.' : 'Activar'}</button><button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">Eliminar</button></td></tr>`;
-            });
+            tbody.innerHTML = '<tr><td colspan="6"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            try {
+                const snapshot = await db.collection('rifas').get();
+                tbody.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const r = { id: doc.id, ...doc.data() };
+                    const tipoText = r.tipoPremio === 'dinero' ? '💵' : r.tipoPremio === 'objeto' ? '🎁' : '✨';
+                    tbody.innerHTML += `<tr>
+                        <td>${r.icono || '🎁'} ${r.titulo}</td>
+                        <td>${tipoText} ${r.tipoPremio || 'dinero'}</td>
+                        <td>${r.tipoPremio === 'dinero' ? '$' : ''}${r.premio}</td>
+                        <td>${r.boletosVendidos || 0}/${r.totalBoletos}</td>
+                        <td><span class="status-badge ${r.activa ? 'status-active' : 'status-inactive'}">${r.activa ? 'Activa' : 'Inactiva'}</span></td>
+                        <td>
+                            <button class="btn-small btn-edit" onclick="editarRifaAdmin('${r.id}')">Editar</button>
+                            <button class="btn-small btn-toggle" onclick="toggleRifaAdmin('${r.id}', ${r.activa})">${r.activa ? 'Desact.' : 'Activar'}</button>
+                            <button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">Eliminar</button>
+                        </td>
+                    </tr>`;
+                });
+                if (tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay rifas</td></tr>';
+            } catch {}
         }
 
         async function cargarUsuariosAdmin() {
             const tbody = document.getElementById('usuariosAdminBody');
-            tbody.innerHTML = '<tr><td colspan="5"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
-            const snapshot = await db.collection('usuarios').orderBy('fechaRegistro', 'desc').get();
-            tbody.innerHTML = '';
-            snapshot.forEach(doc => {
-                const u = doc.data();
-                const fecha = u.fechaRegistro ? new Date(u.fechaRegistro.toDate()).toLocaleDateString() : 'N/A';
-                tbody.innerHTML += `<tr><td>${u.nombre} ${u.apellido}</td><td>${u.email}</td><td>${u.telefono || 'N/A'}</td><td>${u.totalReferidos || 0}</td><td>${fecha}</td></tr>`;
-            });
+            tbody.innerHTML = '<tr><td colspan="6"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            try {
+                const snapshot = await db.collection('usuarios').get();
+                tbody.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const u = { id: doc.id, ...doc.data() };
+                    tbody.innerHTML += `<tr>
+                        <td>${u.nombre} ${u.apellido}</td>
+                        <td>${u.email}</td>
+                        <td>${u.telefono || 'N/A'}</td>
+                        <td>${u.balanceEmail || 'No configurado'}</td>
+                        <td>${u.totalReferidos || 0}</td>
+                        <td><button class="btn-small btn-view" onclick="verUsuarioAdmin('${u.id}')">Ver</button></td>
+                    </tr>`;
+                });
+            } catch {}
         }
 
         async function cargarComprasAdmin() {
             const tbody = document.getElementById('comprasAdminBody');
             tbody.innerHTML = '<tr><td colspan="6"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
-            const snapshot = await db.collection('compras').orderBy('fecha', 'desc').limit(50).get();
-            tbody.innerHTML = '';
-            snapshot.forEach(doc => {
-                const c = doc.data();
-                const fecha = c.fecha ? new Date(c.fecha.toDate()).toLocaleDateString() : 'N/A';
-                tbody.innerHTML += `<tr><td>${c.usuarioNombre}</td><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td>$${c.total}</td><td>${c.referidorId ? '✅' : '❌'}</td><td>${fecha}</td></tr>`;
-            });
+            try {
+                const snapshot = await db.collection('compras').where('estado', '==', 'aprobado').get();
+                tbody.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const c = doc.data();
+                    const fecha = c.fecha?.toDate ? c.fecha.toDate().toLocaleDateString() : 'N/A';
+                    tbody.innerHTML += `<tr>
+                        <td>${c.usuarioNombre}</td>
+                        <td>${c.rifaTitulo}</td>
+                        <td>${c.cantidad}</td>
+                        <td>$${c.total}</td>
+                        <td><span class="status-badge status-approved">Aprobado</span></td>
+                        <td>${fecha}</td>
+                    </tr>`;
+                });
+                if (tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay compras</td></tr>';
+            } catch {}
+        }
+
+        async function cargarPagosAdmin() {
+            const tbody = document.getElementById('pagosAdminBody');
+            tbody.innerHTML = '<tr><td colspan="7"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            try {
+                const snapshot = await db.collection('compras').where('estado', '==', 'pendiente').get();
+                tbody.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const c = { id: doc.id, ...doc.data() };
+                    const fecha = c.fecha?.toDate ? c.fecha.toDate().toLocaleDateString() : 'N/A';
+                    tbody.innerHTML += `<tr>
+                        <td>${c.usuarioNombre}</td>
+                        <td>${c.rifaTitulo}</td>
+                        <td>${c.cantidad}</td>
+                        <td>$${c.total}</td>
+                        <td><button class="btn-small btn-view" onclick="verComprobante('${c.comprobanteUrl}')">Ver</button></td>
+                        <td>${fecha}</td>
+                        <td>
+                            <button class="btn-small btn-approve" onclick="aprobarPago('${c.id}')">✓ Aprobar</button>
+                            <button class="btn-small btn-reject" onclick="rechazarPago('${c.id}')">✗ Rechazar</button>
+                        </td>
+                    </tr>`;
+                });
+                if (tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hay pagos pendientes 🎉</td></tr>';
+            } catch {}
+        }
+
+        function verComprobante(url) {
+            document.getElementById('comprobanteViewer').src = url;
+            abrirModal('modalVerComprobante');
+        }
+
+        async function aprobarPago(compraId) {
+            if (!confirm('¿Aprobar este pago?')) return;
+            try {
+                const compraDoc = await db.collection('compras').doc(compraId).get();
+                const compra = compraDoc.data();
+                
+                // Actualizar estado
+                await db.collection('compras').doc(compraId).update({ estado: 'aprobado' });
+                
+                // Actualizar boletos vendidos en la rifa
+                await db.collection('rifas').doc(compra.rifaId).update({
+                    boletosVendidos: firebase.firestore.FieldValue.increment(compra.cantidad)
+                });
+                
+                mostrarToast('¡Pago aprobado!', 'success');
+                cargarPagosAdmin();
+                cargarDashboardAdmin();
+                cargarRifas();
+            } catch { mostrarToast('Error', 'error'); }
+        }
+
+        async function rechazarPago(compraId) {
+            if (!confirm('¿Rechazar este pago?')) return;
+            try {
+                await db.collection('compras').doc(compraId).update({ estado: 'rechazado' });
+                mostrarToast('Pago rechazado', 'success');
+                cargarPagosAdmin();
+            } catch { mostrarToast('Error', 'error'); }
+        }
+
+        async function verUsuarioAdmin(userId) {
+            try {
+                const userDoc = await db.collection('usuarios').doc(userId).get();
+                const u = { id: userId, ...userDoc.data() };
+                
+                const comprasQuery = await db.collection('compras').where('usuarioId', '==', userId).get();
+                
+                let html = `
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">${u.avatarUrl ? `<img src="${u.avatarUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : u.nombre?.charAt(0) || '👤'}</div>
+                            <div>
+                                <h3>${u.nombre} ${u.apellido}</h3>
+                                <p style="opacity: 0.7;">${u.email}</p>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                            <p><strong>Teléfono:</strong> ${u.telefono || 'N/A'}</p>
+                            <p><strong>Referidos:</strong> ${u.totalReferidos || 0}</p>
+                            <p><strong>Balance Email:</strong> ${u.balanceEmail || 'No configurado'}</p>
+                            <p><strong>Código:</strong> ${u.codigoReferido}</p>
+                        </div>
+                        <h4 style="margin-top: 1rem;">Compras del Usuario</h4>
+                        <table class="admin-table">
+                            <thead><tr><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th><th>Acciones</th></tr></thead>
+                            <tbody>`;
+                
+                comprasQuery.forEach(doc => {
+                    const c = { id: doc.id, ...doc.data() };
+                    html += `<tr>
+                        <td>${c.rifaTitulo}</td>
+                        <td>${c.cantidad}</td>
+                        <td>$${c.total}</td>
+                        <td><span class="status-badge status-${c.estado === 'aprobado' ? 'approved' : c.estado === 'pendiente' ? 'pending' : 'inactive'}">${c.estado}</span></td>
+                        <td>${c.estado === 'aprobado' ? `<button class="btn-small btn-delete" onclick="reembolsarCompra('${c.id}', '${u.balanceEmail || ''}')">Reembolsar</button>` : '-'}</td>
+                    </tr>`;
+                });
+                
+                html += `</tbody></table></div>`;
+                
+                document.getElementById('detalleUsuarioContent').innerHTML = html;
+                abrirModal('modalVerUsuario');
+            } catch { mostrarToast('Error al cargar', 'error'); }
+        }
+
+        async function reembolsarCompra(compraId, balanceEmail) {
+            if (!balanceEmail) {
+                mostrarToast('Usuario sin correo de balance configurado', 'error');
+                return;
+            }
+            if (!confirm(`¿Reembolsar? El pago se enviará a: ${balanceEmail}`)) return;
+            
+            try {
+                const compraDoc = await db.collection('compras').doc(compraId).get();
+                const compra = compraDoc.data();
+                
+                await db.collection('compras').doc(compraId).update({ estado: 'reembolsado' });
+                await db.collection('rifas').doc(compra.rifaId).update({
+                    boletosVendidos: firebase.firestore.FieldValue.increment(-compra.cantidad)
+                });
+                
+                mostrarToast(`Reembolso marcado. Enviar $${compra.total} a ${balanceEmail}`, 'success');
+                cerrarModal('modalVerUsuario');
+                cargarUsuariosAdmin();
+                cargarRifas();
+            } catch { mostrarToast('Error', 'error'); }
+        }
+
+        // Rifas Admin
+        function toggleComisiones() {
+            comisionesActivas = !comisionesActivas;
+            document.getElementById('toggleComisiones').classList.toggle('active', comisionesActivas);
+            document.getElementById('comisionesConfig').style.display = comisionesActivas ? 'block' : 'none';
+        }
+
+        function abrirModalNuevaRifa() {
+            rifaEditando = null;
+            comisionesActivas = false;
+            document.getElementById('modalRifaTitle').textContent = '➕ Nueva Rifa';
+            document.getElementById('toggleComisiones').classList.remove('active');
+            document.getElementById('comisionesConfig').style.display = 'none';
+            document.querySelector('#modalNuevaRifa form').reset();
+            document.getElementById('rifaIcono').value = '🎁';
+            document.getElementById('rifaPremio').value = '100';
+            document.getElementById('rifaPrecioBoleto').value = '1';
+            document.getElementById('rifaTotalBoletos').value = '100';
+            document.getElementById('rifaDias').value = '7';
+            abrirModal('modalNuevaRifa');
+        }
+
+        async function editarRifaAdmin(id) {
+            try {
+                const doc = await db.collection('rifas').doc(id).get();
+                const r = doc.data();
+                rifaEditando = id;
+                
+                document.getElementById('modalRifaTitle').textContent = '✏️ Editar Rifa';
+                document.getElementById('rifaTitulo').value = r.titulo;
+                document.getElementById('rifaDescripcion').value = r.descripcion || '';
+                document.getElementById('rifaIcono').value = r.icono || '🎁';
+                document.getElementById('rifaTipoPremio').value = r.tipoPremio || 'dinero';
+                document.getElementById('rifaPremio').value = r.premio;
+                document.getElementById('rifaPrecioBoleto').value = r.precioBoleto || 1;
+                document.getElementById('rifaTotalBoletos').value = r.totalBoletos;
+                document.getElementById('rifaDias').value = r.dias || 7;
+                
+                comisionesActivas = r.comisionesActivas || false;
+                document.getElementById('toggleComisiones').classList.toggle('active', comisionesActivas);
+                document.getElementById('comisionesConfig').style.display = comisionesActivas ? 'block' : 'none';
+                document.getElementById('rifaComisionPorcentaje').value = r.comisionPorcentaje || 10;
+                
+                abrirModal('modalNuevaRifa');
+            } catch {}
         }
 
         async function guardarRifa(e) {
             e.preventDefault();
-            const datos = {
-                titulo: document.getElementById('rifaTitulo').value,
-                descripcion: document.getElementById('rifaDescripcion').value,
-                icono: document.getElementById('rifaIcono').value,
-                premio: parseFloat(document.getElementById('rifaPremio').value),
-                precioBoleto: PRECIO_BOLETO,
-                totalBoletos: parseInt(document.getElementById('rifaTotalBoletos').value),
-                dias: parseInt(document.getElementById('rifaDias').value)
-            };
-            if (rifaEditando) {
-                await db.collection('rifas').doc(rifaEditando).update(datos);
-            } else {
-                datos.boletosVendidos = 0;
-                datos.activa = true;
-                datos.finalizada = false;
-                datos.fechaCreacion = firebase.firestore.FieldValue.serverTimestamp();
-                await db.collection('rifas').add(datos);
-            }
-            cerrarModal('modalNuevaRifa');
-            rifaEditando = null;
-            cargarRifasAdmin();
-            cargarRifas();
-            mostrarToast('Rifa guardada', 'success');
-        }
-
-        async function editarRifaAdmin(id) {
-            const doc = await db.collection('rifas').doc(id).get();
-            if (!doc.exists) return;
-            const r = doc.data();
-            rifaEditando = id;
-            document.getElementById('modalRifaTitle').textContent = '✏️ Editar Rifa';
-            document.getElementById('rifaTitulo').value = r.titulo;
-            document.getElementById('rifaDescripcion').value = r.descripcion || '';
-            document.getElementById('rifaIcono').value = r.icono || '🎁';
-            document.getElementById('rifaPremio').value = r.premio;
-            document.getElementById('rifaTotalBoletos').value = r.totalBoletos;
-            document.getElementById('rifaDias').value = r.dias || 7;
-            abrirModal('modalNuevaRifa');
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true; btn.textContent = 'Guardando...';
+            
+            try {
+                let imagenUrl = null;
+                const imagenFile = document.getElementById('rifaImagen').files[0];
+                if (imagenFile) {
+                    const storageRef = storage.ref(`rifas/${Date.now()}_${imagenFile.name}`);
+                    await storageRef.put(imagenFile);
+                    imagenUrl = await storageRef.getDownloadURL();
+                }
+                
+                const datos = {
+                    titulo: document.getElementById('rifaTitulo').value,
+                    descripcion: document.getElementById('rifaDescripcion').value,
+                    icono: document.getElementById('rifaIcono').value,
+                    tipoPremio: document.getElementById('rifaTipoPremio').value,
+                    premio: document.getElementById('rifaPremio').value,
+                    precioBoleto: parseFloat(document.getElementById('rifaPrecioBoleto').value),
+                    totalBoletos: parseInt(document.getElementById('rifaTotalBoletos').value),
+                    dias: parseInt(document.getElementById('rifaDias').value),
+                    comisionesActivas: comisionesActivas,
+                    comisionPorcentaje: comisionesActivas ? parseInt(document.getElementById('rifaComisionPorcentaje').value) : 0
+                };
+                
+                if (imagenUrl) datos.imagenUrl = imagenUrl;
+                
+                if (rifaEditando) {
+                    await db.collection('rifas').doc(rifaEditando).update(datos);
+                } else {
+                    datos.boletosVendidos = 0;
+                    datos.activa = true;
+                    datos.finalizada = false;
+                    datos.fechaCreacion = firebase.firestore.FieldValue.serverTimestamp();
+                    datos.fechaFin = new Date(Date.now() + datos.dias * 24 * 60 * 60 * 1000);
+                    await db.collection('rifas').add(datos);
+                }
+                
+                cerrarModal('modalNuevaRifa');
+                rifaEditando = null;
+                cargarRifasAdmin();
+                cargarRifas();
+                mostrarToast('Rifa guardada', 'success');
+            } catch { mostrarToast('Error', 'error'); }
+            
+            btn.disabled = false; btn.textContent = 'Guardar Rifa';
         }
 
         async function toggleRifaAdmin(id, activa) {
             await db.collection('rifas').doc(id).update({ activa: !activa });
             cargarRifasAdmin();
             cargarRifas();
-            mostrarToast(`Rifa ${activa ? 'desactivada' : 'activada'}`, 'success');
         }
 
         async function eliminarRifaAdmin(id) {
@@ -2016,7 +2290,6 @@
             await db.collection('rifas').doc(id).delete();
             cargarRifasAdmin();
             cargarRifas();
-            mostrarToast('Rifa eliminada', 'success');
         }
 
         // Utils
@@ -2025,15 +2298,8 @@
             if (id === 'modalPerfil') cargarModalPerfil();
             if (id === 'modalEstadisticas') cargarModalEstadisticas();
             if (id === 'modalMisBoletos') cargarModalMisBoletos();
+            if (id === 'modalMisPremios') cargarModalMisPremios();
             if (id === 'modalReferidos') cargarModalReferidos();
-            if (id === 'modalNuevaRifa' && !rifaEditando) {
-                document.getElementById('modalRifaTitle').textContent = '➕ Nueva Rifa';
-                document.querySelector('#modalNuevaRifa form').reset();
-                document.getElementById('rifaIcono').value = '🎁';
-                document.getElementById('rifaPremio').value = '100';
-                document.getElementById('rifaTotalBoletos').value = '100';
-                document.getElementById('rifaDias').value = '7';
-            }
         }
 
         function cerrarModal(id) {
@@ -2061,18 +2327,17 @@
             toast.className = `toast ${tipo}`;
             toast.innerHTML = `<span>${tipo === 'success' ? '✅' : '❌'}</span> ${msg}`;
             document.body.appendChild(toast);
-            setTimeout(() => { toast.style.animation = 'slideInRight 0.3s ease reverse'; setTimeout(() => toast.remove(), 300); }, 3000);
+            setTimeout(() => { toast.remove(); }, 3500);
         }
 
         document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+            modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelector(this.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
