@@ -29,6 +29,26 @@
             overflow-x: hidden;
         }
 
+        /* ARREGLO SELECTS Y INPUTS */
+        select, input, textarea {
+            background-color: #2a2a4e !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        }
+
+        select option {
+            background-color: #2a2a4e !important;
+            color: #ffffff !important;
+            padding: 10px !important;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary) !important;
+        }
+
+        input::placeholder { color: rgba(255, 255, 255, 0.5) !important; }
+
         .background-dots {
             position: fixed;
             top: 0; left: 0;
@@ -54,7 +74,7 @@
         header {
             position: relative;
             z-index: 10;
-            padding: 1rem 5%;
+            padding: 0.8rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -64,7 +84,7 @@
 
         .logo {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -72,50 +92,47 @@
             cursor: pointer;
         }
 
-        nav { display: flex; gap: 1.5rem; align-items: center; }
+        nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
 
         nav a {
             color: var(--light);
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         nav a:hover { color: var(--secondary); }
 
-        .nav-buttons { display: flex; gap: 0.8rem; align-items: center; }
+        .nav-buttons { display: flex; gap: 0.5rem; align-items: center; }
+
+        .btn-login, .btn-register {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
 
         .btn-login {
-            padding: 0.5rem 1.2rem;
             background: transparent;
             border: 2px solid var(--accent);
-            border-radius: 25px;
             color: var(--accent);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.9rem;
         }
 
         .btn-login:hover { background: var(--accent); color: var(--dark); }
 
         .btn-register {
-            padding: 0.5rem 1.2rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
-            border-radius: 25px;
             color: var(--dark);
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
         }
 
         .user-menu { position: relative; display: none; }
         .user-menu.active { display: block; }
 
         .user-avatar {
-            width: 45px; height: 45px;
+            width: 40px; height: 40px;
             border-radius: 50%;
             border: 2px solid var(--primary);
             cursor: pointer;
@@ -123,7 +140,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--dark);
             font-weight: 600;
             overflow: hidden;
@@ -133,12 +150,12 @@
 
         .user-dropdown {
             position: absolute;
-            top: 55px; right: 0;
+            top: 50px; right: 0;
             background: var(--dark);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 1rem;
-            min-width: 280px;
+            min-width: 260px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
@@ -152,14 +169,14 @@
         .user-dropdown-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding-bottom: 1rem;
+            gap: 0.8rem;
+            padding-bottom: 0.8rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 0.5rem;
         }
 
         .dropdown-avatar {
-            width: 50px; height: 50px;
+            width: 45px; height: 45px;
             border-radius: 50%;
             border: 2px solid var(--secondary);
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -171,77 +188,96 @@
 
         .dropdown-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .dropdown-info h4 { font-size: 1rem; color: var(--secondary); }
-        .dropdown-info p { font-size: 0.75rem; opacity: 0.7; }
+        .dropdown-info h4 { font-size: 0.95rem; color: var(--secondary); }
+        .dropdown-info p { font-size: 0.7rem; opacity: 0.7; }
 
         .dropdown-item {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            padding: 0.7rem;
-            border-radius: 10px;
+            gap: 0.7rem;
+            padding: 0.6rem;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .dropdown-item:hover { background: rgba(255, 107, 53, 0.2); }
-        .dropdown-item.admin { color: var(--purple); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 0.5rem; padding-top: 1rem; }
-        .dropdown-item.logout { color: var(--danger); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 0.5rem; padding-top: 1rem; }
-        .dropdown-item.redes { color: var(--accent); }
+        .dropdown-item.admin { color: var(--purple); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 0.5rem; padding-top: 0.8rem; }
+        .dropdown-item.logout { color: var(--danger); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 0.5rem; padding-top: 0.8rem; }
 
         .balance-badge {
             background: linear-gradient(135deg, var(--success), var(--accent));
             color: var(--dark);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
             font-weight: 700;
-            margin-left: 0.5rem;
+            margin-left: auto;
         }
+
+        /* Redes Sociales en Header */
+        .redes-header {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .red-link {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .red-link:hover { opacity: 1; color: var(--secondary); }
 
         .hero {
             position: relative;
             z-index: 5;
             text-align: center;
-            padding: 4rem 5% 2rem;
+            padding: 3rem 5% 2rem;
         }
 
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 4rem;
+            font-size: 3rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 1.5rem; }
+        .hero p { font-size: 1rem; opacity: 0.9; margin-bottom: 1.5rem; }
 
         .hero-features {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1rem;
             flex-wrap: wrap;
             margin-bottom: 1.5rem;
         }
 
         .hero-feature {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1rem 2rem;
-            border-radius: 15px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .hero-feature span { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+        .hero-feature span { font-size: 1.5rem; display: block; margin-bottom: 0.3rem; }
 
         .cta-button {
             display: inline-block;
-            padding: 1rem 3rem;
+            padding: 0.8rem 2rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--dark);
             font-weight: 600;
-            border-radius: 50px;
+            border-radius: 30px;
             border: none;
             cursor: pointer;
             font-size: 1rem;
@@ -257,14 +293,14 @@
 
         .section-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .rifas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
@@ -272,79 +308,75 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
         .rifa-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.2);
         }
 
         .rifa-image {
             width: 100%;
-            height: 180px;
+            height: 160px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
+            font-size: 3.5rem;
             position: relative;
             overflow: hidden;
         }
 
-        .rifa-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .rifa-image img { width: 100%; height: 100%; object-fit: cover; }
 
         .rifa-badge {
             position: absolute;
-            top: 10px; right: 10px;
+            top: 8px; right: 8px;
             background: var(--success);
             color: var(--dark);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
             font-weight: 700;
         }
 
         .rifa-timer {
             position: absolute;
-            bottom: 10px; left: 10px;
+            bottom: 8px; left: 8px;
             background: rgba(0,0,0,0.8);
             color: var(--secondary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
             font-weight: 600;
         }
 
-        .rifa-content { padding: 1.5rem; }
+        .rifa-content { padding: 1.2rem; }
 
         .rifa-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--secondary);
             margin-bottom: 0.3rem;
         }
 
         .rifa-description {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             opacity: 0.8;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .rifa-tipo-badge {
             display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.65rem;
             font-weight: 600;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
 
         .tipo-dinero { background: rgba(6, 255, 165, 0.2); color: var(--success); }
@@ -354,62 +386,62 @@
         .rifa-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
+            padding: 0.8rem;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
         .stat { text-align: center; }
-        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--success); }
-        .stat-label { font-size: 0.7rem; opacity: 0.7; }
+        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--success); }
+        .stat-label { font-size: 0.65rem; opacity: 0.7; }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            border-radius: 6px;
             overflow: hidden;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 10px;
+            border-radius: 6px;
         }
 
         .btn-participar {
             width: 100%;
-            padding: 0.9rem;
+            padding: 0.7rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--dark);
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
         }
 
         .btn-participar:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .ganadores-list { display: grid; gap: 1rem; }
+        .ganadores-list { display: grid; gap: 0.8rem; }
 
         .ganador-item {
             background: rgba(6, 255, 165, 0.1);
             border: 1px solid var(--success);
-            border-radius: 15px;
-            padding: 1.2rem;
+            border-radius: 12px;
+            padding: 1rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
-        .ganador-icon { font-size: 2.5rem; }
+        .ganador-icon { font-size: 2rem; }
         .ganador-info { flex: 1; }
-        .ganador-nombre { font-weight: 600; font-size: 1.1rem; }
-        .ganador-premio { opacity: 0.8; font-size: 0.9rem; }
+        .ganador-nombre { font-weight: 600; font-size: 1rem; }
+        .ganador-premio { opacity: 0.8; font-size: 0.85rem; }
 
         /* Modal */
         .modal {
@@ -423,6 +455,7 @@
             align-items: center;
             justify-content: center;
             padding: 1rem;
+            overflow-y: auto;
         }
 
         .modal.active { display: flex; }
@@ -430,87 +463,106 @@
         .modal-content {
             background: var(--dark);
             border: 2px solid var(--primary);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 500px;
+            border-radius: 15px;
+            padding: 1.5rem;
+            max-width: 480px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            margin: auto;
         }
 
-        .modal-content.wide { max-width: 800px; }
+        .modal-content.wide { max-width: 750px; }
 
         .modal-close {
             position: absolute;
-            top: 1rem; right: 1rem;
+            top: 0.8rem; right: 0.8rem;
             background: none;
             border: none;
             color: var(--light);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
         }
 
         .modal-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
             color: var(--secondary);
             text-align: center;
         }
 
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 600; font-size: 0.85rem; }
         .form-group label .required { color: var(--danger); }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: var(--light);
+            padding: 0.7rem;
+            border-radius: 8px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
-        .form-group input:focus,
-        .form-group select:focus { outline: none; border-color: var(--primary); }
-        .form-group input::placeholder { color: rgba(255, 255, 255, 0.4); }
-
         .phone-input { display: flex; gap: 0.5rem; }
-        .phone-input select { width: 120px; flex-shrink: 0; }
+        .phone-input select { width: 110px; flex-shrink: 0; }
         .phone-input input { flex: 1; }
 
-        .form-hint { font-size: 0.75rem; opacity: 0.6; margin-top: 0.3rem; }
+        .form-hint { font-size: 0.7rem; opacity: 0.6; margin-top: 0.2rem; }
 
         .btn-submit {
             width: 100%;
-            padding: 1rem;
+            padding: 0.8rem;
             background: linear-gradient(135deg, var(--success), var(--accent));
             color: var(--dark);
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             margin-top: 0.5rem;
         }
 
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        .form-link { text-align: center; margin-top: 1rem; font-size: 0.9rem; }
+        .btn-secondary {
+            background: transparent !important;
+            border: 1px solid var(--accent) !important;
+            color: var(--accent) !important;
+        }
+
+        .form-link { text-align: center; margin-top: 0.8rem; font-size: 0.85rem; }
         .form-link a { color: var(--accent); cursor: pointer; text-decoration: underline; }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin: 0;
+        }
 
         .referido-section {
             background: rgba(155, 93, 229, 0.1);
             border: 1px solid var(--purple);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1.2rem;
+            border-radius: 8px;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .referido-section label { color: var(--purple); }
@@ -519,61 +571,61 @@
         .payment-box {
             background: linear-gradient(135deg, rgba(255, 210, 63, 0.1), rgba(255, 107, 53, 0.1));
             border: 2px solid var(--secondary);
-            border-radius: 15px;
-            padding: 1.5rem;
+            border-radius: 12px;
+            padding: 1.2rem;
             text-align: center;
-            margin: 1rem 0;
+            margin: 0.8rem 0;
         }
 
-        .payment-box h4 { color: var(--secondary); margin-bottom: 1rem; font-size: 1.1rem; }
+        .payment-box h4 { color: var(--secondary); margin-bottom: 0.8rem; font-size: 1rem; }
 
         .payment-info {
             background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
+            border-radius: 8px;
+            padding: 0.8rem;
+            margin: 0.8rem 0;
         }
 
-        .payment-info p { margin: 0.5rem 0; font-size: 0.9rem; }
-        .payment-info strong { color: var(--secondary); }
+        .payment-info p { margin: 0.3rem 0; font-size: 0.85rem; }
 
         .payment-email {
             font-family: monospace;
             background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
             display: inline-block;
-            margin: 0.5rem 0;
+            margin: 0.3rem 0;
             cursor: pointer;
+            font-size: 0.9rem;
         }
 
         .file-upload {
             border: 2px dashed rgba(255,255,255,0.3);
-            border-radius: 10px;
-            padding: 1.5rem;
+            border-radius: 8px;
+            padding: 1.2rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 1rem 0;
+            margin: 0.8rem 0;
         }
 
         .file-upload:hover { border-color: var(--primary); background: rgba(255,107,53,0.1); }
         .file-upload.has-file { border-color: var(--success); background: rgba(6,255,165,0.1); }
         .file-upload input { display: none; }
 
-        /* Profile Stats */
-        .profile-header { text-align: center; margin-bottom: 2rem; }
+        /* Profile */
+        .profile-header { text-align: center; margin-bottom: 1.5rem; }
 
         .profile-avatar {
-            width: 100px; height: 100px;
+            width: 80px; height: 80px;
             border-radius: 50%;
             border: 3px solid var(--primary);
-            margin: 0 auto 1rem;
+            margin: 0 auto 0.8rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--dark);
             position: relative;
             cursor: pointer;
@@ -586,8 +638,8 @@
             position: absolute;
             bottom: 0; left: 0; right: 0;
             background: rgba(0, 0, 0, 0.7);
-            padding: 0.3rem;
-            font-size: 0.7rem;
+            padding: 0.2rem;
+            font-size: 0.65rem;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -597,39 +649,39 @@
         .profile-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .profile-stat {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 10px;
+            padding: 0.8rem;
+            border-radius: 8px;
             text-align: center;
         }
 
-        .profile-stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--success); }
-        .profile-stat-label { font-size: 0.8rem; opacity: 0.7; }
+        .profile-stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--success); }
+        .profile-stat-label { font-size: 0.75rem; opacity: 0.7; }
 
         .referral-box {
             background: linear-gradient(135deg, rgba(155, 93, 229, 0.2), rgba(0, 180, 216, 0.2));
             border: 1px solid var(--purple);
-            border-radius: 15px;
-            padding: 1.5rem;
+            border-radius: 12px;
+            padding: 1.2rem;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .referral-box h4 { color: var(--purple); margin-bottom: 0.5rem; }
+        .referral-box h4 { color: var(--purple); margin-bottom: 0.4rem; font-size: 0.9rem; }
 
         .referral-code {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
-            letter-spacing: 5px;
+            font-size: 2rem;
+            letter-spacing: 4px;
             color: var(--secondary);
             background: rgba(0, 0, 0, 0.3);
-            padding: 0.5rem 1.5rem;
-            border-radius: 10px;
+            padding: 0.4rem 1.2rem;
+            border-radius: 8px;
             display: inline-block;
             cursor: pointer;
         }
@@ -637,20 +689,20 @@
         .referral-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
         }
 
         .referral-stat { text-align: center; }
-        .referral-stat-value { font-weight: 700; color: var(--success); font-size: 1.2rem; }
-        .referral-stat-label { font-size: 0.7rem; opacity: 0.7; }
+        .referral-stat-value { font-weight: 700; color: var(--success); font-size: 1.1rem; }
+        .referral-stat-label { font-size: 0.65rem; opacity: 0.7; }
 
         /* Admin Panel */
         .admin-panel {
             display: none;
             position: relative;
             z-index: 5;
-            padding: 2rem 5%;
+            padding: 1.5rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -661,80 +713,87 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         .admin-tabs {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
             flex-wrap: wrap;
         }
 
         .admin-tab {
-            padding: 0.8rem 1.5rem;
+            padding: 0.6rem 1rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
         }
 
         .admin-tab.active { background: var(--primary); border-color: var(--primary); }
         .admin-tab:hover { background: rgba(255, 107, 53, 0.3); }
+        .admin-tab .badge {
+            background: var(--danger);
+            color: white;
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 0.3rem;
+        }
 
         .admin-content {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 15px;
+            padding: 1.2rem;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .stat-card {
             background: rgba(0, 0, 0, 0.3);
-            padding: 1.2rem;
-            border-radius: 15px;
+            padding: 1rem;
+            border-radius: 12px;
             text-align: center;
         }
 
-        .stat-card-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--success); }
-        .stat-card-label { opacity: 0.8; font-size: 0.8rem; }
+        .stat-card-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--success); }
+        .stat-card-label { opacity: 0.8; font-size: 0.75rem; }
 
         .admin-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
         }
 
         .admin-table th,
         .admin-table td {
-            padding: 0.8rem;
+            padding: 0.6rem;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.85rem;
         }
 
-        .admin-table th { background: rgba(0, 0, 0, 0.3); font-weight: 600; }
-        .admin-table tr:hover { background: rgba(255, 255, 255, 0.02); }
+        .admin-table th { background: rgba(0, 0, 0, 0.3); font-weight: 600; font-size: 0.75rem; }
 
         .btn-small {
-            padding: 0.4rem 0.8rem;
+            padding: 0.3rem 0.6rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             margin: 0.1rem;
         }
 
@@ -746,19 +805,20 @@
         .btn-view { background: var(--purple); color: var(--light); }
 
         .btn-nuevo {
-            padding: 0.8rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             background: linear-gradient(135deg, var(--success), var(--accent));
             color: var(--dark);
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
+            font-size: 0.85rem;
         }
 
         .status-badge {
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.65rem;
             font-weight: 600;
         }
 
@@ -766,19 +826,17 @@
         .status-inactive { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
         .status-pending { background: rgba(255, 167, 38, 0.2); color: var(--warning); }
         .status-approved { background: rgba(6, 255, 165, 0.2); color: var(--success); }
-        .status-rejected { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
 
         /* Toggle Switch */
-        .toggle-container { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0; }
+        .toggle-container { display: flex; align-items: center; gap: 0.5rem; margin: 0.4rem 0; }
 
         .toggle {
             position: relative;
-            width: 50px;
-            height: 26px;
+            width: 44px;
+            height: 24px;
             background: rgba(255,255,255,0.2);
-            border-radius: 13px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: background 0.3s ease;
         }
 
         .toggle.active { background: var(--success); }
@@ -786,31 +844,31 @@
         .toggle::after {
             content: '';
             position: absolute;
-            top: 3px; left: 3px;
+            top: 2px; left: 2px;
             width: 20px; height: 20px;
             background: white;
             border-radius: 50%;
             transition: transform 0.3s ease;
         }
 
-        .toggle.active::after { transform: translateX(24px); }
+        .toggle.active::after { transform: translateX(20px); }
 
         /* Boletos Selector */
         .boletos-selector {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
+            gap: 0.8rem;
+            margin: 0.8rem 0;
         }
 
         .btn-cantidad {
-            width: 45px; height: 45px;
+            width: 40px; height: 40px;
             background: var(--primary);
             color: var(--light);
             border: none;
-            border-radius: 10px;
-            font-size: 1.5rem;
+            border-radius: 8px;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -819,51 +877,96 @@
 
         .cantidad-display {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            min-width: 60px;
+            font-size: 1.8rem;
+            min-width: 50px;
             text-align: center;
         }
-
-        /* Redes Sociales */
-        .redes-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .red-social {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            text-decoration: none;
-            color: var(--light);
-            transition: all 0.3s ease;
-        }
-
-        .red-social:hover { background: rgba(255,255,255,0.1); transform: translateX(5px); }
-        .red-social-icon { font-size: 2rem; }
-        .red-social-info h4 { color: var(--secondary); }
-        .red-social-info p { font-size: 0.85rem; opacity: 0.7; }
 
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 3rem;
+            padding: 2rem;
             opacity: 0.7;
         }
 
-        .empty-state span { font-size: 3rem; display: block; margin-bottom: 1rem; }
+        .empty-state span { font-size: 2.5rem; display: block; margin-bottom: 0.8rem; }
 
-        /* Comprobante Preview */
-        .comprobante-preview {
-            max-width: 200px;
-            max-height: 200px;
-            border-radius: 10px;
-            margin: 1rem auto;
-            display: block;
+        /* Soporte Flotante */
+        .support-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .support-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .support-btn:hover { transform: scale(1.1); }
+
+        .support-chat {
+            position: absolute;
+            bottom: 65px;
+            right: 0;
+            width: 300px;
+            background: var(--dark);
+            border: 1px solid var(--accent);
+            border-radius: 15px;
+            overflow: hidden;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .support-chat.show { display: block; }
+
+        .support-chat-header {
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            padding: 0.8rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .support-chat-body {
+            padding: 1rem;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .support-chat-footer {
+            padding: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .support-chat-footer textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 8px;
+            resize: none;
+            height: 60px;
+            margin-bottom: 0.5rem;
+        }
+
+        .support-chat-footer button {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         /* Footer */
@@ -871,16 +974,17 @@
             position: relative;
             z-index: 5;
             text-align: center;
-            padding: 2rem 5%;
+            padding: 1.5rem 5%;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 3rem;
+            margin-top: 2rem;
+            font-size: 0.85rem;
         }
 
-        .loading { display: flex; align-items: center; justify-content: center; padding: 3rem; }
+        .loading { display: flex; align-items: center; justify-content: center; padding: 2rem; }
 
         .spinner {
-            width: 40px; height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
+            width: 35px; height: 35px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -890,55 +994,144 @@
 
         .toast {
             position: fixed;
-            bottom: 20px; right: 20px;
+            bottom: 20px; left: 20px;
             background: var(--dark);
             border: 1px solid var(--primary);
             border-radius: 10px;
-            padding: 1rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             z-index: 2000;
-            animation: slideInRight 0.3s ease;
-            max-width: 350px;
+            max-width: 300px;
+            font-size: 0.85rem;
         }
 
         .toast.success { border-color: var(--success); }
         .toast.error { border-color: var(--danger); }
 
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Tabs inside modal */
+        /* Modal Tabs */
         .modal-tabs {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
         }
 
         .modal-tab {
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             background: transparent;
             border: none;
             color: var(--light);
             cursor: pointer;
             opacity: 0.6;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .modal-tab.active { opacity: 1; border-bottom: 2px solid var(--primary); }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 1rem; }
-            nav { flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 2.5rem; }
+            header { 
+                flex-direction: column; 
+                gap: 0.8rem; 
+                padding: 0.6rem 3%;
+            }
+            
+            nav { 
+                width: 100%;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .redes-header { display: none; }
+            
+            .hero { padding: 2rem 3% 1.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 0.9rem; }
+            
+            .hero-features { gap: 0.5rem; }
+            .hero-feature { 
+                padding: 0.5rem 1rem; 
+                font-size: 0.8rem;
+            }
+            .hero-feature span { font-size: 1.2rem; }
+            
+            .section { padding: 1.5rem 3%; }
+            .section-title { font-size: 1.6rem; }
+            
+            .rifas-grid { grid-template-columns: 1fr; gap: 1rem; }
+            
             .form-row { grid-template-columns: 1fr; }
-            .rifas-grid { grid-template-columns: 1fr; }
+            
+            .modal-content { 
+                padding: 1.2rem; 
+                margin: 0.5rem;
+                max-height: 95vh;
+            }
+            
+            .modal-title { font-size: 1.4rem; }
+            
+            .admin-tabs { 
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 0.5rem;
+            }
+            
+            .admin-tab { 
+                white-space: nowrap;
+                font-size: 0.75rem;
+                padding: 0.5rem 0.8rem;
+            }
+            
+            .admin-table { font-size: 0.7rem; }
+            .admin-table th, .admin-table td { padding: 0.4rem; }
+            
+            .btn-small { 
+                padding: 0.25rem 0.4rem; 
+                font-size: 0.65rem; 
+            }
+            
+            .support-chat { 
+                width: 280px; 
+                right: -10px;
+            }
+            
+            .support-bubble { bottom: 15px; right: 15px; }
+            .support-btn { width: 50px; height: 50px; font-size: 1.3rem; }
+            
+            .profile-stats { grid-template-columns: 1fr 1fr; }
+            .referral-stats { grid-template-columns: repeat(3, 1fr); }
+            
+            .user-dropdown { 
+                min-width: 240px;
+                right: -50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo { font-size: 1.6rem; }
+            
+            .nav-buttons { gap: 0.3rem; }
+            .btn-login, .btn-register { 
+                padding: 0.3rem 0.7rem; 
+                font-size: 0.75rem; 
+            }
+            
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .rifa-image { height: 140px; }
+            .rifa-title { font-size: 1.1rem; }
         }
 
         .auth-buttons.hidden { display: none; }
+
+        /* Comprobante Preview */
+        .comprobante-preview {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 8px;
+            margin: 0.5rem auto;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -950,6 +1143,11 @@
             <a href="#rifas">Rifas</a>
             <a href="#ganadores">Ganadores</a>
             <a href="#como-funciona">¿Cómo funciona?</a>
+            
+            <!-- Redes en header -->
+            <div class="redes-header">
+                <a href="https://www.instagram.com/mal_ave_/" target="_blank" class="red-link">📸 @mal_ave_</a>
+            </div>
             
             <div class="nav-buttons auth-buttons" id="authButtons">
                 <button class="btn-login" onclick="abrirModal('modalLogin')">Iniciar Sesión</button>
@@ -986,9 +1184,6 @@
                         <span>🤝</span> Mis Referidos
                         <span class="balance-badge" id="balanceReferidos">$0.00</span>
                     </div>
-                    <div class="dropdown-item redes" onclick="abrirModal('modalRedes')">
-                        <span>🌐</span> Redes Sociales
-                    </div>
                     <div class="dropdown-item admin" id="adminMenuItem" style="display: none;" onclick="mostrarPanelAdmin()">
                         <span>⚙️</span> Panel Admin
                     </div>
@@ -1010,6 +1205,11 @@
                 <div class="hero-feature"><span>🤝</span><strong>$0.10</strong><small>por referido</small></div>
             </div>
             <button class="cta-button" onclick="abrirModal('modalRegistro')">¡Participa Ahora!</button>
+            <div style="margin-top: 1rem;">
+                <a href="https://www.instagram.com/mal_ave_/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;">
+                    📸 Síguenos en Instagram: @mal_ave_
+                </a>
+            </div>
         </section>
 
         <section class="section" id="rifas">
@@ -1031,23 +1231,23 @@
             <div class="rifas-grid">
                 <div class="rifa-card">
                     <div class="rifa-content" style="text-align: center;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">1️⃣</div>
-                        <h3 style="color: var(--secondary);">Regístrate</h3>
-                        <p style="opacity: 0.8;">Crea tu cuenta gratis y obtén tu código de referido único.</p>
+                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">1️⃣</div>
+                        <h3 style="color: var(--secondary); font-size: 1.1rem;">Regístrate</h3>
+                        <p style="opacity: 0.8; font-size: 0.85rem;">Crea tu cuenta y verifica tu identidad.</p>
                     </div>
                 </div>
                 <div class="rifa-card">
                     <div class="rifa-content" style="text-align: center;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">2️⃣</div>
-                        <h3 style="color: var(--secondary);">Compra Boletos</h3>
-                        <p style="opacity: 0.8;">Transfiere a Binance y adjunta tu comprobante.</p>
+                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">2️⃣</div>
+                        <h3 style="color: var(--secondary); font-size: 1.1rem;">Compra Boletos</h3>
+                        <p style="opacity: 0.8; font-size: 0.85rem;">Paga por Binance y adjunta tu comprobante.</p>
                     </div>
                 </div>
                 <div class="rifa-card">
                     <div class="rifa-content" style="text-align: center;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">3️⃣</div>
-                        <h3 style="color: var(--secondary);">¡Gana!</h3>
-                        <p style="opacity: 0.8;">Espera el sorteo y gana hasta $100 USD. ¡Así de fácil!</p>
+                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">3️⃣</div>
+                        <h3 style="color: var(--secondary); font-size: 1.1rem;">¡Gana!</h3>
+                        <p style="opacity: 0.8; font-size: 0.85rem;">Espera el sorteo y gana hasta $100 USD.</p>
                     </div>
                 </div>
             </div>
@@ -1057,62 +1257,95 @@
     <!-- Admin Panel -->
     <section class="admin-panel" id="adminPanel">
         <div class="admin-header">
-            <h2 class="section-title" style="margin: 0;">⚙️ Panel de Administración</h2>
+            <h2 class="section-title" style="margin: 0; font-size: 1.5rem;">⚙️ Panel Admin</h2>
             <button class="btn-login" onclick="cerrarPanelAdmin()">← Volver</button>
         </div>
-        <div class="admin-tabs">
-            <div class="admin-tab active" onclick="cambiarTabAdmin('dashboard', this)">Dashboard</div>
-            <div class="admin-tab" onclick="cambiarTabAdmin('rifas', this)">Rifas</div>
-            <div class="admin-tab" onclick="cambiarTabAdmin('usuarios', this)">Usuarios</div>
-            <div class="admin-tab" onclick="cambiarTabAdmin('compras', this)">Compras</div>
-            <div class="admin-tab" onclick="cambiarTabAdmin('pagos', this)">📥 Pagos Pendientes</div>
+        <div class="admin-tabs" id="adminTabs">
+            <div class="admin-tab active" onclick="cambiarTabAdmin('dashboard', this)">📊 Dashboard</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('cuentas', this)">👤 Activar Cuentas <span class="badge" id="badgeCuentas">0</span></div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('pagos', this)">💳 Verificar Pagos <span class="badge" id="badgePagos">0</span></div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('rifas', this)">🎰 Rifas</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('usuarios', this)">👥 Usuarios</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('compras', this)">🛒 Compras</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('soporte', this)">💬 Soporte <span class="badge" id="badgeSoporte">0</span></div>
         </div>
         <div class="admin-content">
             <div id="tabDashboard" class="admin-tab-content">
-                <div class="stats-grid">
-                    <div class="stat-card"><div class="stat-card-value" id="adminTotalUsuarios">0</div><div class="stat-card-label">Usuarios</div></div>
-                    <div class="stat-card"><div class="stat-card-value" id="adminTotalRifas">0</div><div class="stat-card-label">Rifas Activas</div></div>
-                    <div class="stat-card"><div class="stat-card-value" id="adminTotalBoletos">0</div><div class="stat-card-label">Boletos Vendidos</div></div>
-                    <div class="stat-card"><div class="stat-card-value" id="adminTotalIngresos">$0</div><div class="stat-card-label">Ingresos</div></div>
-                    <div class="stat-card"><div class="stat-card-value" id="adminTotalComisiones">$0</div><div class="stat-card-label">Comisiones</div></div>
-                    <div class="stat-card"><div class="stat-card-value" id="adminPagosPendientes">0</div><div class="stat-card-label">Pagos Pendientes</div></div>
-                </div>
+                <div class="stats-grid" id="dashboardStats"></div>
+            </div>
+            <div id="tabCuentas" class="admin-tab-content" style="display: none;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">👤 Cuentas Pendientes de Activación</h3>
+                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Documento</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="cuentasAdminBody"></tbody></table></div>
+            </div>
+            <div id="tabPagos" class="admin-tab-content" style="display: none;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">💳 Pagos Pendientes de Verificación</h3>
+                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Boletos</th><th>Total</th><th>ID Orden</th><th>Comprobante</th><th>Acciones</th></tr></thead><tbody id="pagosAdminBody"></tbody></table></div>
             </div>
             <div id="tabRifas" class="admin-tab-content" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
-                    <h3>Gestión de Rifas</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                    <h3 style="font-size: 1rem;">🎰 Gestión de Rifas</h3>
                     <button class="btn-nuevo" onclick="abrirModalNuevaRifa()">+ Nueva Rifa</button>
                 </div>
                 <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Rifa</th><th>Tipo</th><th>Premio</th><th>Boletos</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="rifasAdminBody"></tbody></table></div>
             </div>
             <div id="tabUsuarios" class="admin-tab-content" style="display: none;">
-                <h3 style="margin-bottom: 1rem;">Usuarios</h3>
-                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Teléfono</th><th>Balance Email</th><th>Referidos</th><th>Acciones</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table></div>
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">👥 Usuarios Activos</h3>
+                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Teléfono</th><th>Referidos</th><th>Acciones</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table></div>
             </div>
             <div id="tabCompras" class="admin-tab-content" style="display: none;">
-                <h3 style="margin-bottom: 1rem;">Compras Aprobadas</h3>
-                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th><th>Fecha</th></tr></thead><tbody id="comprasAdminBody"></tbody></table></div>
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">🛒 Compras Aprobadas</h3>
+                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Boletos</th><th>Total</th><th>Fecha</th></tr></thead><tbody id="comprasAdminBody"></tbody></table></div>
             </div>
-            <div id="tabPagos" class="admin-tab-content" style="display: none;">
-                <h3 style="margin-bottom: 1rem;">📥 Pagos Pendientes de Aprobación</h3>
-                <div style="overflow-x: auto;"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Boletos</th><th>Total</th><th>Comprobante</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="pagosAdminBody"></tbody></table></div>
+            <div id="tabSoporte" class="admin-tab-content" style="display: none;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">💬 Mensajes de Soporte</h3>
+                <div id="soporteAdminBody"></div>
             </div>
         </div>
     </section>
+
+    <!-- Soporte Flotante -->
+    <div class="support-bubble">
+        <button class="support-btn" onclick="toggleSupportChat()">💬</button>
+        <div class="support-chat" id="supportChat">
+            <div class="support-chat-header">💬 Soporte Técnico</div>
+            <div class="support-chat-body">
+                <p style="font-size: 0.85rem; opacity: 0.8;">¿Tienes dudas o encontraste un error? Escríbenos y te responderemos pronto.</p>
+            </div>
+            <div class="support-chat-footer">
+                <textarea id="soporteMensaje" placeholder="Escribe tu mensaje..."></textarea>
+                <button onclick="enviarSoporte()">Enviar Mensaje</button>
+            </div>
+        </div>
+    </div>
 
     <!-- MODALES -->
     
     <!-- Login -->
     <div class="modal" id="modalLogin">
-        <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-content" style="max-width: 380px;">
             <button class="modal-close" onclick="cerrarModal('modalLogin')">×</button>
             <h3 class="modal-title">🔐 Iniciar Sesión</h3>
             <form onsubmit="iniciarSesion(event)">
                 <div class="form-group"><label>Correo <span class="required">*</span></label><input type="email" id="loginEmail" required placeholder="tu@email.com"></div>
                 <div class="form-group"><label>Contraseña <span class="required">*</span></label><input type="password" id="loginPassword" required placeholder="••••••••"></div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="recordarUsuario">
+                    <label for="recordarUsuario">Recordar mi usuario</label>
+                </div>
                 <button type="submit" class="btn-submit" id="btnLogin">Iniciar Sesión</button>
             </form>
             <div class="form-link">¿No tienes cuenta? <a onclick="cambiarModal('modalLogin', 'modalRegistro')">Regístrate</a></div>
+        </div>
+    </div>
+
+    <!-- Cuenta Pendiente -->
+    <div class="modal" id="modalCuentaPendiente">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <h3 class="modal-title">⏳ Cuenta en Verificación</h3>
+            <div style="font-size: 4rem; margin: 1rem 0;">🔍</div>
+            <p style="margin-bottom: 1rem;">Tu cuenta está siendo verificada por nuestro equipo. Este proceso puede tomar hasta 24 horas.</p>
+            <p style="font-size: 0.85rem; opacity: 0.7;">Recibirás acceso una vez que confirmemos tu identidad.</p>
+            <button class="btn-submit btn-secondary" onclick="cerrarModal('modalCuentaPendiente')" style="margin-top: 1rem;">Entendido</button>
         </div>
     </div>
 
@@ -1132,9 +1365,15 @@
                     <label>Teléfono <span class="required">*</span></label>
                     <div class="phone-input">
                         <select id="regCodigoPais">
-                            <option value="+1">🇺🇸 +1</option><option value="+52">🇲🇽 +52</option><option value="+54">🇦🇷 +54</option>
-                            <option value="+55">🇧🇷 +55</option><option value="+56">🇨🇱 +56</option><option value="+57">🇨🇴 +57</option>
-                            <option value="+58">🇻🇪 +58</option><option value="+34">🇪🇸 +34</option><option value="+51">🇵🇪 +51</option>
+                            <option value="+1">🇺🇸 +1</option>
+                            <option value="+52">🇲🇽 +52</option>
+                            <option value="+54">🇦🇷 +54</option>
+                            <option value="+55">🇧🇷 +55</option>
+                            <option value="+56">🇨🇱 +56</option>
+                            <option value="+57">🇨🇴 +57</option>
+                            <option value="+58">🇻🇪 +58</option>
+                            <option value="+34">🇪🇸 +34</option>
+                            <option value="+51">🇵🇪 +51</option>
                         </select>
                         <input type="tel" id="regTelefono" required placeholder="Número">
                     </div>
@@ -1142,6 +1381,15 @@
                 <div class="form-row">
                     <div class="form-group"><label>Contraseña <span class="required">*</span></label><input type="password" id="regPassword" required minlength="6"></div>
                     <div class="form-group"><label>Confirmar <span class="required">*</span></label><input type="password" id="regPasswordConfirm" required></div>
+                </div>
+                <div class="form-group">
+                    <label>📄 Documento de Identidad <span class="required">*</span></label>
+                    <div class="file-upload" id="docUploadZone" onclick="document.getElementById('docIdentidadInput').click()">
+                        <span>📄</span>
+                        <p id="docUploadText">Click para subir (INE, Cédula, Pasaporte)</p>
+                    </div>
+                    <input type="file" id="docIdentidadInput" accept="image/*,.pdf" style="display: none;" onchange="previewDocumento(event)">
+                    <p class="form-hint">Requerido para verificar que eres mayor de 18 años</p>
                 </div>
                 <div class="referido-section">
                     <div class="form-group" style="margin: 0;">
@@ -1157,17 +1405,17 @@
 
     <!-- Perfil -->
     <div class="modal" id="modalPerfil">
-        <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-content" style="max-width: 420px;">
             <button class="modal-close" onclick="cerrarModal('modalPerfil')">×</button>
             <h3 class="modal-title">👤 Mi Perfil</h3>
             <div class="profile-header">
                 <div class="profile-avatar" onclick="document.getElementById('avatarInput').click()">
                     <span id="profileAvatarContent">👤</span>
-                    <div class="edit-overlay">📷 Cambiar</div>
+                    <div class="edit-overlay">📷</div>
                 </div>
                 <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="cambiarAvatar(event)">
-                <h3 id="profileNombreCompleto">Usuario</h3>
-                <p style="opacity: 0.7;" id="profileEmail">email@ejemplo.com</p>
+                <h3 id="profileNombreCompleto" style="font-size: 1.1rem;">Usuario</h3>
+                <p style="opacity: 0.7; font-size: 0.85rem;" id="profileEmail">email@ejemplo.com</p>
             </div>
             <form onsubmit="actualizarPerfil(event)">
                 <div class="form-row">
@@ -1176,9 +1424,8 @@
                 </div>
                 <div class="form-group"><label>Teléfono</label><input type="tel" id="editTelefono" readonly style="opacity: 0.6;"></div>
                 <div class="form-group">
-                    <label>📧 Correo de Balance (para reembolsos)</label>
+                    <label>📧 Correo Binance (para reembolsos)</label>
                     <input type="email" id="editBalanceEmail" placeholder="correo@binance.com">
-                    <p class="form-hint">Este correo se usará para reembolsos vía Binance</p>
                 </div>
                 <button type="submit" class="btn-submit">Guardar Cambios</button>
             </form>
@@ -1187,7 +1434,7 @@
 
     <!-- Estadísticas -->
     <div class="modal" id="modalEstadisticas">
-        <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-content" style="max-width: 400px;">
             <button class="modal-close" onclick="cerrarModal('modalEstadisticas')">×</button>
             <h3 class="modal-title">📊 Mis Estadísticas</h3>
             <div class="profile-stats">
@@ -1217,95 +1464,82 @@
     <div class="modal" id="modalMisPremios">
         <div class="modal-content">
             <button class="modal-close" onclick="cerrarModal('modalMisPremios')">×</button>
-            <h3 class="modal-title">🏆 Mis Premios Ganados</h3>
+            <h3 class="modal-title">🏆 Mis Premios</h3>
             <div id="listaMisPremios"></div>
         </div>
     </div>
 
     <!-- Referidos -->
     <div class="modal" id="modalReferidos">
-        <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-content" style="max-width: 400px;">
             <button class="modal-close" onclick="cerrarModal('modalReferidos')">×</button>
             <h3 class="modal-title">🤝 Mis Referidos</h3>
             <div class="referral-box">
                 <h4>Tu Código de Referido</h4>
                 <div class="referral-code" id="miCodigoReferido" onclick="copiarCodigoReferido()">------</div>
-                <p style="font-size: 0.8rem; opacity: 0.7;">Click para copiar</p>
+                <p style="font-size: 0.75rem; opacity: 0.7;">Click para copiar</p>
                 <div class="referral-stats">
                     <div class="referral-stat"><div class="referral-stat-value" id="totalReferidos">0</div><div class="referral-stat-label">Referidos</div></div>
-                    <div class="referral-stat"><div class="referral-stat-value" id="boletosReferidos">0</div><div class="referral-stat-label">Sus Boletos</div></div>
-                    <div class="referral-stat"><div class="referral-stat-value" id="dineroReferidos">$0.00</div><div class="referral-stat-label">Ganado</div></div>
+                    <div class="referral-stat"><div class="referral-stat-value" id="boletosReferidos">0</div><div class="referral-stat-label">Boletos</div></div>
+                    <div class="referral-stat"><div class="referral-stat-value" id="dineroReferidos">$0</div><div class="referral-stat-label">Ganado</div></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Redes Sociales -->
-    <div class="modal" id="modalRedes">
-        <div class="modal-content" style="max-width: 450px;">
-            <button class="modal-close" onclick="cerrarModal('modalRedes')">×</button>
-            <h3 class="modal-title">🌐 Redes Sociales</h3>
-            <p style="text-align: center; margin-bottom: 1.5rem; opacity: 0.8;">Síguenos para verificar la autenticidad del proyecto</p>
-            <div class="redes-container">
-                <a href="https://www.instagram.com/mal_ave_/" target="_blank" class="red-social">
-                    <div class="red-social-icon">📸</div>
-                    <div class="red-social-info">
-                        <h4>Instagram</h4>
-                        <p>@mal_ave_</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Participar / Comprar -->
+    <!-- Participar -->
     <div class="modal" id="modalParticipar">
-        <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-content" style="max-width: 420px;">
             <button class="modal-close" onclick="cerrarModal('modalParticipar')">×</button>
             <h3 class="modal-title" id="modalParticiparTitle">🎟️ Comprar Boletos</h3>
             
             <div id="pasoSeleccion">
-                <div style="text-align: center; margin-bottom: 1rem;"><p>Precio: <strong style="color: var(--success);" id="precioBoletoPaso1">$1 USD</strong></p></div>
+                <div style="text-align: center; margin-bottom: 0.8rem;"><p>Precio: <strong style="color: var(--success);" id="precioBoletoPaso1">$1 USD</strong></p></div>
                 <div class="boletos-selector">
                     <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(-1)">−</button>
                     <div class="cantidad-display" id="cantidadBoletosDisplay">1</div>
                     <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(1)">+</button>
                 </div>
-                <div style="text-align: center; margin: 1rem 0;">
-                    <p>Total a pagar:</p>
-                    <p style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--secondary);" id="totalPagarBoletos">$1.00</p>
+                <div style="text-align: center; margin: 0.8rem 0;">
+                    <p style="font-size: 0.9rem;">Total:</p>
+                    <p style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--secondary);" id="totalPagarBoletos">$1.00</p>
                 </div>
-                <button class="btn-submit" onclick="irPasoPago()">Continuar al Pago →</button>
+                <button class="btn-submit" onclick="irPasoPago()">Continuar →</button>
             </div>
 
             <div id="pasoPago" style="display: none;">
                 <div class="payment-box">
-                    <h4>💳 Datos de Pago - Binance</h4>
+                    <h4>💳 Pago por Binance</h4>
                     <div class="payment-info">
-                        <p>Envía el monto exacto a:</p>
+                        <p>Envía a:</p>
                         <div class="payment-email" onclick="copiarEmailPago()">Fabricio9061@gmail.com</div>
-                        <p style="font-size: 0.8rem; opacity: 0.7;">Click para copiar</p>
-                        <p style="margin-top: 1rem;"><strong>Monto:</strong> <span id="montoPagar" style="color: var(--success); font-size: 1.2rem;">$1.00 USD</span></p>
+                        <p style="font-size: 0.75rem; opacity: 0.7;">Click para copiar</p>
+                        <p style="margin-top: 0.5rem;"><strong>Monto:</strong> <span id="montoPagar" style="color: var(--success);">$1.00</span></p>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label>📎 Adjuntar Comprobante de Pago <span class="required">*</span></label>
+                    <label>🔢 ID de la Orden (Binance) <span class="required">*</span></label>
+                    <input type="text" id="idOrdenPago" required placeholder="Ej: 123456789">
+                </div>
+                
+                <div class="form-group">
+                    <label>📎 Comprobante de Pago <span class="required">*</span></label>
                     <div class="file-upload" id="fileUploadZone" onclick="document.getElementById('comprobanteInput').click()">
                         <span>📄</span>
-                        <p id="fileUploadText">Click para subir imagen o PDF</p>
+                        <p id="fileUploadText">Click para subir</p>
                     </div>
                     <input type="file" id="comprobanteInput" accept="image/*,.pdf" style="display: none;" onchange="previewComprobante(event)">
                     <img id="comprobantePreview" class="comprobante-preview" style="display: none;">
                 </div>
 
                 <button class="btn-submit" onclick="enviarComprobante()" id="btnEnviarComprobante">Enviar Comprobante</button>
-                <button class="btn-submit" style="background: transparent; border: 1px solid var(--accent); color: var(--accent); margin-top: 0.5rem;" onclick="volverPasoSeleccion()">← Volver</button>
+                <button class="btn-submit btn-secondary" onclick="volverPasoSeleccion()" style="margin-top: 0.5rem;">← Volver</button>
             </div>
         </div>
     </div>
 
-    <!-- Nueva/Editar Rifa Admin -->
+    <!-- Nueva Rifa Admin -->
     <div class="modal" id="modalNuevaRifa">
         <div class="modal-content wide">
             <button class="modal-close" onclick="cerrarModal('modalNuevaRifa')">×</button>
@@ -1325,32 +1559,28 @@
                 <div class="form-group"><label>Descripción</label><textarea id="rifaDescripcion" rows="2"></textarea></div>
                 <div class="form-row">
                     <div class="form-group"><label>Ícono (emoji)</label><input type="text" id="rifaIcono" value="🎁"></div>
-                    <div class="form-group"><label>Premio (USD o descripción)</label><input type="text" id="rifaPremio" value="100"></div>
+                    <div class="form-group"><label>Premio</label><input type="text" id="rifaPremio" value="100"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>Precio Boleto (USD)</label><input type="number" id="rifaPrecioBoleto" value="1" min="0.1" step="0.1"></div>
+                    <div class="form-group"><label>Precio Boleto ($)</label><input type="number" id="rifaPrecioBoleto" value="1" min="0.1" step="0.1"></div>
                     <div class="form-group"><label>Total Boletos</label><input type="number" id="rifaTotalBoletos" value="100" min="10"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>Días de Duración</label><input type="number" id="rifaDias" value="7" min="1"></div>
-                    <div class="form-group">
-                        <label>Imagen/Flyer</label>
-                        <input type="file" id="rifaImagen" accept="image/*">
-                    </div>
+                    <div class="form-group"><label>Días</label><input type="number" id="rifaDias" value="7" min="1"></div>
+                    <div class="form-group"><label>Imagen/Flyer</label><input type="file" id="rifaImagen" accept="image/*"></div>
                 </div>
                 <div class="form-group">
-                    <label>Comisiones por Referido</label>
+                    <label>Comisiones</label>
                     <div class="toggle-container">
                         <div class="toggle" id="toggleComisiones" onclick="toggleComisiones()"></div>
-                        <span>Activar comisiones</span>
+                        <span style="font-size: 0.85rem;">Activar comisiones</span>
                     </div>
                     <div id="comisionesConfig" style="display: none; margin-top: 0.5rem;">
-                        <div class="form-row">
-                            <div class="form-group"><label>Porcentaje (%)</label><input type="number" id="rifaComisionPorcentaje" value="10" min="1" max="50"></div>
-                        </div>
+                        <label style="font-size: 0.8rem;">Porcentaje (%)</label>
+                        <input type="number" id="rifaComisionPorcentaje" value="10" min="1" max="50">
                     </div>
                 </div>
-                <button type="submit" class="btn-submit">Guardar Rifa</button>
+                <button type="submit" class="btn-submit" id="btnGuardarRifa">Guardar Rifa</button>
             </form>
         </div>
     </div>
@@ -1359,23 +1589,22 @@
     <div class="modal" id="modalVerUsuario">
         <div class="modal-content wide">
             <button class="modal-close" onclick="cerrarModal('modalVerUsuario')">×</button>
-            <h3 class="modal-title">👤 Detalles del Usuario</h3>
+            <h3 class="modal-title">👤 Usuario</h3>
             <div id="detalleUsuarioContent"></div>
         </div>
     </div>
 
-    <!-- Ver Comprobante -->
-    <div class="modal" id="modalVerComprobante">
-        <div class="modal-content">
-            <button class="modal-close" onclick="cerrarModal('modalVerComprobante')">×</button>
-            <h3 class="modal-title">📎 Comprobante de Pago</h3>
-            <img id="comprobanteViewer" style="max-width: 100%; border-radius: 10px;">
+    <!-- Ver Imagen -->
+    <div class="modal" id="modalVerImagen">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close" onclick="cerrarModal('modalVerImagen')">×</button>
+            <img id="imagenViewer" style="max-width: 100%; border-radius: 10px;">
         </div>
     </div>
 
     <footer>
         <p>&copy; 2025 RifaMax. Todos los derechos reservados.</p>
-        <p style="opacity: 0.7; margin-top: 0.5rem;">Juega responsablemente. Mayores de 18 años.</p>
+        <p style="opacity: 0.7; margin-top: 0.3rem;">Juega responsablemente. Mayores de 18 años.</p>
     </footer>
 
     <!-- Firebase -->
@@ -1409,25 +1638,38 @@
         let cantidadBoletos = 1;
         let rifaEditando = null;
         let comprobanteFile = null;
+        let documentoFile = null;
         let comisionesActivas = false;
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             crearFondo();
+            
+            // Recordar usuario
+            const savedEmail = localStorage.getItem('rifamax_email');
+            if (savedEmail) {
+                document.getElementById('loginEmail').value = savedEmail;
+                document.getElementById('recordarUsuario').checked = true;
+            }
+            
             auth.onAuthStateChanged(async (user) => {
                 currentUser = user;
                 if (user) {
                     await cargarDatosUsuario();
+                    if (userData && !userData.activo && userData.email !== ADMIN_EMAIL) {
+                        await auth.signOut();
+                        abrirModal('modalCuentaPendiente');
+                        return;
+                    }
                     actualizarUIUsuario();
                 } else {
                     userData = null;
                     actualizarUIUsuario();
                 }
             });
+            
             cargarRifas();
             cargarGanadores();
-            
-            // Actualizar temporizadores cada segundo
             setInterval(actualizarTemporizadores, 1000);
             
             document.addEventListener('click', (e) => {
@@ -1435,12 +1677,16 @@
                 if (userMenu && !userMenu.contains(e.target)) {
                     document.getElementById('userDropdown').classList.remove('show');
                 }
+                const supportBubble = document.querySelector('.support-bubble');
+                if (supportBubble && !supportBubble.contains(e.target)) {
+                    document.getElementById('supportChat').classList.remove('show');
+                }
             });
         });
 
         function crearFondo() {
             const container = document.getElementById('dots');
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 40; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'dot';
                 dot.style.left = Math.random() * 100 + '%';
@@ -1453,6 +1699,12 @@
         // Auth
         async function registrarUsuario(e) {
             e.preventDefault();
+            
+            if (!documentoFile) {
+                mostrarToast('Debes subir tu documento de identidad', 'error');
+                return;
+            }
+            
             const nombre = document.getElementById('regNombre').value.trim();
             const apellido = document.getElementById('regApellido').value.trim();
             const email = document.getElementById('regEmail').value.trim().toLowerCase();
@@ -1467,7 +1719,7 @@
             if (password !== passwordConfirm) { mostrarToast('Las contraseñas no coinciden', 'error'); return; }
 
             const btn = document.getElementById('btnRegistro');
-            btn.disabled = true; btn.textContent = 'Creando...';
+            btn.disabled = true; btn.textContent = 'Creando cuenta...';
 
             try {
                 let referidorId = null;
@@ -1478,6 +1730,12 @@
                 }
 
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                
+                // Subir documento
+                const docRef = storage.ref(`documentos/${userCredential.user.uid}/${documentoFile.name}`);
+                await docRef.put(documentoFile);
+                const documentoUrl = await docRef.getDownloadURL();
+                
                 const miCodigoReferido = generarCodigoReferido();
 
                 await db.collection('usuarios').doc(userCredential.user.uid).set({
@@ -1487,6 +1745,8 @@
                     referidoPor: referidorId,
                     avatarUrl: null,
                     balanceEmail: null,
+                    documentoUrl: documentoUrl,
+                    activo: email === ADMIN_EMAIL,
                     totalReferidos: 0,
                     fechaRegistro: firebase.firestore.FieldValue.serverTimestamp(),
                     esAdmin: email === ADMIN_EMAIL
@@ -1498,26 +1758,48 @@
                     });
                 }
 
+                await auth.signOut();
                 cerrarModal('modalRegistro');
-                mostrarToast('¡Cuenta creada!', 'success');
+                abrirModal('modalCuentaPendiente');
+                mostrarToast('¡Cuenta creada! Espera la verificación.', 'success');
+                
             } catch (error) {
+                console.error(error);
                 mostrarToast(error.code === 'auth/email-already-in-use' ? 'Correo ya registrado' : 'Error al crear cuenta', 'error');
             }
             btn.disabled = false; btn.textContent = 'Crear Cuenta';
         }
 
+        function previewDocumento(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            documentoFile = file;
+            document.getElementById('docUploadZone').classList.add('has-file');
+            document.getElementById('docUploadText').textContent = file.name;
+        }
+
         async function iniciarSesion(e) {
             e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const recordar = document.getElementById('recordarUsuario').checked;
+            
+            if (recordar) {
+                localStorage.setItem('rifamax_email', email);
+            } else {
+                localStorage.removeItem('rifamax_email');
+            }
+            
             const btn = document.getElementById('btnLogin');
             btn.disabled = true; btn.textContent = 'Entrando...';
+            
             try {
-                await auth.signInWithEmailAndPassword(
-                    document.getElementById('loginEmail').value.trim(),
-                    document.getElementById('loginPassword').value
-                );
+                await auth.signInWithEmailAndPassword(email, password);
                 cerrarModal('modalLogin');
                 mostrarToast('¡Bienvenido!', 'success');
-            } catch { mostrarToast('Credenciales incorrectas', 'error'); }
+            } catch { 
+                mostrarToast('Credenciales incorrectas', 'error'); 
+            }
             btn.disabled = false; btn.textContent = 'Iniciar Sesión';
         }
 
@@ -1529,8 +1811,10 @@
 
         async function cargarDatosUsuario() {
             if (!currentUser) return;
-            const doc = await db.collection('usuarios').doc(currentUser.uid).get();
-            if (doc.exists) userData = { id: doc.id, ...doc.data() };
+            try {
+                const doc = await db.collection('usuarios').doc(currentUser.uid).get();
+                if (doc.exists) userData = { id: doc.id, ...doc.data() };
+            } catch (e) { console.error(e); }
         }
 
         function actualizarUIUsuario() {
@@ -1591,7 +1875,7 @@
                 rifas = [];
                 snapshot.forEach(doc => rifas.push({ id: doc.id, ...doc.data() }));
                 renderizarRifas();
-            } catch { document.getElementById('rifasGrid').innerHTML = '<p style="text-align: center;">Error al cargar</p>'; }
+            } catch { document.getElementById('rifasGrid').innerHTML = '<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>'; }
         }
 
         function renderizarRifas() {
@@ -1609,7 +1893,7 @@
                         <div class="rifa-image">
                             ${r.imagenUrl ? `<img src="${r.imagenUrl}">` : (r.icono || '🎁')}
                             <span class="rifa-badge">🔥 Activa</span>
-                            <div class="rifa-timer" data-fecha="${r.fechaFin || ''}" data-id="${r.id}">⏱️ Cargando...</div>
+                            <div class="rifa-timer" data-id="${r.id}">⏱️ ...</div>
                         </div>
                         <div class="rifa-content">
                             <span class="rifa-tipo-badge ${tipoClass}">${tipoText}</span>
@@ -1618,10 +1902,10 @@
                             <div class="rifa-stats">
                                 <div class="stat"><div class="stat-value">$${r.precioBoleto || 1}</div><div class="stat-label">Boleto</div></div>
                                 <div class="stat"><div class="stat-value">${r.tipoPremio === 'dinero' ? '$' : ''}${r.premio}</div><div class="stat-label">Premio</div></div>
-                                <div class="stat"><div class="stat-value">${disponibles}</div><div class="stat-label">Disponibles</div></div>
+                                <div class="stat"><div class="stat-value">${disponibles}</div><div class="stat-label">Disp.</div></div>
                             </div>
                             <div class="progress-bar"><div class="progress-fill" style="width: ${progreso}%"></div></div>
-                            <button class="btn-participar" onclick="abrirModalParticipar('${r.id}')" ${disponibles <= 0 ? 'disabled' : ''}>${disponibles <= 0 ? 'Agotada' : '🎟️ Comprar Boletos'}</button>
+                            <button class="btn-participar" onclick="abrirModalParticipar('${r.id}')" ${disponibles <= 0 ? 'disabled' : ''}>${disponibles <= 0 ? 'Agotada' : '🎟️ Comprar'}</button>
                         </div>
                     </div>`;
             }).join('');
@@ -1636,33 +1920,19 @@
                 if (!rifa) return;
                 
                 let fechaFin;
-                if (rifa.fechaFin && rifa.fechaFin.toDate) {
-                    fechaFin = rifa.fechaFin.toDate();
-                } else if (rifa.fechaCreacion && rifa.dias) {
+                if (rifa.fechaFin && rifa.fechaFin.toDate) fechaFin = rifa.fechaFin.toDate();
+                else if (rifa.fechaCreacion) {
                     const fechaInicio = rifa.fechaCreacion.toDate ? rifa.fechaCreacion.toDate() : new Date(rifa.fechaCreacion);
-                    fechaFin = new Date(fechaInicio.getTime() + (rifa.dias * 24 * 60 * 60 * 1000));
-                } else {
-                    timer.textContent = '⏱️ Sin fecha';
-                    return;
-                }
+                    fechaFin = new Date(fechaInicio.getTime() + ((rifa.dias || 7) * 24 * 60 * 60 * 1000));
+                } else { timer.textContent = '⏱️ --'; return; }
                 
-                const ahora = new Date();
-                const diff = fechaFin - ahora;
+                const diff = fechaFin - new Date();
+                if (diff <= 0) { timer.textContent = '⏱️ Finalizado'; return; }
                 
-                if (diff <= 0) {
-                    timer.textContent = '⏱️ Finalizado';
-                    return;
-                }
-                
-                const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                
-                if (dias > 0) {
-                    timer.textContent = `⏱️ ${dias}d ${horas}h`;
-                } else {
-                    timer.textContent = `⏱️ ${horas}h ${minutos}m`;
-                }
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                timer.textContent = d > 0 ? `⏱️ ${d}d ${h}h` : `⏱️ ${h}h ${m}m`;
             });
         }
 
@@ -1670,7 +1940,7 @@
             try {
                 const snapshot = await db.collection('ganadores').orderBy('fecha', 'desc').limit(5).get();
                 const lista = document.getElementById('ganadoresList');
-                if (snapshot.empty) { lista.innerHTML = '<div class="empty-state"><span>🏆</span><p>Próximamente ganadores</p></div>'; return; }
+                if (snapshot.empty) { lista.innerHTML = '<div class="empty-state"><span>🏆</span><p>Próximamente</p></div>'; return; }
                 lista.innerHTML = '';
                 snapshot.forEach(doc => {
                     const g = doc.data();
@@ -1681,7 +1951,7 @@
 
         // Compra
         function abrirModalParticipar(rifaId) {
-            if (!currentUser) { mostrarToast('Inicia sesión para participar', 'error'); abrirModal('modalLogin'); return; }
+            if (!currentUser) { mostrarToast('Inicia sesión', 'error'); abrirModal('modalLogin'); return; }
             rifaSeleccionada = rifas.find(r => r.id === rifaId);
             if (!rifaSeleccionada) return;
             
@@ -1692,15 +1962,16 @@
             document.getElementById('pasoSeleccion').style.display = 'block';
             document.getElementById('pasoPago').style.display = 'none';
             document.getElementById('fileUploadZone').classList.remove('has-file');
-            document.getElementById('fileUploadText').textContent = 'Click para subir imagen o PDF';
+            document.getElementById('fileUploadText').textContent = 'Click para subir';
             document.getElementById('comprobantePreview').style.display = 'none';
+            document.getElementById('idOrdenPago').value = '';
             actualizarDisplayBoletos();
             abrirModal('modalParticipar');
         }
 
         function cambiarCantidadBoletos(delta) {
             const disponibles = rifaSeleccionada.totalBoletos - (rifaSeleccionada.boletosVendidos || 0);
-            cantidadBoletos = Math.max(1, Math.min(cantidadBoletos + delta, disponibles, 100));
+            cantidadBoletos = Math.max(1, Math.min(cantidadBoletos + delta, disponibles, 50));
             actualizarDisplayBoletos();
         }
 
@@ -1740,6 +2011,8 @@
         }
 
         async function enviarComprobante() {
+            const idOrden = document.getElementById('idOrdenPago').value.trim();
+            if (!idOrden) { mostrarToast('Ingresa el ID de la orden', 'error'); return; }
             if (!comprobanteFile) { mostrarToast('Adjunta el comprobante', 'error'); return; }
             
             const btn = document.getElementById('btnEnviarComprobante');
@@ -1750,12 +2023,10 @@
                 const total = cantidadBoletos * precio;
                 const comisionPorBoleto = rifaSeleccionada.comisionesActivas ? (precio * (rifaSeleccionada.comisionPorcentaje || 10) / 100) : 0.10;
                 
-                // Subir comprobante
                 const storageRef = storage.ref(`comprobantes/${currentUser.uid}/${Date.now()}_${comprobanteFile.name}`);
                 await storageRef.put(comprobanteFile);
                 const comprobanteUrl = await storageRef.getDownloadURL();
                 
-                // Crear compra pendiente
                 await db.collection('compras').add({
                     usuarioId: currentUser.uid,
                     usuarioNombre: `${userData.nombre} ${userData.apellido}`,
@@ -1765,6 +2036,7 @@
                     cantidad: cantidadBoletos,
                     precioUnitario: precio,
                     total: total,
+                    idOrden: idOrden,
                     comisionPorBoleto: comisionPorBoleto,
                     referidorId: userData.referidoPor || null,
                     comprobanteUrl: comprobanteUrl,
@@ -1773,13 +2045,39 @@
                 });
                 
                 cerrarModal('modalParticipar');
-                mostrarToast('¡Comprobante enviado! Espera aprobación.', 'success');
+                mostrarToast('¡Enviado! Espera aprobación.', 'success');
             } catch (error) {
                 console.error(error);
                 mostrarToast('Error al enviar', 'error');
             }
             
             btn.disabled = false; btn.textContent = 'Enviar Comprobante';
+        }
+
+        // Soporte
+        function toggleSupportChat() {
+            event.stopPropagation();
+            document.getElementById('supportChat').classList.toggle('show');
+        }
+
+        async function enviarSoporte() {
+            const mensaje = document.getElementById('soporteMensaje').value.trim();
+            if (!mensaje) { mostrarToast('Escribe un mensaje', 'error'); return; }
+            
+            try {
+                await db.collection('soporte').add({
+                    usuarioId: currentUser?.uid || 'anonimo',
+                    usuarioNombre: userData ? `${userData.nombre} ${userData.apellido}` : 'Anónimo',
+                    usuarioEmail: userData?.email || 'No registrado',
+                    mensaje: mensaje,
+                    leido: false,
+                    fecha: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                document.getElementById('soporteMensaje').value = '';
+                document.getElementById('supportChat').classList.remove('show');
+                mostrarToast('¡Mensaje enviado!', 'success');
+            } catch { mostrarToast('Error', 'error'); }
         }
 
         // Perfil
@@ -1795,7 +2093,7 @@
                 actualizarUIUsuario();
                 document.getElementById('profileAvatarContent').innerHTML = `<img src="${url}">`;
                 mostrarToast('¡Avatar actualizado!', 'success');
-            } catch { mostrarToast('Error al subir', 'error'); }
+            } catch { mostrarToast('Error', 'error'); }
         }
 
         async function actualizarPerfil(e) {
@@ -1809,7 +2107,7 @@
                 await cargarDatosUsuario();
                 actualizarUIUsuario();
                 cerrarModal('modalPerfil');
-                mostrarToast('¡Perfil actualizado!', 'success');
+                mostrarToast('¡Guardado!', 'success');
             } catch { mostrarToast('Error', 'error'); }
         }
 
@@ -1822,7 +2120,7 @@
             document.getElementById('editApellido').value = userData.apellido || '';
             document.getElementById('editTelefono').value = userData.telefono || '';
             document.getElementById('editBalanceEmail').value = userData.balanceEmail || '';
-            document.getElementById('profileAvatarContent').innerHTML = userData.avatarUrl ? `<img src="${userData.avatarUrl}">` : (userData.nombre ? userData.nombre.charAt(0).toUpperCase() : '👤');
+            document.getElementById('profileAvatarContent').innerHTML = userData.avatarUrl ? `<img src="${userData.avatarUrl}">` : (userData.nombre?.charAt(0).toUpperCase() || '👤');
         }
 
         async function cargarModalEstadisticas() {
@@ -1836,9 +2134,7 @@
                     totalGastado += d.total || 0;
                     rifasSet.add(d.rifaId);
                 });
-                
                 const premiosQuery = await db.collection('ganadores').where('usuarioId', '==', currentUser.uid).get();
-                
                 document.getElementById('statBoletosComprados').textContent = totalBoletos;
                 document.getElementById('statDineroGastado').textContent = `$${totalGastado.toFixed(2)}`;
                 document.getElementById('statRifasParticipadas').textContent = rifasSet.size;
@@ -1855,95 +2151,79 @@
 
         async function cargarModalMisBoletos() {
             if (!currentUser) return;
-            
             const listaAprobados = document.getElementById('listaMisBoletosAprobados');
             const listaPendientes = document.getElementById('listaMisBoletospendientes');
-            listaAprobados.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-            listaPendientes.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+            listaAprobados.innerHTML = listaPendientes.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
             
             try {
-                // Aprobados
-                const aprobadosQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).where('estado', '==', 'aprobado').get();
-                if (aprobadosQuery.empty) {
-                    listaAprobados.innerHTML = '<div class="empty-state"><span>🎟️</span><p>No tienes boletos aprobados</p></div>';
-                } else {
-                    listaAprobados.innerHTML = '';
-                    aprobadosQuery.forEach(doc => {
-                        const c = doc.data();
-                        const fecha = c.fecha?.toDate ? c.fecha.toDate().toLocaleDateString() : 'N/A';
-                        listaAprobados.innerHTML += `<div class="ganador-item" style="border-color: var(--success);"><div class="ganador-icon">🎟️</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total} - ${fecha}</div></div><span class="status-badge status-approved">Aprobado</span></div>`;
-                    });
-                }
+                const aprobados = await db.collection('compras').where('usuarioId', '==', currentUser.uid).where('estado', '==', 'aprobado').get();
+                listaAprobados.innerHTML = aprobados.empty ? '<div class="empty-state"><span>🎟️</span><p>Sin boletos aprobados</p></div>' : '';
+                aprobados.forEach(doc => {
+                    const c = doc.data();
+                    listaAprobados.innerHTML += `<div class="ganador-item" style="border-color: var(--success);"><div class="ganador-icon">🎟️</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total}</div></div></div>`;
+                });
                 
-                // Pendientes
-                const pendientesQuery = await db.collection('compras').where('usuarioId', '==', currentUser.uid).where('estado', '==', 'pendiente').get();
-                if (pendientesQuery.empty) {
-                    listaPendientes.innerHTML = '<div class="empty-state"><span>⏳</span><p>No tienes pagos pendientes</p></div>';
-                } else {
-                    listaPendientes.innerHTML = '';
-                    pendientesQuery.forEach(doc => {
-                        const c = doc.data();
-                        const fecha = c.fecha?.toDate ? c.fecha.toDate().toLocaleDateString() : 'N/A';
-                        listaPendientes.innerHTML += `<div class="ganador-item" style="border-color: var(--warning); background: rgba(255,167,38,0.1);"><div class="ganador-icon">⏳</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total} - ${fecha}</div></div><span class="status-badge status-pending">Pendiente</span></div>`;
-                    });
-                }
-            } catch (error) {
-                console.error(error);
-                listaAprobados.innerHTML = '<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>';
-            }
+                const pendientes = await db.collection('compras').where('usuarioId', '==', currentUser.uid).where('estado', '==', 'pendiente').get();
+                listaPendientes.innerHTML = pendientes.empty ? '<div class="empty-state"><span>⏳</span><p>Sin pagos pendientes</p></div>' : '';
+                pendientes.forEach(doc => {
+                    const c = doc.data();
+                    listaPendientes.innerHTML += `<div class="ganador-item" style="border-color: var(--warning); background: rgba(255,167,38,0.1);"><div class="ganador-icon">⏳</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total}</div></div></div>`;
+                });
+            } catch { listaAprobados.innerHTML = '<div class="empty-state"><span>❌</span><p>Error</p></div>'; }
         }
 
         async function cargarModalMisPremios() {
             if (!currentUser) return;
             const lista = document.getElementById('listaMisPremios');
             lista.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-            
             try {
-                const premiosQuery = await db.collection('ganadores').where('usuarioId', '==', currentUser.uid).get();
-                if (premiosQuery.empty) {
-                    lista.innerHTML = '<div class="empty-state"><span>🏆</span><p>Aún no has ganado ningún sorteo</p></div>';
-                } else {
-                    lista.innerHTML = '';
-                    premiosQuery.forEach(doc => {
-                        const p = doc.data();
-                        const fecha = p.fecha?.toDate ? p.fecha.toDate().toLocaleDateString() : 'N/A';
-                        lista.innerHTML += `<div class="ganador-item"><div class="ganador-icon">${p.icono || '🏆'}</div><div class="ganador-info"><div class="ganador-nombre">${p.rifaTitulo || 'Sorteo'}</div><div class="ganador-premio">Premio: ${p.premio} - ${fecha}</div></div></div>`;
-                    });
-                }
-            } catch { lista.innerHTML = '<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>'; }
+                const premios = await db.collection('ganadores').where('usuarioId', '==', currentUser.uid).get();
+                lista.innerHTML = premios.empty ? '<div class="empty-state"><span>🏆</span><p>Aún no has ganado</p></div>' : '';
+                premios.forEach(doc => {
+                    const p = doc.data();
+                    lista.innerHTML += `<div class="ganador-item"><div class="ganador-icon">${p.icono || '🏆'}</div><div class="ganador-info"><div class="ganador-nombre">${p.rifaTitulo || 'Sorteo'}</div><div class="ganador-premio">Premio: ${p.premio}</div></div></div>`;
+                });
+            } catch { lista.innerHTML = '<div class="empty-state"><span>❌</span><p>Error</p></div>'; }
         }
 
         async function cargarModalReferidos() {
             if (!userData) return;
             document.getElementById('miCodigoReferido').textContent = userData.codigoReferido || '------';
             try {
-                const referidosQuery = await db.collection('usuarios').where('referidoPor', '==', currentUser.uid).get();
-                document.getElementById('totalReferidos').textContent = referidosQuery.size;
-                
-                const comprasQuery = await db.collection('compras').where('referidorId', '==', currentUser.uid).where('estado', '==', 'aprobado').get();
-                let totalBoletos = 0, totalDinero = 0;
-                comprasQuery.forEach(doc => {
-                    const d = doc.data();
-                    totalBoletos += d.cantidad || 0;
-                    totalDinero += (d.cantidad || 0) * (d.comisionPorBoleto || 0.10);
-                });
-                document.getElementById('boletosReferidos').textContent = totalBoletos;
-                document.getElementById('dineroReferidos').textContent = `$${totalDinero.toFixed(2)}`;
+                const referidos = await db.collection('usuarios').where('referidoPor', '==', currentUser.uid).get();
+                document.getElementById('totalReferidos').textContent = referidos.size;
+                const compras = await db.collection('compras').where('referidorId', '==', currentUser.uid).where('estado', '==', 'aprobado').get();
+                let boletos = 0, dinero = 0;
+                compras.forEach(doc => { const d = doc.data(); boletos += d.cantidad || 0; dinero += (d.cantidad || 0) * (d.comisionPorBoleto || 0.10); });
+                document.getElementById('boletosReferidos').textContent = boletos;
+                document.getElementById('dineroReferidos').textContent = `$${dinero.toFixed(2)}`;
             } catch {}
         }
 
         // Admin
         function mostrarPanelAdmin() {
-            if (!userData || (userData.email !== ADMIN_EMAIL && !userData.esAdmin)) { mostrarToast('Sin permisos', 'error'); return; }
+            if (!userData || (userData.email !== ADMIN_EMAIL && !userData.esAdmin)) return;
             document.getElementById('mainContent').style.display = 'none';
             document.getElementById('adminPanel').classList.add('active');
             document.getElementById('userDropdown').classList.remove('show');
             cargarDashboardAdmin();
+            cargarBadges();
         }
 
         function cerrarPanelAdmin() {
             document.getElementById('mainContent').style.display = 'block';
             document.getElementById('adminPanel').classList.remove('active');
+        }
+
+        async function cargarBadges() {
+            try {
+                const cuentas = await db.collection('usuarios').where('activo', '==', false).get();
+                const pagos = await db.collection('compras').where('estado', '==', 'pendiente').get();
+                const soporte = await db.collection('soporte').where('leido', '==', false).get();
+                document.getElementById('badgeCuentas').textContent = cuentas.size;
+                document.getElementById('badgePagos').textContent = pagos.size;
+                document.getElementById('badgeSoporte').textContent = soporte.size;
+            } catch {}
         }
 
         function cambiarTabAdmin(tab, btn) {
@@ -1953,77 +2233,178 @@
             document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).style.display = 'block';
             
             if (tab === 'dashboard') cargarDashboardAdmin();
+            if (tab === 'cuentas') cargarCuentasAdmin();
+            if (tab === 'pagos') cargarPagosAdmin();
             if (tab === 'rifas') cargarRifasAdmin();
             if (tab === 'usuarios') cargarUsuariosAdmin();
             if (tab === 'compras') cargarComprasAdmin();
-            if (tab === 'pagos') cargarPagosAdmin();
+            if (tab === 'soporte') cargarSoporteAdmin();
         }
 
         async function cargarDashboardAdmin() {
             try {
-                const [usuarios, rifas, compras, pagosPend] = await Promise.all([
+                const [usuarios, rifasActivas, compras, cuentasPend, pagosPend] = await Promise.all([
                     db.collection('usuarios').get(),
                     db.collection('rifas').where('activa', '==', true).get(),
                     db.collection('compras').where('estado', '==', 'aprobado').get(),
+                    db.collection('usuarios').where('activo', '==', false).get(),
                     db.collection('compras').where('estado', '==', 'pendiente').get()
                 ]);
                 
-                let totalBoletos = 0, totalIngresos = 0, totalComisiones = 0;
+                let boletos = 0, ingresos = 0, comisiones = 0;
                 compras.forEach(doc => {
                     const d = doc.data();
-                    totalBoletos += d.cantidad || 0;
-                    totalIngresos += d.total || 0;
-                    if (d.referidorId) totalComisiones += (d.cantidad || 0) * (d.comisionPorBoleto || 0.10);
+                    boletos += d.cantidad || 0;
+                    ingresos += d.total || 0;
+                    if (d.referidorId) comisiones += (d.cantidad || 0) * (d.comisionPorBoleto || 0.10);
                 });
                 
-                document.getElementById('adminTotalUsuarios').textContent = usuarios.size;
-                document.getElementById('adminTotalRifas').textContent = rifas.size;
-                document.getElementById('adminTotalBoletos').textContent = totalBoletos;
-                document.getElementById('adminTotalIngresos').textContent = `$${totalIngresos.toFixed(2)}`;
-                document.getElementById('adminTotalComisiones').textContent = `$${totalComisiones.toFixed(2)}`;
-                document.getElementById('adminPagosPendientes').textContent = pagosPend.size;
+                document.getElementById('dashboardStats').innerHTML = `
+                    <div class="stat-card"><div class="stat-card-value">${usuarios.size}</div><div class="stat-card-label">Usuarios</div></div>
+                    <div class="stat-card"><div class="stat-card-value">${rifasActivas.size}</div><div class="stat-card-label">Rifas</div></div>
+                    <div class="stat-card"><div class="stat-card-value">${boletos}</div><div class="stat-card-label">Boletos</div></div>
+                    <div class="stat-card"><div class="stat-card-value">$${ingresos.toFixed(2)}</div><div class="stat-card-label">Ingresos</div></div>
+                    <div class="stat-card"><div class="stat-card-value">$${comisiones.toFixed(2)}</div><div class="stat-card-label">Comisiones</div></div>
+                    <div class="stat-card"><div class="stat-card-value">${cuentasPend.size}</div><div class="stat-card-label">Cuentas Pend.</div></div>
+                    <div class="stat-card"><div class="stat-card-value">${pagosPend.size}</div><div class="stat-card-label">Pagos Pend.</div></div>
+                `;
             } catch {}
+        }
+
+        async function cargarCuentasAdmin() {
+            const tbody = document.getElementById('cuentasAdminBody');
+            tbody.innerHTML = '<tr><td colspan="5"><div class="spinner" style="margin:1rem auto;"></div></td></tr>';
+            try {
+                const snapshot = await db.collection('usuarios').where('activo', '==', false).get();
+                tbody.innerHTML = snapshot.empty ? '<tr><td colspan="5" style="text-align:center;">No hay cuentas pendientes 🎉</td></tr>' : '';
+                snapshot.forEach(doc => {
+                    const u = { id: doc.id, ...doc.data() };
+                    const fecha = u.fechaRegistro?.toDate ? u.fechaRegistro.toDate().toLocaleDateString() : 'N/A';
+                    tbody.innerHTML += `<tr>
+                        <td>${u.nombre} ${u.apellido}</td>
+                        <td>${u.email}</td>
+                        <td><button class="btn-small btn-view" onclick="verImagen('${u.documentoUrl}')">Ver Doc</button></td>
+                        <td>${fecha}</td>
+                        <td>
+                            <button class="btn-small btn-approve" onclick="activarCuenta('${u.id}')">✓ Activar</button>
+                            <button class="btn-small btn-reject" onclick="rechazarCuenta('${u.id}')">✗ Rechazar</button>
+                        </td>
+                    </tr>`;
+                });
+            } catch {}
+        }
+
+        async function activarCuenta(userId) {
+            if (!confirm('¿Activar esta cuenta?')) return;
+            try {
+                await db.collection('usuarios').doc(userId).update({ activo: true });
+                mostrarToast('¡Cuenta activada!', 'success');
+                cargarCuentasAdmin();
+                cargarBadges();
+            } catch { mostrarToast('Error', 'error'); }
+        }
+
+        async function rechazarCuenta(userId) {
+            if (!confirm('¿Rechazar y eliminar esta cuenta?')) return;
+            try {
+                await db.collection('usuarios').doc(userId).delete();
+                mostrarToast('Cuenta rechazada', 'success');
+                cargarCuentasAdmin();
+                cargarBadges();
+            } catch { mostrarToast('Error', 'error'); }
+        }
+
+        async function cargarPagosAdmin() {
+            const tbody = document.getElementById('pagosAdminBody');
+            tbody.innerHTML = '<tr><td colspan="7"><div class="spinner" style="margin:1rem auto;"></div></td></tr>';
+            try {
+                const snapshot = await db.collection('compras').where('estado', '==', 'pendiente').get();
+                tbody.innerHTML = snapshot.empty ? '<tr><td colspan="7" style="text-align:center;">No hay pagos pendientes 🎉</td></tr>' : '';
+                snapshot.forEach(doc => {
+                    const c = { id: doc.id, ...doc.data() };
+                    tbody.innerHTML += `<tr>
+                        <td>${c.usuarioNombre}</td>
+                        <td>${c.rifaTitulo}</td>
+                        <td>${c.cantidad}</td>
+                        <td>$${c.total}</td>
+                        <td>${c.idOrden || 'N/A'}</td>
+                        <td><button class="btn-small btn-view" onclick="verImagen('${c.comprobanteUrl}')">Ver</button></td>
+                        <td>
+                            <button class="btn-small btn-approve" onclick="aprobarPago('${c.id}')">✓</button>
+                            <button class="btn-small btn-reject" onclick="rechazarPago('${c.id}')">✗</button>
+                        </td>
+                    </tr>`;
+                });
+            } catch {}
+        }
+
+        function verImagen(url) {
+            document.getElementById('imagenViewer').src = url;
+            abrirModal('modalVerImagen');
+        }
+
+        async function aprobarPago(compraId) {
+            if (!confirm('¿Aprobar pago?')) return;
+            try {
+                const compraDoc = await db.collection('compras').doc(compraId).get();
+                const compra = compraDoc.data();
+                await db.collection('compras').doc(compraId).update({ estado: 'aprobado' });
+                await db.collection('rifas').doc(compra.rifaId).update({
+                    boletosVendidos: firebase.firestore.FieldValue.increment(compra.cantidad)
+                });
+                mostrarToast('¡Pago aprobado!', 'success');
+                cargarPagosAdmin();
+                cargarBadges();
+                cargarRifas();
+            } catch { mostrarToast('Error', 'error'); }
+        }
+
+        async function rechazarPago(compraId) {
+            if (!confirm('¿Rechazar pago?')) return;
+            try {
+                await db.collection('compras').doc(compraId).update({ estado: 'rechazado' });
+                mostrarToast('Pago rechazado', 'success');
+                cargarPagosAdmin();
+                cargarBadges();
+            } catch { mostrarToast('Error', 'error'); }
         }
 
         async function cargarRifasAdmin() {
             const tbody = document.getElementById('rifasAdminBody');
-            tbody.innerHTML = '<tr><td colspan="6"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6"><div class="spinner" style="margin:1rem auto;"></div></td></tr>';
             try {
                 const snapshot = await db.collection('rifas').get();
-                tbody.innerHTML = '';
+                tbody.innerHTML = snapshot.empty ? '<tr><td colspan="6" style="text-align:center;">No hay rifas</td></tr>' : '';
                 snapshot.forEach(doc => {
                     const r = { id: doc.id, ...doc.data() };
-                    const tipoText = r.tipoPremio === 'dinero' ? '💵' : r.tipoPremio === 'objeto' ? '🎁' : '✨';
                     tbody.innerHTML += `<tr>
                         <td>${r.icono || '🎁'} ${r.titulo}</td>
-                        <td>${tipoText} ${r.tipoPremio || 'dinero'}</td>
+                        <td>${r.tipoPremio || 'dinero'}</td>
                         <td>${r.tipoPremio === 'dinero' ? '$' : ''}${r.premio}</td>
                         <td>${r.boletosVendidos || 0}/${r.totalBoletos}</td>
                         <td><span class="status-badge ${r.activa ? 'status-active' : 'status-inactive'}">${r.activa ? 'Activa' : 'Inactiva'}</span></td>
                         <td>
                             <button class="btn-small btn-edit" onclick="editarRifaAdmin('${r.id}')">Editar</button>
                             <button class="btn-small btn-toggle" onclick="toggleRifaAdmin('${r.id}', ${r.activa})">${r.activa ? 'Desact.' : 'Activar'}</button>
-                            <button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">Eliminar</button>
+                            <button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">Elim.</button>
                         </td>
                     </tr>`;
                 });
-                if (tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay rifas</td></tr>';
             } catch {}
         }
 
         async function cargarUsuariosAdmin() {
             const tbody = document.getElementById('usuariosAdminBody');
-            tbody.innerHTML = '<tr><td colspan="6"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5"><div class="spinner" style="margin:1rem auto;"></div></td></tr>';
             try {
-                const snapshot = await db.collection('usuarios').get();
-                tbody.innerHTML = '';
+                const snapshot = await db.collection('usuarios').where('activo', '==', true).get();
+                tbody.innerHTML = snapshot.empty ? '<tr><td colspan="5" style="text-align:center;">No hay usuarios</td></tr>' : '';
                 snapshot.forEach(doc => {
                     const u = { id: doc.id, ...doc.data() };
                     tbody.innerHTML += `<tr>
                         <td>${u.nombre} ${u.apellido}</td>
                         <td>${u.email}</td>
                         <td>${u.telefono || 'N/A'}</td>
-                        <td>${u.balanceEmail || 'No configurado'}</td>
                         <td>${u.totalReferidos || 0}</td>
                         <td><button class="btn-small btn-view" onclick="verUsuarioAdmin('${u.id}')">Ver</button></td>
                     </tr>`;
@@ -2033,151 +2414,84 @@
 
         async function cargarComprasAdmin() {
             const tbody = document.getElementById('comprasAdminBody');
-            tbody.innerHTML = '<tr><td colspan="6"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5"><div class="spinner" style="margin:1rem auto;"></div></td></tr>';
             try {
                 const snapshot = await db.collection('compras').where('estado', '==', 'aprobado').get();
-                tbody.innerHTML = '';
+                tbody.innerHTML = snapshot.empty ? '<tr><td colspan="5" style="text-align:center;">No hay compras</td></tr>' : '';
                 snapshot.forEach(doc => {
                     const c = doc.data();
                     const fecha = c.fecha?.toDate ? c.fecha.toDate().toLocaleDateString() : 'N/A';
-                    tbody.innerHTML += `<tr>
-                        <td>${c.usuarioNombre}</td>
-                        <td>${c.rifaTitulo}</td>
-                        <td>${c.cantidad}</td>
-                        <td>$${c.total}</td>
-                        <td><span class="status-badge status-approved">Aprobado</span></td>
-                        <td>${fecha}</td>
-                    </tr>`;
+                    tbody.innerHTML += `<tr><td>${c.usuarioNombre}</td><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td>$${c.total}</td><td>${fecha}</td></tr>`;
                 });
-                if (tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay compras</td></tr>';
             } catch {}
         }
 
-        async function cargarPagosAdmin() {
-            const tbody = document.getElementById('pagosAdminBody');
-            tbody.innerHTML = '<tr><td colspan="7"><div class="spinner" style="margin: 1rem auto;"></div></td></tr>';
+        async function cargarSoporteAdmin() {
+            const container = document.getElementById('soporteAdminBody');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
             try {
-                const snapshot = await db.collection('compras').where('estado', '==', 'pendiente').get();
-                tbody.innerHTML = '';
+                const snapshot = await db.collection('soporte').orderBy('fecha', 'desc').limit(20).get();
+                container.innerHTML = snapshot.empty ? '<div class="empty-state"><span>💬</span><p>Sin mensajes</p></div>' : '';
                 snapshot.forEach(doc => {
-                    const c = { id: doc.id, ...doc.data() };
-                    const fecha = c.fecha?.toDate ? c.fecha.toDate().toLocaleDateString() : 'N/A';
-                    tbody.innerHTML += `<tr>
-                        <td>${c.usuarioNombre}</td>
-                        <td>${c.rifaTitulo}</td>
-                        <td>${c.cantidad}</td>
-                        <td>$${c.total}</td>
-                        <td><button class="btn-small btn-view" onclick="verComprobante('${c.comprobanteUrl}')">Ver</button></td>
-                        <td>${fecha}</td>
-                        <td>
-                            <button class="btn-small btn-approve" onclick="aprobarPago('${c.id}')">✓ Aprobar</button>
-                            <button class="btn-small btn-reject" onclick="rechazarPago('${c.id}')">✗ Rechazar</button>
-                        </td>
-                    </tr>`;
+                    const s = { id: doc.id, ...doc.data() };
+                    const fecha = s.fecha?.toDate ? s.fecha.toDate().toLocaleString() : 'N/A';
+                    container.innerHTML += `
+                        <div class="ganador-item" style="border-color: ${s.leido ? 'var(--success)' : 'var(--warning)'}; margin-bottom: 0.5rem;">
+                            <div class="ganador-icon">${s.leido ? '✅' : '📩'}</div>
+                            <div class="ganador-info">
+                                <div class="ganador-nombre">${s.usuarioNombre} <small style="opacity:0.6;">(${s.usuarioEmail})</small></div>
+                                <div class="ganador-premio">${s.mensaje}</div>
+                                <small style="opacity:0.5;">${fecha}</small>
+                            </div>
+                            ${!s.leido ? `<button class="btn-small btn-approve" onclick="marcarLeidoSoporte('${s.id}')">✓</button>` : ''}
+                        </div>
+                    `;
                 });
-                if (tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hay pagos pendientes 🎉</td></tr>';
             } catch {}
         }
 
-        function verComprobante(url) {
-            document.getElementById('comprobanteViewer').src = url;
-            abrirModal('modalVerComprobante');
-        }
-
-        async function aprobarPago(compraId) {
-            if (!confirm('¿Aprobar este pago?')) return;
-            try {
-                const compraDoc = await db.collection('compras').doc(compraId).get();
-                const compra = compraDoc.data();
-                
-                // Actualizar estado
-                await db.collection('compras').doc(compraId).update({ estado: 'aprobado' });
-                
-                // Actualizar boletos vendidos en la rifa
-                await db.collection('rifas').doc(compra.rifaId).update({
-                    boletosVendidos: firebase.firestore.FieldValue.increment(compra.cantidad)
-                });
-                
-                mostrarToast('¡Pago aprobado!', 'success');
-                cargarPagosAdmin();
-                cargarDashboardAdmin();
-                cargarRifas();
-            } catch { mostrarToast('Error', 'error'); }
-        }
-
-        async function rechazarPago(compraId) {
-            if (!confirm('¿Rechazar este pago?')) return;
-            try {
-                await db.collection('compras').doc(compraId).update({ estado: 'rechazado' });
-                mostrarToast('Pago rechazado', 'success');
-                cargarPagosAdmin();
-            } catch { mostrarToast('Error', 'error'); }
+        async function marcarLeidoSoporte(id) {
+            await db.collection('soporte').doc(id).update({ leido: true });
+            cargarSoporteAdmin();
+            cargarBadges();
         }
 
         async function verUsuarioAdmin(userId) {
             try {
                 const userDoc = await db.collection('usuarios').doc(userId).get();
                 const u = { id: userId, ...userDoc.data() };
+                const compras = await db.collection('compras').where('usuarioId', '==', userId).get();
                 
-                const comprasQuery = await db.collection('compras').where('usuarioId', '==', userId).get();
+                let html = `<div style="margin-bottom:1rem;"><strong>${u.nombre} ${u.apellido}</strong><br><small style="opacity:0.7;">${u.email} | ${u.telefono || 'N/A'}</small><br><small>Balance Email: ${u.balanceEmail || 'No configurado'}</small></div>`;
+                html += '<h4 style="margin:1rem 0 0.5rem;">Compras</h4><table class="admin-table"><thead><tr><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>';
                 
-                let html = `
-                    <div style="display: grid; gap: 1rem;">
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">${u.avatarUrl ? `<img src="${u.avatarUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : u.nombre?.charAt(0) || '👤'}</div>
-                            <div>
-                                <h3>${u.nombre} ${u.apellido}</h3>
-                                <p style="opacity: 0.7;">${u.email}</p>
-                            </div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                            <p><strong>Teléfono:</strong> ${u.telefono || 'N/A'}</p>
-                            <p><strong>Referidos:</strong> ${u.totalReferidos || 0}</p>
-                            <p><strong>Balance Email:</strong> ${u.balanceEmail || 'No configurado'}</p>
-                            <p><strong>Código:</strong> ${u.codigoReferido}</p>
-                        </div>
-                        <h4 style="margin-top: 1rem;">Compras del Usuario</h4>
-                        <table class="admin-table">
-                            <thead><tr><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th><th>Acciones</th></tr></thead>
-                            <tbody>`;
-                
-                comprasQuery.forEach(doc => {
+                compras.forEach(doc => {
                     const c = { id: doc.id, ...doc.data() };
                     html += `<tr>
                         <td>${c.rifaTitulo}</td>
                         <td>${c.cantidad}</td>
                         <td>$${c.total}</td>
-                        <td><span class="status-badge status-${c.estado === 'aprobado' ? 'approved' : c.estado === 'pendiente' ? 'pending' : 'inactive'}">${c.estado}</span></td>
-                        <td>${c.estado === 'aprobado' ? `<button class="btn-small btn-delete" onclick="reembolsarCompra('${c.id}', '${u.balanceEmail || ''}')">Reembolsar</button>` : '-'}</td>
+                        <td><span class="status-badge status-${c.estado === 'aprobado' ? 'approved' : 'pending'}">${c.estado}</span></td>
+                        <td>${c.estado === 'aprobado' ? `<button class="btn-small btn-delete" onclick="reembolsarCompra('${c.id}', '${u.balanceEmail || ''}', '${c.rifaId}', ${c.cantidad})">Reembolsar</button>` : '-'}</td>
                     </tr>`;
                 });
                 
-                html += `</tbody></table></div>`;
-                
+                html += '</tbody></table>';
                 document.getElementById('detalleUsuarioContent').innerHTML = html;
                 abrirModal('modalVerUsuario');
-            } catch { mostrarToast('Error al cargar', 'error'); }
+            } catch { mostrarToast('Error', 'error'); }
         }
 
-        async function reembolsarCompra(compraId, balanceEmail) {
-            if (!balanceEmail) {
-                mostrarToast('Usuario sin correo de balance configurado', 'error');
-                return;
-            }
-            if (!confirm(`¿Reembolsar? El pago se enviará a: ${balanceEmail}`)) return;
-            
+        async function reembolsarCompra(compraId, balanceEmail, rifaId, cantidad) {
+            if (!balanceEmail) { mostrarToast('Usuario sin correo de balance', 'error'); return; }
+            if (!confirm(`¿Reembolsar a ${balanceEmail}?`)) return;
             try {
-                const compraDoc = await db.collection('compras').doc(compraId).get();
-                const compra = compraDoc.data();
-                
                 await db.collection('compras').doc(compraId).update({ estado: 'reembolsado' });
-                await db.collection('rifas').doc(compra.rifaId).update({
-                    boletosVendidos: firebase.firestore.FieldValue.increment(-compra.cantidad)
+                await db.collection('rifas').doc(rifaId).update({
+                    boletosVendidos: firebase.firestore.FieldValue.increment(-cantidad)
                 });
-                
-                mostrarToast(`Reembolso marcado. Enviar $${compra.total} a ${balanceEmail}`, 'success');
+                mostrarToast('Reembolso procesado', 'success');
                 cerrarModal('modalVerUsuario');
-                cargarUsuariosAdmin();
                 cargarRifas();
             } catch { mostrarToast('Error', 'error'); }
         }
@@ -2209,7 +2523,6 @@
                 const doc = await db.collection('rifas').doc(id).get();
                 const r = doc.data();
                 rifaEditando = id;
-                
                 document.getElementById('modalRifaTitle').textContent = '✏️ Editar Rifa';
                 document.getElementById('rifaTitulo').value = r.titulo;
                 document.getElementById('rifaDescripcion').value = r.descripcion || '';
@@ -2219,19 +2532,17 @@
                 document.getElementById('rifaPrecioBoleto').value = r.precioBoleto || 1;
                 document.getElementById('rifaTotalBoletos').value = r.totalBoletos;
                 document.getElementById('rifaDias').value = r.dias || 7;
-                
                 comisionesActivas = r.comisionesActivas || false;
                 document.getElementById('toggleComisiones').classList.toggle('active', comisionesActivas);
                 document.getElementById('comisionesConfig').style.display = comisionesActivas ? 'block' : 'none';
                 document.getElementById('rifaComisionPorcentaje').value = r.comisionPorcentaje || 10;
-                
                 abrirModal('modalNuevaRifa');
             } catch {}
         }
 
         async function guardarRifa(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
+            const btn = document.getElementById('btnGuardarRifa');
             btn.disabled = true; btn.textContent = 'Guardando...';
             
             try {
@@ -2265,7 +2576,7 @@
                     datos.activa = true;
                     datos.finalizada = false;
                     datos.fechaCreacion = firebase.firestore.FieldValue.serverTimestamp();
-                    datos.fechaFin = new Date(Date.now() + datos.dias * 24 * 60 * 60 * 1000);
+                    datos.fechaFin = new Date(Date.now() + datos.dias * 86400000);
                     await db.collection('rifas').add(datos);
                 }
                 
@@ -2273,8 +2584,11 @@
                 rifaEditando = null;
                 cargarRifasAdmin();
                 cargarRifas();
-                mostrarToast('Rifa guardada', 'success');
-            } catch { mostrarToast('Error', 'error'); }
+                mostrarToast('¡Guardado!', 'success');
+            } catch (error) {
+                console.error(error);
+                mostrarToast('Error al guardar', 'error');
+            }
             
             btn.disabled = false; btn.textContent = 'Guardar Rifa';
         }
@@ -2286,7 +2600,7 @@
         }
 
         async function eliminarRifaAdmin(id) {
-            if (!confirm('¿Eliminar rifa?')) return;
+            if (!confirm('¿Eliminar?')) return;
             await db.collection('rifas').doc(id).delete();
             cargarRifasAdmin();
             cargarRifas();
@@ -2325,9 +2639,9 @@
         function mostrarToast(msg, tipo = 'success') {
             const toast = document.createElement('div');
             toast.className = `toast ${tipo}`;
-            toast.innerHTML = `<span>${tipo === 'success' ? '✅' : '❌'}</span> ${msg}`;
+            toast.innerHTML = `${tipo === 'success' ? '✅' : '❌'} ${msg}`;
             document.body.appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 3500);
+            setTimeout(() => toast.remove(), 3500);
         }
 
         document.querySelectorAll('.modal').forEach(modal => {
