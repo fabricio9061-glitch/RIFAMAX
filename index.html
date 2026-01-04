@@ -173,11 +173,11 @@
         .toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.3s}
         .toggle.active::after{transform:translateX(18px)}
         .checkbox-group{display:flex;align-items:center;gap:.4rem;margin:.5rem 0}
-        .checkbox-group input{width:16px;height:16px}
+        .checkbox-group input{width:16px;height:16px;flex-shrink:0}
         .checkbox-group label{font-size:.8rem;margin:0}
-        .phone-input{display:flex;gap:.4rem}
-        .phone-input select{width:100px}
-        .phone-input input{flex:1}
+        .phone-input{display:flex;gap:.5rem}
+        .phone-input select{width:110px;flex-shrink:0}
+        .phone-input input{flex:1;min-width:0}
         
         /* Estilos para tarjetas de ganadores en admin */
         .ganador-admin-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;margin-bottom:1rem;transition:.3s}
@@ -209,117 +209,142 @@
         /* Móviles */
         @media(max-width:768px){
             /* Header */
-            header{flex-direction:column;gap:.8rem;padding:.8rem 3%}
+            header{flex-direction:column;gap:.8rem;padding:.8rem 4%}
             .logo{font-size:1.8rem}
             nav{width:100%;justify-content:center;flex-wrap:wrap;gap:.5rem}
-            nav a{font-size:.8rem}
-            .nav-buttons{width:100%;justify-content:center}
-            .btn-login,.btn-register{padding:.35rem .8rem;font-size:.8rem}
-            .user-dropdown{min-width:200px;right:-20px}
+            nav a{font-size:.85rem;padding:.2rem .4rem}
+            .nav-buttons{width:100%;justify-content:center;gap:.8rem}
+            .btn-login,.btn-register{padding:.45rem 1rem;font-size:.85rem}
+            .user-dropdown{min-width:220px;right:-10px}
+            .user-avatar{width:38px;height:38px}
             
             /* Hero */
-            .hero{padding:2rem 3% 1.5rem}
-            .hero h1{font-size:1.8rem}
-            .hero p{font-size:.9rem}
+            .hero{padding:2rem 4% 1.5rem}
+            .hero h1{font-size:1.9rem;line-height:1.2}
+            .hero p{font-size:.95rem;margin-bottom:1rem}
             
             /* Secciones */
-            .section{padding:1.5rem 3%}
-            .section-title{font-size:1.5rem;margin-bottom:1rem}
+            .section{padding:1.5rem 4%}
+            .section-title{font-size:1.5rem;margin-bottom:1.2rem}
             
             /* Grid de rifas */
-            .rifas-grid{grid-template-columns:1fr;gap:1rem}
-            .rifa-card{margin:0 auto;max-width:350px;width:100%}
-            .rifa-image{height:140px}
-            .rifa-content{padding:.8rem}
-            .rifa-title{font-size:1.1rem}
-            .stat-value{font-size:.9rem}
-            .stat-label{font-size:.55rem}
+            .rifas-grid{grid-template-columns:1fr;gap:1.2rem}
+            .rifa-card{margin:0 auto;max-width:380px;width:100%}
+            .rifa-image{height:160px}
+            .rifa-content{padding:1rem}
+            .rifa-title{font-size:1.15rem}
+            .rifa-stats{padding:.7rem;gap:.3rem}
+            .stat-value{font-size:1rem}
+            .stat-label{font-size:.65rem}
+            .btn-participar{padding:.7rem;font-size:.95rem}
             
             /* Admin Panel */
-            .admin-panel{padding:1rem 3%}
+            .admin-panel{padding:1rem 4%}
             .admin-header{flex-direction:column;gap:.8rem}
             .admin-header h2{font-size:1.3rem}
-            .admin-tabs{overflow-x:auto;padding-bottom:.5rem;gap:.4rem;justify-content:flex-start}
-            .admin-tab{white-space:nowrap;padding:.5rem .7rem;font-size:.7rem;flex-shrink:0}
-            .admin-tab .badge{font-size:.6rem;padding:.1rem .35rem}
-            .stats-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
-            .stat-card{padding:.8rem}
-            .stat-card-value{font-size:1.3rem}
-            .stat-card-label{font-size:.65rem}
+            .admin-tabs{overflow-x:auto;padding-bottom:.5rem;gap:.4rem;justify-content:flex-start;-webkit-overflow-scrolling:touch}
+            .admin-tab{white-space:nowrap;padding:.5rem .8rem;font-size:.75rem;flex-shrink:0}
+            .admin-tab .badge{font-size:.65rem;padding:.15rem .4rem}
+            .stats-grid{grid-template-columns:repeat(2,1fr);gap:.8rem}
+            .stat-card{padding:1rem}
+            .stat-card-value{font-size:1.5rem}
+            .stat-card-label{font-size:.7rem}
             
             /* Tablas admin */
-            .admin-table{font-size:.7rem}
-            .admin-table th,.admin-table td{padding:.4rem .3rem}
-            .btn-small{padding:.25rem .4rem;font-size:.65rem}
-            .btn-nuevo{padding:.4rem .8rem;font-size:.75rem}
+            .admin-table{font-size:.75rem}
+            .admin-table th,.admin-table td{padding:.5rem .4rem}
+            .btn-small{padding:.3rem .5rem;font-size:.7rem}
+            .btn-nuevo{padding:.5rem 1rem;font-size:.8rem}
             
             /* Modales */
-            .modal-content{padding:1rem;margin:.5rem;max-height:90vh}
+            .modal{padding:.5rem}
+            .modal-content{padding:1.2rem;margin:.5rem;max-height:92vh;border-radius:15px}
             .modal-content.wide{max-width:95%}
-            .modal-title{font-size:1.1rem}
+            .modal-title{font-size:1.2rem}
             .form-row{grid-template-columns:1fr}
-            .form-group label{font-size:.8rem}
-            .form-group input,.form-group select,.form-group textarea{padding:.5rem;font-size:.85rem}
-            .btn-submit{padding:.6rem;font-size:.85rem}
+            .form-group{margin-bottom:.9rem}
+            .form-group label{font-size:.85rem;margin-bottom:.4rem}
+            .form-group input,.form-group select,.form-group textarea{padding:.6rem;font-size:.9rem}
+            .btn-submit{padding:.7rem;font-size:.9rem}
+            .phone-input select{width:100px}
+            
+            /* File upload */
+            .file-upload{padding:1.2rem}
+            .file-upload span{font-size:1.8rem}
             
             /* Boletos */
-            .boleto-card{padding:.8rem}
-            .boleto-rifa{font-size:.85rem}
-            .boleto-numero{padding:.2rem .4rem;font-size:.8rem}
-            .boletos-numeros{gap:.3rem}
+            .boleto-card{padding:1rem}
+            .boleto-rifa{font-size:.9rem}
+            .boleto-numero{padding:.25rem .5rem;font-size:.85rem}
+            .boletos-numeros{gap:.4rem}
             
             /* Ganadores admin */
-            .ganador-admin-card{padding:.8rem}
-            .ganador-admin-rifa{font-size:.9rem}
+            .ganador-admin-card{padding:1rem}
+            .ganador-admin-rifa{font-size:.95rem}
             .ganador-admin-body{flex-direction:column;align-items:flex-start}
-            .ganador-admin-numero{font-size:1.1rem;padding:.3rem .6rem}
+            .ganador-admin-numero{font-size:1.2rem;padding:.35rem .7rem}
             .ganador-admin-premio{text-align:left;margin-top:.5rem}
             .ganador-admin-actions{justify-content:center}
-            .ganador-admin-actions .btn-small{width:100%;justify-content:center;padding:.5rem}
+            .ganador-admin-actions .btn-small{width:100%;justify-content:center;padding:.6rem}
             
             /* Soporte bubble */
-            .support-bubble{bottom:10px;right:10px}
-            .support-btn{width:45px;height:45px;font-size:1.1rem}
-            .support-chat{width:260px;bottom:55px}
+            .support-bubble{bottom:15px;right:15px}
+            .support-btn{width:50px;height:50px;font-size:1.3rem}
+            .support-chat{width:280px;bottom:60px;right:0}
             
             /* Selector de boletos */
-            .boletos-selector{gap:.6rem}
-            .btn-cantidad{width:32px;height:32px;font-size:1rem}
-            .cantidad-display{font-size:1.4rem}
+            .boletos-selector{gap:.8rem}
+            .btn-cantidad{width:40px;height:40px;font-size:1.2rem}
+            .cantidad-display{font-size:1.8rem;min-width:50px}
             
             /* Referidos */
-            .referral-box{padding:.8rem}
-            .referral-code{font-size:1.4rem;letter-spacing:2px;padding:.2rem .8rem}
-            .referral-stats{gap:.2rem}
-            .referral-stat-value{font-size:.9rem}
+            .referral-box{padding:1rem}
+            .referral-code{font-size:1.5rem;letter-spacing:3px;padding:.4rem 1rem}
+            .referral-stats{gap:.5rem}
+            .referral-stat-value{font-size:1rem}
             
             /* Perfil */
-            .profile-avatar{width:60px;height:60px;font-size:1.5rem}
-            .profile-stats{gap:.4rem}
-            .profile-stat{padding:.5rem}
-            .profile-stat-value{font-size:1.1rem}
+            .profile-avatar{width:70px;height:70px;font-size:1.8rem}
+            
+            /* Ganadores públicos */
+            .ganador-item{padding:.8rem;gap:.8rem}
+            .ganador-icon{font-size:1.8rem}
+            .ganador-nombre{font-size:.95rem}
+            .ganador-premio{font-size:.8rem}
             
             /* Toast */
-            .toast{left:10px;right:10px;max-width:none;font-size:.75rem;padding:.5rem .8rem}
+            .toast{left:15px;right:15px;max-width:none;font-size:.85rem;padding:.7rem 1rem;bottom:15px}
             
             /* Footer */
-            footer{padding:.8rem 3%;font-size:.7rem}
+            footer{padding:1rem 4%;font-size:.8rem}
         }
         
         /* Móviles pequeños */
         @media(max-width:400px){
-            header{padding:.6rem 2%}
+            header{padding:.6rem 3%}
             .logo{font-size:1.5rem}
-            nav a{font-size:.7rem}
-            .hero h1{font-size:1.5rem}
-            .section{padding:1rem 2%}
-            .admin-panel{padding:.8rem 2%}
-            .modal-content{padding:.8rem;margin:.3rem}
-            .stats-grid{grid-template-columns:1fr 1fr}
-            .stat-card{padding:.6rem}
-            .stat-card-value{font-size:1.1rem}
-            .admin-table{font-size:.65rem}
-            .btn-small{padding:.2rem .3rem;font-size:.6rem}
+            nav a{font-size:.75rem}
+            .btn-login,.btn-register{padding:.4rem .8rem;font-size:.8rem}
+            .hero h1{font-size:1.6rem}
+            .hero p{font-size:.85rem}
+            .section{padding:1rem 3%}
+            .section-title{font-size:1.3rem}
+            .rifa-card{max-width:100%}
+            .admin-panel{padding:.8rem 3%}
+            .modal-content{padding:1rem;margin:.3rem}
+            .modal-title{font-size:1.1rem}
+            .stats-grid{grid-template-columns:1fr 1fr;gap:.6rem}
+            .stat-card{padding:.8rem}
+            .stat-card-value{font-size:1.3rem}
+            .admin-table{font-size:.7rem}
+            .admin-table th,.admin-table td{padding:.35rem .25rem}
+            .btn-small{padding:.25rem .35rem;font-size:.65rem}
+            .phone-input{flex-direction:column}
+            .phone-input select{width:100%}
+            .referral-code{font-size:1.3rem;letter-spacing:2px}
+            .boletos-selector{gap:.5rem}
+            .btn-cantidad{width:35px;height:35px}
+            .cantidad-display{font-size:1.5rem}
         }
         
         /* Pantallas grandes */
@@ -456,7 +481,7 @@
                 <div class="form-group">
                     <label>Teléfono *</label>
                     <div class="phone-input">
-                        <select id="regCodigoPais"><option value="+1">🇺🇸+1</option><option value="+52">🇲🇽+52</option><option value="+54">🇦🇷+54</option><option value="+55">🇧🇷+55</option><option value="+56">🇨🇱+56</option><option value="+57">🇨🇴+57</option><option value="+58">🇻🇪+58</option><option value="+34">🇪🇸+34</option><option value="+51">🇵🇪+51</option></select>
+                        <select id="regCodigoPais"><option value="+598">🇺🇾+598</option><option value="+1">🇺🇸+1</option><option value="+52">🇲🇽+52</option><option value="+54">🇦🇷+54</option><option value="+55">🇧🇷+55</option><option value="+56">🇨🇱+56</option><option value="+57">🇨🇴+57</option><option value="+58">🇻🇪+58</option><option value="+595">🇵🇾+595</option><option value="+593">🇪🇨+593</option><option value="+591">🇧🇴+591</option><option value="+51">🇵🇪+51</option><option value="+34">🇪🇸+34</option></select>
                         <input type="tel" id="regTelefono" required placeholder="Número">
                     </div>
                 </div>
@@ -715,19 +740,67 @@
 
         async function registrarUsuario(e){
             e.preventDefault();
-            if(!documentoBase64){mostrarToast('Sube documento','error');return}
-            const nombre=document.getElementById('regNombre').value.trim(),apellido=document.getElementById('regApellido').value.trim(),email=document.getElementById('regEmail').value.trim().toLowerCase(),emailC=document.getElementById('regEmailConfirm').value.trim().toLowerCase(),cod=document.getElementById('regCodigoPais').value,tel=document.getElementById('regTelefono').value.trim(),pass=document.getElementById('regPassword').value,passC=document.getElementById('regPasswordConfirm').value,codRef=document.getElementById('regCodigoReferido').value.trim().toUpperCase();
-            if(email!==emailC){mostrarToast('Correos no coinciden','error');return}
-            if(pass!==passC){mostrarToast('Contraseñas no coinciden','error');return}
-            const btn=document.getElementById('btnRegistro');btn.disabled=true;btn.textContent='Creando...';
+            if(!documentoBase64){mostrarToast('Debes subir tu documento de identidad','error');return}
+            const nombre=document.getElementById('regNombre').value.trim();
+            const apellido=document.getElementById('regApellido').value.trim();
+            const email=document.getElementById('regEmail').value.trim().toLowerCase();
+            const emailC=document.getElementById('regEmailConfirm').value.trim().toLowerCase();
+            const cod=document.getElementById('regCodigoPais').value;
+            const tel=document.getElementById('regTelefono').value.trim();
+            const pass=document.getElementById('regPassword').value;
+            const passC=document.getElementById('regPasswordConfirm').value;
+            const codRef=document.getElementById('regCodigoReferido').value.trim().toUpperCase();
+            
+            if(!nombre||!apellido){mostrarToast('Completa nombre y apellido','error');return}
+            if(!email){mostrarToast('Ingresa tu correo','error');return}
+            if(email!==emailC){mostrarToast('Los correos no coinciden','error');return}
+            if(!tel){mostrarToast('Ingresa tu teléfono','error');return}
+            if(pass.length<6){mostrarToast('Contraseña: mínimo 6 caracteres','error');return}
+            if(pass!==passC){mostrarToast('Las contraseñas no coinciden','error');return}
+            
+            const btn=document.getElementById('btnRegistro');btn.disabled=true;btn.textContent='Creando cuenta...';
             try{
                 let refId=null;
-                if(codRef){const q=await db.collection('usuarios').where('codigoReferido','==',codRef).get();if(q.empty){mostrarToast('Código inválido','error');btn.disabled=false;btn.textContent='Crear Cuenta';return}refId=q.docs[0].id}
+                if(codRef){
+                    const q=await db.collection('usuarios').where('codigoReferido','==',codRef).get();
+                    if(q.empty){mostrarToast('Código de referido inválido','error');btn.disabled=false;btn.textContent='Crear Cuenta';return}
+                    refId=q.docs[0].id;
+                }
                 const uc=await auth.createUserWithEmailAndPassword(email,pass);
-                await db.collection('usuarios').doc(uc.user.uid).set({nombre,apellido,email,telefono:cod+tel,codigoReferido:generarCodigoReferido(),referidoPor:refId,avatarBase64:null,balanceEmail:null,documentoBase64,activo:email===ADMIN_EMAIL,totalReferidos:0,fechaRegistro:firebase.firestore.FieldValue.serverTimestamp(),esAdmin:email===ADMIN_EMAIL});
+                await db.collection('usuarios').doc(uc.user.uid).set({
+                    nombre:nombre,
+                    apellido:apellido,
+                    email:email,
+                    telefono:cod+tel,
+                    codigoReferido:generarCodigoReferido(),
+                    referidoPor:refId,
+                    avatarBase64:null,
+                    balanceEmail:null,
+                    documentoBase64:documentoBase64,
+                    activo:email===ADMIN_EMAIL,
+                    esAdmin:email===ADMIN_EMAIL,
+                    totalReferidos:0,
+                    fechaRegistro:firebase.firestore.FieldValue.serverTimestamp()
+                });
                 if(refId)await db.collection('usuarios').doc(refId).update({totalReferidos:firebase.firestore.FieldValue.increment(1)});
-                await auth.signOut();cerrarModal('modalRegistro');documentoBase64=null;abrirModal('modalCuentaPendiente');mostrarToast('¡Creada! Espera verificación','success');
-            }catch(er){mostrarToast(er.code==='auth/email-already-in-use'?'Correo ya existe':'Error','error')}
+                await auth.signOut();
+                cerrarModal('modalRegistro');
+                document.getElementById('docUploadZone').classList.remove('has-file');
+                document.getElementById('docUploadText').textContent='Click para subir';
+                documentoBase64=null;
+                event.target.reset();
+                abrirModal('modalCuentaPendiente');
+                mostrarToast('¡Cuenta creada! Espera verificación','success');
+            }catch(er){
+                console.error('Error registro:',er);
+                let msg='Error al crear cuenta';
+                if(er.code==='auth/email-already-in-use')msg='Este correo ya está registrado';
+                else if(er.code==='auth/invalid-email')msg='Correo electrónico inválido';
+                else if(er.code==='auth/weak-password')msg='Contraseña muy débil';
+                else if(er.code==='auth/network-request-failed')msg='Error de conexión';
+                else if(er.message)msg=er.message;
+                mostrarToast(msg,'error');
+            }
             btn.disabled=false;btn.textContent='Crear Cuenta';
         }
 
