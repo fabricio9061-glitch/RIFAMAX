@@ -135,6 +135,38 @@
         footer{position:relative;z-index:5;text-align:center;padding:1rem 5%;border-top:1px solid rgba(255,255,255,.1);margin-top:2rem;font-size:.8rem}
         .auth-buttons.hidden{display:none}
         .balance-badge{background:linear-gradient(135deg,var(--success),var(--accent));color:var(--dark);padding:.15rem .5rem;border-radius:15px;font-size:.7rem;font-weight:700;margin-left:auto}
+        
+        /* Estilos para boletos numerados */
+        .boleto-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;margin-bottom:.8rem}
+        .boleto-card.pendiente{border-color:var(--warning);background:rgba(255,167,38,.05)}
+        .boleto-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+        .boleto-rifa{font-weight:600;font-size:.95rem;color:var(--secondary)}
+        .boleto-estado{font-size:.7rem;padding:.2rem .5rem;border-radius:10px}
+        .boleto-estado.aprobado{background:rgba(6,255,165,.2);color:var(--success)}
+        .boleto-estado.pendiente{background:rgba(255,167,38,.2);color:var(--warning)}
+        .boleto-info{font-size:.85rem;opacity:.8;margin-bottom:.6rem}
+        .boletos-numeros{display:flex;flex-wrap:wrap;gap:.4rem}
+        .boleto-numero{background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--dark);padding:.25rem .5rem;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:1px}
+        
+        /* Botón sorteo */
+        .btn-sorteo{background:linear-gradient(135deg,var(--secondary),var(--primary))!important;color:var(--dark)!important;font-size:.85rem!important;padding:.35rem .6rem!important}
+        .btn-sorteo:hover{transform:scale(1.1)}
+        
+        /* Modal resultado sorteo */
+        .sorteo-resultado{text-align:center;padding:1rem}
+        .sorteo-animacion{font-size:4rem;margin:1rem 0;animation:bounce 1s ease infinite}
+        @keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+        .sorteo-numero-ganador{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--secondary);background:rgba(0,0,0,.3);padding:.5rem 1.5rem;border-radius:12px;display:inline-block;margin:1rem 0;letter-spacing:4px}
+        .sorteo-ganador-info{background:linear-gradient(135deg,rgba(6,255,165,.1),rgba(0,180,216,.1));border:2px solid var(--success);border-radius:12px;padding:1rem;margin:1rem 0}
+        .sorteo-ganador-nombre{font-size:1.3rem;font-weight:700;color:var(--success);margin-bottom:.3rem}
+        .sorteo-ganador-email{font-size:.85rem;opacity:.7}
+        .sorteo-premio{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--secondary);margin:.5rem 0}
+        .sorteo-stats{font-size:.8rem;opacity:.7;margin-top:.5rem}
+        
+        .confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+        .confetti-piece{position:absolute;width:10px;height:10px;animation:confetti-fall 3s ease-out forwards}
+        @keyframes confetti-fall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+        
         .toggle-container{display:flex;align-items:center;gap:.4rem;margin:.3rem 0}
         .toggle{position:relative;width:40px;height:22px;background:rgba(255,255,255,.2);border-radius:11px;cursor:pointer}
         .toggle.active{background:var(--success)}
@@ -208,9 +240,9 @@
             <div id="tabDashboard"><div class="stats-grid" id="dashboardStats"></div></div>
             <div id="tabCuentas" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Cuentas Pendientes</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Doc</th><th>Acción</th></tr></thead><tbody id="cuentasAdminBody"></tbody></table></div></div>
             <div id="tabPagos" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Pagos Pendientes</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Cant</th><th>Total</th><th>ID</th><th>Comp</th><th>Acción</th></tr></thead><tbody id="pagosAdminBody"></tbody></table></div></div>
-            <div id="tabRifas" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem"><h3 style="font-size:.9rem;margin:0">Rifas</h3><button class="btn-nuevo" onclick="abrirModalNuevaRifa()">+ Nueva</button></div><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Rifa</th><th>Premio</th><th>Boletos</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="rifasAdminBody"></tbody></table></div></div>
+            <div id="tabRifas" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem"><h3 style="font-size:.9rem;margin:0">Rifas</h3><button class="btn-nuevo" onclick="abrirModalNuevaRifa()">+ Nueva</button></div><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Rifa</th><th>Premio</th><th>Boletos</th><th>Estado</th><th>Sorteo</th><th>Acción</th></tr></thead><tbody id="rifasAdminBody"></tbody></table></div></div>
             <div id="tabUsuarios" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Usuarios</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Refs</th><th>Ver</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table></div></div>
-            <div id="tabCompras" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Compras Aprobadas</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Cant</th><th>Total</th></tr></thead><tbody id="comprasAdminBody"></tbody></table></div></div>
+            <div id="tabCompras" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Compras Aprobadas</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Cant</th><th>Boletos</th><th>Total</th></tr></thead><tbody id="comprasAdminBody"></tbody></table></div></div>
             <div id="tabSoporte" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Soporte</h3><div id="soporteAdminBody"></div></div>
         </div>
     </section>
@@ -431,6 +463,32 @@
         </div>
     </div>
 
+    <!-- Modal Resultado Sorteo -->
+    <div class="modal" id="modalResultadoSorteo">
+        <div class="modal-content" style="max-width:450px">
+            <button class="modal-close" onclick="cerrarModal('modalResultadoSorteo')">×</button>
+            <div class="sorteo-resultado">
+                <div class="sorteo-animacion">🎉</div>
+                <h3 class="modal-title" style="margin:0">¡TENEMOS GANADOR!</h3>
+                <p style="font-size:.9rem;opacity:.8" id="sorteoRifaTitulo">Rifa</p>
+                <p class="sorteo-premio" id="sorteoPremio">$100</p>
+                
+                <p style="font-size:.85rem;margin-top:1rem">Número Ganador:</p>
+                <div class="sorteo-numero-ganador" id="sorteoNumeroGanador">#001</div>
+                
+                <div class="sorteo-ganador-info">
+                    <p style="font-size:.8rem;opacity:.7">🏆 Ganador:</p>
+                    <p class="sorteo-ganador-nombre" id="sorteoGanadorNombre">Nombre</p>
+                    <p class="sorteo-ganador-email" id="sorteoGanadorEmail">email@ejemplo.com</p>
+                </div>
+                
+                <p class="sorteo-stats" id="sorteoTotalBoletos">100 boletos participaron</p>
+                
+                <button class="btn-submit" onclick="cerrarModal('modalResultadoSorteo')" style="margin-top:1rem">¡Entendido!</button>
+            </div>
+        </div>
+    </div>
+
     <footer><p>&copy; 2025 RifaMax. Mayores de 18.</p></footer>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -598,8 +656,95 @@
         function cargarModalPerfil(){if(!userData)return;document.getElementById('profileNombreCompleto').textContent=`${userData.nombre} ${userData.apellido}`;document.getElementById('profileEmail').textContent=userData.email;document.getElementById('editNombre').value=userData.nombre||'';document.getElementById('editApellido').value=userData.apellido||'';document.getElementById('editBalanceEmail').value=userData.balanceEmail||'';document.getElementById('profileAvatarContent').innerHTML=userData.avatarBase64?`<img src="${userData.avatarBase64}">`:(userData.nombre?.charAt(0).toUpperCase()||'👤')}
 
         function cambiarTabBoletos(t,b){document.querySelectorAll('#modalMisBoletos .modal-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('listaMisBoletosAprobados').style.display=t==='aprobados'?'block':'none';document.getElementById('listaMisBoletospendientes').style.display=t==='pendientes'?'block':'none'}
-        async function cargarModalMisBoletos(){if(!currentUser)return;const la=document.getElementById('listaMisBoletosAprobados'),lp=document.getElementById('listaMisBoletospendientes');la.innerHTML=lp.innerHTML='<div class="loading"><div class="spinner"></div></div>';try{const a=await db.collection('compras').where('usuarioId','==',currentUser.uid).where('estado','==','aprobado').get();la.innerHTML=a.empty?'<div class="empty-state"><span>🎟️</span><p>Sin boletos</p></div>':'';a.forEach(d=>{const c=d.data();la.innerHTML+=`<div class="ganador-item" style="border-color:var(--success)"><div class="ganador-icon">🎟️</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total}</div></div></div>`});const p=await db.collection('compras').where('usuarioId','==',currentUser.uid).where('estado','==','pendiente').get();lp.innerHTML=p.empty?'<div class="empty-state"><span>⏳</span><p>Sin pendientes</p></div>':'';p.forEach(d=>{const c=d.data();lp.innerHTML+=`<div class="ganador-item" style="border-color:var(--warning);background:rgba(255,167,38,.1)"><div class="ganador-icon">⏳</div><div class="ganador-info"><div class="ganador-nombre">${c.rifaTitulo}</div><div class="ganador-premio">${c.cantidad} boleto(s) - $${c.total}</div></div></div>`})}catch{la.innerHTML='<div class="empty-state"><span>❌</span><p>Error</p></div>'}}
-        async function cargarModalMisPremios(){if(!currentUser)return;const l=document.getElementById('listaMisPremios');l.innerHTML='<div class="loading"><div class="spinner"></div></div>';try{const p=await db.collection('ganadores').where('usuarioId','==',currentUser.uid).get();l.innerHTML=p.empty?'<div class="empty-state"><span>🏆</span><p>Aún no has ganado</p></div>':'';p.forEach(d=>{const x=d.data();l.innerHTML+=`<div class="ganador-item"><div class="ganador-icon">${x.icono||'🏆'}</div><div class="ganador-info"><div class="ganador-nombre">${x.rifaTitulo||'Sorteo'}</div><div class="ganador-premio">Premio: ${x.premio}</div></div></div>`})}catch{l.innerHTML='<div class="empty-state"><span>❌</span><p>Error</p></div>'}}
+        
+        async function cargarModalMisBoletos(){
+            if(!currentUser)return;
+            const la=document.getElementById('listaMisBoletosAprobados');
+            const lp=document.getElementById('listaMisBoletospendientes');
+            la.innerHTML=lp.innerHTML='<div class="loading"><div class="spinner"></div></div>';
+            
+            try{
+                // Boletos aprobados
+                const a=await db.collection('compras').where('usuarioId','==',currentUser.uid).where('estado','==','aprobado').get();
+                if(a.empty){
+                    la.innerHTML='<div class="empty-state"><span>🎟️</span><p>Sin boletos aprobados</p></div>';
+                } else {
+                    la.innerHTML='';
+                    a.forEach(d=>{
+                        const c=d.data();
+                        const numeros = c.numerosBoleto || [];
+                        const numerosHTML = numeros.length > 0 
+                            ? `<div class="boletos-numeros">${numeros.map(n=>`<span class="boleto-numero">#${String(n).padStart(3,'0')}</span>`).join('')}</div>`
+                            : '<small style="opacity:.6">Números pendientes</small>';
+                        la.innerHTML+=`
+                            <div class="boleto-card">
+                                <div class="boleto-header">
+                                    <span class="boleto-rifa">${c.rifaTitulo}</span>
+                                    <span class="boleto-estado aprobado">✓ Aprobado</span>
+                                </div>
+                                <div class="boleto-info">
+                                    <span>${c.cantidad} boleto(s) • $${c.total}</span>
+                                </div>
+                                ${numerosHTML}
+                            </div>`;
+                    });
+                }
+                
+                // Boletos pendientes
+                const p=await db.collection('compras').where('usuarioId','==',currentUser.uid).where('estado','==','pendiente').get();
+                if(p.empty){
+                    lp.innerHTML='<div class="empty-state"><span>⏳</span><p>Sin pagos pendientes</p></div>';
+                } else {
+                    lp.innerHTML='';
+                    p.forEach(d=>{
+                        const c=d.data();
+                        lp.innerHTML+=`
+                            <div class="boleto-card pendiente">
+                                <div class="boleto-header">
+                                    <span class="boleto-rifa">${c.rifaTitulo}</span>
+                                    <span class="boleto-estado pendiente">⏳ Pendiente</span>
+                                </div>
+                                <div class="boleto-info">
+                                    <span>${c.cantidad} boleto(s) • $${c.total}</span>
+                                </div>
+                                <small style="opacity:.6">ID Orden: ${c.idOrden || 'N/A'}</small>
+                            </div>`;
+                    });
+                }
+            }catch(er){console.error(er);la.innerHTML='<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>'}
+        }
+        async function cargarModalMisPremios(){
+            if(!currentUser)return;
+            const l=document.getElementById('listaMisPremios');
+            l.innerHTML='<div class="loading"><div class="spinner"></div></div>';
+            try{
+                const p=await db.collection('ganadores').where('usuarioId','==',currentUser.uid).get();
+                if(p.empty){
+                    l.innerHTML='<div class="empty-state"><span>🏆</span><p>Aún no has ganado</p></div>';
+                } else {
+                    l.innerHTML='';
+                    p.forEach(d=>{
+                        const x=d.data();
+                        const fecha = x.fecha?.toDate ? x.fecha.toDate().toLocaleDateString() : '';
+                        l.innerHTML+=`
+                            <div class="boleto-card" style="border-color:var(--success);background:rgba(6,255,165,.05)">
+                                <div class="boleto-header">
+                                    <span class="boleto-rifa">${x.icono||'🎁'} ${x.rifaTitulo||'Sorteo'}</span>
+                                    <span class="boleto-estado aprobado">🏆 Ganador</span>
+                                </div>
+                                <div style="text-align:center;margin:.8rem 0">
+                                    <p style="font-size:.8rem;opacity:.7">Número Ganador</p>
+                                    <span class="boleto-numero" style="font-size:1.2rem">#${String(x.numeroGanador||0).padStart(3,'0')}</span>
+                                </div>
+                                <div class="boleto-info">
+                                    <span>Premio: ${x.tipoPremio==='dinero'?'$':''}${x.premio}</span>
+                                </div>
+                                <small style="opacity:.6">${fecha}</small>
+                            </div>`;
+                    });
+                }
+            }catch(er){console.error(er);l.innerHTML='<div class="empty-state"><span>❌</span><p>Error</p></div>'}
+        }
         async function cargarModalReferidos(){if(!userData)return;document.getElementById('miCodigoReferido').textContent=userData.codigoReferido||'------';try{const r=await db.collection('usuarios').where('referidoPor','==',currentUser.uid).get();document.getElementById('totalReferidos').textContent=r.size;const c=await db.collection('compras').where('referidorId','==',currentUser.uid).where('estado','==','aprobado').get();let b=0,d=0;c.forEach(x=>{const y=x.data();b+=y.cantidad||0;d+=(y.cantidad||0)*(y.comisionPorBoleto||0.1)});document.getElementById('boletosReferidos').textContent=b;document.getElementById('dineroReferidos').textContent=`$${d.toFixed(2)}`}catch{}}
 
         function mostrarPanelAdmin(){if(!userData||(userData.email!==ADMIN_EMAIL&&!userData.esAdmin))return;document.getElementById('mainContent').style.display='none';document.getElementById('adminPanel').classList.add('active');document.getElementById('userDropdown').classList.remove('show');cargarDashboardAdmin();cargarBadges()}
@@ -615,19 +760,279 @@
 
         async function cargarPagosAdmin(){const tb=document.getElementById('pagosAdminBody');tb.innerHTML='<tr><td colspan="7"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('compras').where('estado','==','pendiente').get();tb.innerHTML=s.empty?'<tr><td colspan="7" style="text-align:center">No hay pendientes 🎉</td></tr>':'';s.forEach(d=>{const c={id:d.id,...d.data()};tb.innerHTML+=`<tr><td>${c.usuarioNombre}</td><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td>$${c.total}</td><td>${c.idOrden||'N/A'}</td><td><button class="btn-small btn-view" onclick="verImagen('${c.comprobanteBase64}')">Ver</button></td><td><button class="btn-small btn-approve" onclick="aprobarPago('${c.id}')">✓</button><button class="btn-small btn-reject" onclick="rechazarPago('${c.id}')">✗</button></td></tr>`})}catch{}}
         function verImagen(b){document.getElementById('imagenViewer').src=b;abrirModal('modalVerImagen')}
-        async function aprobarPago(id){if(!confirm('¿Aprobar?'))return;try{const cd=await db.collection('compras').doc(id).get(),c=cd.data();await db.collection('compras').doc(id).update({estado:'aprobado'});await db.collection('rifas').doc(c.rifaId).update({boletosVendidos:firebase.firestore.FieldValue.increment(c.cantidad)});mostrarToast('¡Aprobado!','success');cargarPagosAdmin();cargarBadges();cargarRifas()}catch{mostrarToast('Error','error')}}
+        
+        // Generar números de boleto aleatorios únicos
+        async function generarNumerosBoleto(rifaId, cantidad, totalBoletos) {
+            // Obtener todos los boletos ya asignados en esta rifa
+            const comprasExistentes = await db.collection('compras')
+                .where('rifaId', '==', rifaId)
+                .where('estado', '==', 'aprobado')
+                .get();
+            
+            const numerosUsados = new Set();
+            comprasExistentes.forEach(doc => {
+                const data = doc.data();
+                if (data.numerosBoleto) {
+                    data.numerosBoleto.forEach(n => numerosUsados.add(n));
+                }
+            });
+            
+            // Generar números disponibles
+            const disponibles = [];
+            for (let i = 1; i <= totalBoletos; i++) {
+                if (!numerosUsados.has(i)) disponibles.push(i);
+            }
+            
+            // Mezclar y tomar la cantidad necesaria
+            for (let i = disponibles.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [disponibles[i], disponibles[j]] = [disponibles[j], disponibles[i]];
+            }
+            
+            return disponibles.slice(0, cantidad).sort((a, b) => a - b);
+        }
+        
+        async function aprobarPago(id){
+            if(!confirm('¿Aprobar pago y asignar boletos?'))return;
+            try{
+                const cd=await db.collection('compras').doc(id).get();
+                const c=cd.data();
+                
+                // Obtener datos de la rifa
+                const rifaDoc = await db.collection('rifas').doc(c.rifaId).get();
+                const rifa = rifaDoc.data();
+                
+                // Generar números aleatorios
+                const numeros = await generarNumerosBoleto(c.rifaId, c.cantidad, rifa.totalBoletos);
+                
+                // Actualizar compra con números asignados
+                await db.collection('compras').doc(id).update({
+                    estado:'aprobado',
+                    numerosBoleto: numeros,
+                    fechaAprobacion: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Actualizar contador de rifa
+                await db.collection('rifas').doc(c.rifaId).update({
+                    boletosVendidos: firebase.firestore.FieldValue.increment(c.cantidad)
+                });
+                
+                mostrarToast(`¡Aprobado! Boletos: ${numeros.join(', ')}`,'success');
+                cargarPagosAdmin();cargarBadges();cargarRifas();
+            }catch(er){console.error(er);mostrarToast('Error: '+er.message,'error')}
+        }
         async function rechazarPago(id){if(!confirm('¿Rechazar?'))return;try{await db.collection('compras').doc(id).update({estado:'rechazado'});mostrarToast('Rechazado','success');cargarPagosAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
 
-        async function cargarRifasAdmin(){const tb=document.getElementById('rifasAdminBody');tb.innerHTML='<tr><td colspan="5"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('rifas').get();tb.innerHTML=s.empty?'<tr><td colspan="5" style="text-align:center">No hay rifas</td></tr>':'';s.forEach(d=>{const r={id:d.id,...d.data()};tb.innerHTML+=`<tr><td>${r.icono||'🎁'} ${r.titulo}</td><td>${r.tipoPremio==='dinero'?'$':''}${r.premio}</td><td>${r.boletosVendidos||0}/${r.totalBoletos}</td><td><span class="status-badge ${r.activa?'status-active':'status-inactive'}">${r.activa?'Activa':'Inact'}</span></td><td><button class="btn-small btn-edit" onclick="editarRifaAdmin('${r.id}')">✏️</button><button class="btn-small btn-view" onclick="toggleRifaAdmin('${r.id}',${r.activa})">${r.activa?'⏸️':'▶️'}</button><button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">🗑️</button></td></tr>`})}catch{}}
+        async function cargarRifasAdmin(){
+            const tb=document.getElementById('rifasAdminBody');
+            tb.innerHTML='<tr><td colspan="6"><div class="spinner" style="margin:1rem auto"></div></td></tr>';
+            try{
+                const s=await db.collection('rifas').get();
+                tb.innerHTML=s.empty?'<tr><td colspan="6" style="text-align:center">No hay rifas</td></tr>':'';
+                s.forEach(d=>{
+                    const r={id:d.id,...d.data()};
+                    const puedesSortear = r.boletosVendidos > 0 && !r.finalizada;
+                    const btnSorteo = puedesSortear 
+                        ? `<button class="btn-small btn-sorteo" onclick="realizarSorteo('${r.id}')">🎲</button>`
+                        : (r.finalizada ? '<span style="color:var(--success);font-size:.7rem">✓ Sorteada</span>' : '');
+                    tb.innerHTML+=`<tr>
+                        <td>${r.icono||'🎁'} ${r.titulo}</td>
+                        <td>${r.tipoPremio==='dinero'?'$':''}${r.premio}</td>
+                        <td>${r.boletosVendidos||0}/${r.totalBoletos}</td>
+                        <td><span class="status-badge ${r.activa?'status-active':'status-inactive'}">${r.activa?'Activa':(r.finalizada?'Finalizada':'Inact')}</span></td>
+                        <td>${btnSorteo}</td>
+                        <td>
+                            <button class="btn-small btn-edit" onclick="editarRifaAdmin('${r.id}')">✏️</button>
+                            <button class="btn-small btn-view" onclick="toggleRifaAdmin('${r.id}',${r.activa})">${r.activa?'⏸️':'▶️'}</button>
+                            <button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">🗑️</button>
+                        </td>
+                    </tr>`;
+                });
+            }catch(er){console.error(er)}
+        }
+        
+        // Sistema de Sorteo
+        async function realizarSorteo(rifaId) {
+            if(!confirm('⚠️ ¿Realizar el sorteo ahora?\n\nEsta acción es IRREVERSIBLE y seleccionará un ganador al azar.')) return;
+            
+            try {
+                // Obtener rifa
+                const rifaDoc = await db.collection('rifas').doc(rifaId).get();
+                const rifa = rifaDoc.data();
+                
+                if(rifa.finalizada) {
+                    mostrarToast('Esta rifa ya fue sorteada', 'error');
+                    return;
+                }
+                
+                // Obtener todas las compras aprobadas
+                const comprasSnapshot = await db.collection('compras')
+                    .where('rifaId', '==', rifaId)
+                    .where('estado', '==', 'aprobado')
+                    .get();
+                
+                if(comprasSnapshot.empty) {
+                    mostrarToast('No hay boletos vendidos', 'error');
+                    return;
+                }
+                
+                // Recopilar todos los boletos
+                const todosLosBoletos = [];
+                comprasSnapshot.forEach(doc => {
+                    const compra = {id: doc.id, ...doc.data()};
+                    if(compra.numerosBoleto) {
+                        compra.numerosBoleto.forEach(num => {
+                            todosLosBoletos.push({
+                                numero: num,
+                                compraId: compra.id,
+                                usuarioId: compra.usuarioId,
+                                usuarioNombre: compra.usuarioNombre,
+                                usuarioEmail: compra.usuarioEmail
+                            });
+                        });
+                    }
+                });
+                
+                if(todosLosBoletos.length === 0) {
+                    mostrarToast('No hay boletos asignados', 'error');
+                    return;
+                }
+                
+                // Seleccionar ganador aleatorio
+                const indiceGanador = Math.floor(Math.random() * todosLosBoletos.length);
+                const boletoGanador = todosLosBoletos[indiceGanador];
+                
+                // Guardar ganador
+                await db.collection('ganadores').add({
+                    rifaId: rifaId,
+                    rifaTitulo: rifa.titulo,
+                    icono: rifa.icono || '🎁',
+                    premio: rifa.premio,
+                    tipoPremio: rifa.tipoPremio,
+                    usuarioId: boletoGanador.usuarioId,
+                    nombre: boletoGanador.usuarioNombre,
+                    email: boletoGanador.usuarioEmail,
+                    numeroGanador: boletoGanador.numero,
+                    totalBoletos: todosLosBoletos.length,
+                    fecha: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Marcar rifa como finalizada
+                await db.collection('rifas').doc(rifaId).update({
+                    finalizada: true,
+                    activa: false,
+                    ganadorId: boletoGanador.usuarioId,
+                    numeroGanador: boletoGanador.numero,
+                    fechaSorteo: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Mostrar resultado
+                mostrarResultadoSorteo({
+                    rifaTitulo: rifa.titulo,
+                    premio: rifa.premio,
+                    tipoPremio: rifa.tipoPremio,
+                    ganadorNombre: boletoGanador.usuarioNombre,
+                    ganadorEmail: boletoGanador.usuarioEmail,
+                    numeroGanador: boletoGanador.numero,
+                    totalBoletos: todosLosBoletos.length
+                });
+                
+                cargarRifasAdmin();
+                cargarRifas();
+                cargarGanadores();
+                
+            } catch(er) {
+                console.error(er);
+                mostrarToast('Error en sorteo: ' + er.message, 'error');
+            }
+        }
+        
+        function mostrarResultadoSorteo(data) {
+            const modal = document.getElementById('modalResultadoSorteo');
+            document.getElementById('sorteoRifaTitulo').textContent = data.rifaTitulo;
+            document.getElementById('sorteoPremio').textContent = (data.tipoPremio === 'dinero' ? '$' : '') + data.premio;
+            document.getElementById('sorteoNumeroGanador').textContent = '#' + String(data.numeroGanador).padStart(3, '0');
+            document.getElementById('sorteoGanadorNombre').textContent = data.ganadorNombre;
+            document.getElementById('sorteoGanadorEmail').textContent = data.ganadorEmail;
+            document.getElementById('sorteoTotalBoletos').textContent = data.totalBoletos + ' boletos participaron';
+            modal.classList.add('active');
+            lanzarConfetti();
+        }
+        
+        function lanzarConfetti() {
+            const colors = ['#FF6B35', '#FFD23F', '#00B4D8', '#06FFA5', '#9B5DE5', '#FF5252'];
+            const container = document.createElement('div');
+            container.className = 'confetti';
+            document.body.appendChild(container);
+            
+            for (let i = 0; i < 100; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDelay = Math.random() * 2 + 's';
+                piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+                container.appendChild(piece);
+            }
+            
+            setTimeout(() => container.remove(), 5000);
+        }
 
         async function cargarUsuariosAdmin(){const tb=document.getElementById('usuariosAdminBody');tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('usuarios').where('activo','==',true).get();tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay</td></tr>':'';s.forEach(d=>{const u={id:d.id,...d.data()};tb.innerHTML+=`<tr><td>${u.nombre} ${u.apellido}</td><td>${u.email}</td><td>${u.totalReferidos||0}</td><td><button class="btn-small btn-view" onclick="verUsuarioAdmin('${u.id}')">👁️</button></td></tr>`})}catch{}}
 
-        async function cargarComprasAdmin(){const tb=document.getElementById('comprasAdminBody');tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('compras').where('estado','==','aprobado').get();tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay</td></tr>':'';s.forEach(d=>{const c=d.data();tb.innerHTML+=`<tr><td>${c.usuarioNombre}</td><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td>$${c.total}</td></tr>`})}catch{}}
+        async function cargarComprasAdmin(){
+            const tb=document.getElementById('comprasAdminBody');
+            tb.innerHTML='<tr><td colspan="5"><div class="spinner" style="margin:1rem auto"></div></td></tr>';
+            try{
+                const s=await db.collection('compras').where('estado','==','aprobado').get();
+                tb.innerHTML=s.empty?'<tr><td colspan="5" style="text-align:center">No hay compras</td></tr>':'';
+                s.forEach(d=>{
+                    const c=d.data();
+                    const numeros = c.numerosBoleto ? c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', ') : 'N/A';
+                    tb.innerHTML+=`<tr>
+                        <td>${c.usuarioNombre}</td>
+                        <td>${c.rifaTitulo}</td>
+                        <td>${c.cantidad}</td>
+                        <td style="font-size:.7rem;max-width:150px;word-wrap:break-word">${numeros}</td>
+                        <td>$${c.total}</td>
+                    </tr>`;
+                });
+            }catch(er){console.error(er)}
+        }
 
         async function cargarSoporteAdmin(){const ct=document.getElementById('soporteAdminBody');ct.innerHTML='<div class="loading"><div class="spinner"></div></div>';try{const s=await db.collection('soporte').orderBy('fecha','desc').limit(20).get();ct.innerHTML=s.empty?'<div class="empty-state"><span>💬</span><p>Sin mensajes</p></div>':'';s.forEach(d=>{const x={id:d.id,...d.data()};ct.innerHTML+=`<div class="ganador-item" style="border-color:${x.leido?'var(--success)':'var(--warning)'}"><div class="ganador-icon">${x.leido?'✅':'📩'}</div><div class="ganador-info"><div class="ganador-nombre">${x.usuarioNombre} <small style="opacity:.6">(${x.usuarioEmail})</small></div><div class="ganador-premio">${x.mensaje}</div></div>${!x.leido?`<button class="btn-small btn-approve" onclick="marcarLeidoSoporte('${x.id}')">✓</button>`:''}</div>`})}catch{}}
         async function marcarLeidoSoporte(id){await db.collection('soporte').doc(id).update({leido:true});cargarSoporteAdmin();cargarBadges()}
 
-        async function verUsuarioAdmin(id){try{const ud=await db.collection('usuarios').doc(id).get(),u={id,...ud.data()},cs=await db.collection('compras').where('usuarioId','==',id).get();let h=`<p><strong>${u.nombre} ${u.apellido}</strong><br><small style="opacity:.7">${u.email}</small><br><small>Binance: ${u.balanceEmail||'No config'}</small></p><h4 style="margin:1rem 0 .5rem;font-size:.9rem">Compras</h4><table class="admin-table"><thead><tr><th>Rifa</th><th>Cant</th><th>Total</th><th>Estado</th></tr></thead><tbody>`;cs.forEach(d=>{const c=d.data();h+=`<tr><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td>$${c.total}</td><td><span class="status-badge ${c.estado==='aprobado'?'status-active':'status-inactive'}">${c.estado}</span></td></tr>`});h+='</tbody></table>';document.getElementById('detalleUsuarioContent').innerHTML=h;abrirModal('modalVerUsuario')}catch{mostrarToast('Error','error')}}
+        async function verUsuarioAdmin(id){
+            try{
+                const ud=await db.collection('usuarios').doc(id).get();
+                const u={id,...ud.data()};
+                const cs=await db.collection('compras').where('usuarioId','==',id).get();
+                
+                let h=`<p><strong>${u.nombre} ${u.apellido}</strong><br>
+                    <small style="opacity:.7">${u.email}</small><br>
+                    <small>Binance: ${u.balanceEmail||'No configurado'}</small></p>
+                    <h4 style="margin:1rem 0 .5rem;font-size:.9rem">Compras</h4>
+                    <table class="admin-table">
+                        <thead><tr><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th></tr></thead>
+                        <tbody>`;
+                
+                cs.forEach(d=>{
+                    const c=d.data();
+                    const numeros = c.numerosBoleto ? c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', ') : 'Pendiente';
+                    h+=`<tr>
+                        <td>${c.rifaTitulo}</td>
+                        <td style="font-size:.7rem">${numeros}</td>
+                        <td>$${c.total}</td>
+                        <td><span class="status-badge ${c.estado==='aprobado'?'status-active':'status-inactive'}">${c.estado}</span></td>
+                    </tr>`;
+                });
+                
+                h+='</tbody></table>';
+                document.getElementById('detalleUsuarioContent').innerHTML=h;
+                abrirModal('modalVerUsuario');
+            }catch(er){console.error(er);mostrarToast('Error','error')}
+        }
 
         function toggleComisiones(){comisionesActivas=!comisionesActivas;document.getElementById('toggleComisiones').classList.toggle('active',comisionesActivas);document.getElementById('comisionesConfig').style.display=comisionesActivas?'block':'none'}
         function abrirModalNuevaRifa(){rifaEditando=null;comisionesActivas=false;document.getElementById('modalRifaTitle').textContent='➕ Nueva Rifa';document.getElementById('toggleComisiones').classList.remove('active');document.getElementById('comisionesConfig').style.display='none';document.querySelector('#modalNuevaRifa form').reset();document.getElementById('rifaIcono').value='🎁';document.getElementById('rifaPremio').value='100';document.getElementById('rifaPrecioBoleto').value='1';document.getElementById('rifaTotalBoletos').value='100';document.getElementById('rifaDias').value='7';abrirModal('modalNuevaRifa')}
