@@ -178,7 +178,164 @@
         .phone-input{display:flex;gap:.4rem}
         .phone-input select{width:100px}
         .phone-input input{flex:1}
-        @media(max-width:768px){header{flex-direction:column;gap:.6rem}nav{width:100%;justify-content:center}.hero h1{font-size:2rem}.form-row{grid-template-columns:1fr}.rifas-grid{grid-template-columns:1fr}.modal-content{padding:1rem;margin:.5rem}.user-dropdown{min-width:220px;right:-30px}}
+        
+        /* Estilos para tarjetas de ganadores en admin */
+        .ganador-admin-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;margin-bottom:1rem;transition:.3s}
+        .ganador-admin-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+        .ganador-admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem}
+        .ganador-admin-rifa{font-weight:600;color:var(--secondary);font-size:1rem}
+        .ganador-admin-fecha{font-size:.75rem;opacity:.6;background:rgba(255,255,255,.1);padding:.2rem .5rem;border-radius:10px}
+        .ganador-admin-body{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:.8rem}
+        .ganador-admin-info{display:flex;align-items:center;gap:.8rem}
+        .ganador-admin-numero{background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--dark);padding:.4rem .8rem;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px}
+        .ganador-admin-datos{display:flex;flex-direction:column}
+        .ganador-admin-datos strong{font-size:.95rem}
+        .ganador-admin-datos small{opacity:.6;font-size:.8rem}
+        .ganador-admin-premio{text-align:right}
+        .ganador-admin-premio span{font-size:.75rem;opacity:.7;display:block}
+        .ganador-admin-premio strong{font-size:1.2rem;color:var(--success)}
+        .ganador-admin-actions{border-top:1px solid rgba(255,255,255,.1);padding-top:.8rem;display:flex;justify-content:flex-end}
+        
+        /* ============ RESPONSIVE DESIGN ============ */
+        
+        /* Tablets y pantallas medianas */
+        @media(max-width:992px){
+            .admin-tabs{gap:.3rem}
+            .admin-tab{padding:.4rem .6rem;font-size:.75rem}
+            .stats-grid{grid-template-columns:repeat(3,1fr)}
+            .rifas-grid{grid-template-columns:repeat(2,1fr)}
+        }
+        
+        /* Móviles */
+        @media(max-width:768px){
+            /* Header */
+            header{flex-direction:column;gap:.8rem;padding:.8rem 3%}
+            .logo{font-size:1.8rem}
+            nav{width:100%;justify-content:center;flex-wrap:wrap;gap:.5rem}
+            nav a{font-size:.8rem}
+            .nav-buttons{width:100%;justify-content:center}
+            .btn-login,.btn-register{padding:.35rem .8rem;font-size:.8rem}
+            .user-dropdown{min-width:200px;right:-20px}
+            
+            /* Hero */
+            .hero{padding:2rem 3% 1.5rem}
+            .hero h1{font-size:1.8rem}
+            .hero p{font-size:.9rem}
+            
+            /* Secciones */
+            .section{padding:1.5rem 3%}
+            .section-title{font-size:1.5rem;margin-bottom:1rem}
+            
+            /* Grid de rifas */
+            .rifas-grid{grid-template-columns:1fr;gap:1rem}
+            .rifa-card{margin:0 auto;max-width:350px;width:100%}
+            .rifa-image{height:140px}
+            .rifa-content{padding:.8rem}
+            .rifa-title{font-size:1.1rem}
+            .stat-value{font-size:.9rem}
+            .stat-label{font-size:.55rem}
+            
+            /* Admin Panel */
+            .admin-panel{padding:1rem 3%}
+            .admin-header{flex-direction:column;gap:.8rem}
+            .admin-header h2{font-size:1.3rem}
+            .admin-tabs{overflow-x:auto;padding-bottom:.5rem;gap:.4rem;justify-content:flex-start}
+            .admin-tab{white-space:nowrap;padding:.5rem .7rem;font-size:.7rem;flex-shrink:0}
+            .admin-tab .badge{font-size:.6rem;padding:.1rem .35rem}
+            .stats-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
+            .stat-card{padding:.8rem}
+            .stat-card-value{font-size:1.3rem}
+            .stat-card-label{font-size:.65rem}
+            
+            /* Tablas admin */
+            .admin-table{font-size:.7rem}
+            .admin-table th,.admin-table td{padding:.4rem .3rem}
+            .btn-small{padding:.25rem .4rem;font-size:.65rem}
+            .btn-nuevo{padding:.4rem .8rem;font-size:.75rem}
+            
+            /* Modales */
+            .modal-content{padding:1rem;margin:.5rem;max-height:90vh}
+            .modal-content.wide{max-width:95%}
+            .modal-title{font-size:1.1rem}
+            .form-row{grid-template-columns:1fr}
+            .form-group label{font-size:.8rem}
+            .form-group input,.form-group select,.form-group textarea{padding:.5rem;font-size:.85rem}
+            .btn-submit{padding:.6rem;font-size:.85rem}
+            
+            /* Boletos */
+            .boleto-card{padding:.8rem}
+            .boleto-rifa{font-size:.85rem}
+            .boleto-numero{padding:.2rem .4rem;font-size:.8rem}
+            .boletos-numeros{gap:.3rem}
+            
+            /* Ganadores admin */
+            .ganador-admin-card{padding:.8rem}
+            .ganador-admin-rifa{font-size:.9rem}
+            .ganador-admin-body{flex-direction:column;align-items:flex-start}
+            .ganador-admin-numero{font-size:1.1rem;padding:.3rem .6rem}
+            .ganador-admin-premio{text-align:left;margin-top:.5rem}
+            .ganador-admin-actions{justify-content:center}
+            .ganador-admin-actions .btn-small{width:100%;justify-content:center;padding:.5rem}
+            
+            /* Soporte bubble */
+            .support-bubble{bottom:10px;right:10px}
+            .support-btn{width:45px;height:45px;font-size:1.1rem}
+            .support-chat{width:260px;bottom:55px}
+            
+            /* Selector de boletos */
+            .boletos-selector{gap:.6rem}
+            .btn-cantidad{width:32px;height:32px;font-size:1rem}
+            .cantidad-display{font-size:1.4rem}
+            
+            /* Referidos */
+            .referral-box{padding:.8rem}
+            .referral-code{font-size:1.4rem;letter-spacing:2px;padding:.2rem .8rem}
+            .referral-stats{gap:.2rem}
+            .referral-stat-value{font-size:.9rem}
+            
+            /* Perfil */
+            .profile-avatar{width:60px;height:60px;font-size:1.5rem}
+            .profile-stats{gap:.4rem}
+            .profile-stat{padding:.5rem}
+            .profile-stat-value{font-size:1.1rem}
+            
+            /* Toast */
+            .toast{left:10px;right:10px;max-width:none;font-size:.75rem;padding:.5rem .8rem}
+            
+            /* Footer */
+            footer{padding:.8rem 3%;font-size:.7rem}
+        }
+        
+        /* Móviles pequeños */
+        @media(max-width:400px){
+            header{padding:.6rem 2%}
+            .logo{font-size:1.5rem}
+            nav a{font-size:.7rem}
+            .hero h1{font-size:1.5rem}
+            .section{padding:1rem 2%}
+            .admin-panel{padding:.8rem 2%}
+            .modal-content{padding:.8rem;margin:.3rem}
+            .stats-grid{grid-template-columns:1fr 1fr}
+            .stat-card{padding:.6rem}
+            .stat-card-value{font-size:1.1rem}
+            .admin-table{font-size:.65rem}
+            .btn-small{padding:.2rem .3rem;font-size:.6rem}
+        }
+        
+        /* Pantallas grandes */
+        @media(min-width:1200px){
+            .section{max-width:1400px}
+            .rifas-grid{grid-template-columns:repeat(3,1fr);gap:2rem}
+            .rifa-card{max-width:400px}
+            .admin-panel{max-width:1400px;margin:0 auto}
+            .stats-grid{grid-template-columns:repeat(6,1fr)}
+        }
+        
+        /* Pantallas muy grandes */
+        @media(min-width:1600px){
+            .rifas-grid{grid-template-columns:repeat(4,1fr)}
+            body{font-size:1.05rem}
+        }
     </style>
 </head>
 <body>
@@ -232,6 +389,7 @@
             <div class="admin-tab" onclick="cambiarTabAdmin('cuentas',this)">👤 Cuentas<span class="badge" id="badgeCuentas">0</span></div>
             <div class="admin-tab" onclick="cambiarTabAdmin('pagos',this)">💳 Pagos<span class="badge" id="badgePagos">0</span></div>
             <div class="admin-tab" onclick="cambiarTabAdmin('rifas',this)">🎰 Rifas</div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('ganadores',this)">🏆 Ganadores</div>
             <div class="admin-tab" onclick="cambiarTabAdmin('usuarios',this)">👥 Usuarios</div>
             <div class="admin-tab" onclick="cambiarTabAdmin('compras',this)">🛒 Compras</div>
             <div class="admin-tab" onclick="cambiarTabAdmin('soporte',this)">💬 Soporte<span class="badge" id="badgeSoporte">0</span></div>
@@ -241,7 +399,8 @@
             <div id="tabCuentas" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Cuentas Pendientes</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Doc</th><th>Acción</th></tr></thead><tbody id="cuentasAdminBody"></tbody></table></div></div>
             <div id="tabPagos" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Pagos Pendientes</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Cant</th><th>Total</th><th>ID</th><th>Comp</th><th>Acción</th></tr></thead><tbody id="pagosAdminBody"></tbody></table></div></div>
             <div id="tabRifas" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem"><h3 style="font-size:.9rem;margin:0">Rifas</h3><button class="btn-nuevo" onclick="abrirModalNuevaRifa()">+ Nueva</button></div><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Rifa</th><th>Premio</th><th>Boletos</th><th>Estado</th><th>Sorteo</th><th>Acción</th></tr></thead><tbody id="rifasAdminBody"></tbody></table></div></div>
-            <div id="tabUsuarios" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Usuarios</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Refs</th><th>Ver</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table></div></div>
+            <div id="tabGanadores" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">🏆 Ganadores de Sorteos</h3><div id="ganadoresAdminBody"></div></div>
+            <div id="tabUsuarios" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Usuarios Activos</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Refs</th><th>Acciones</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table></div></div>
             <div id="tabCompras" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Compras Aprobadas</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Cant</th><th>Boletos</th><th>Total</th></tr></thead><tbody id="comprasAdminBody"></tbody></table></div></div>
             <div id="tabSoporte" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Soporte</h3><div id="soporteAdminBody"></div></div>
         </div>
@@ -750,7 +909,7 @@
         function mostrarPanelAdmin(){if(!userData||(userData.email!==ADMIN_EMAIL&&!userData.esAdmin))return;document.getElementById('mainContent').style.display='none';document.getElementById('adminPanel').classList.add('active');document.getElementById('userDropdown').classList.remove('show');cargarDashboardAdmin();cargarBadges()}
         function cerrarPanelAdmin(){document.getElementById('mainContent').style.display='block';document.getElementById('adminPanel').classList.remove('active')}
         async function cargarBadges(){try{const c=await db.collection('usuarios').where('activo','==',false).get(),p=await db.collection('compras').where('estado','==','pendiente').get(),s=await db.collection('soporte').where('leido','==',false).get();document.getElementById('badgeCuentas').textContent=c.size;document.getElementById('badgePagos').textContent=p.size;document.getElementById('badgeSoporte').textContent=s.size}catch{}}
-        function cambiarTabAdmin(t,b){document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('#adminPanel .admin-content > div').forEach(x=>x.style.display='none');b.classList.add('active');document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).style.display='block';if(t==='dashboard')cargarDashboardAdmin();if(t==='cuentas')cargarCuentasAdmin();if(t==='pagos')cargarPagosAdmin();if(t==='rifas')cargarRifasAdmin();if(t==='usuarios')cargarUsuariosAdmin();if(t==='compras')cargarComprasAdmin();if(t==='soporte')cargarSoporteAdmin()}
+        function cambiarTabAdmin(t,b){document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('#adminPanel .admin-content > div').forEach(x=>x.style.display='none');b.classList.add('active');document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).style.display='block';if(t==='dashboard')cargarDashboardAdmin();if(t==='cuentas')cargarCuentasAdmin();if(t==='pagos')cargarPagosAdmin();if(t==='rifas')cargarRifasAdmin();if(t==='ganadores')cargarGanadoresAdmin();if(t==='usuarios')cargarUsuariosAdmin();if(t==='compras')cargarComprasAdmin();if(t==='soporte')cargarSoporteAdmin()}
 
         async function cargarDashboardAdmin(){try{const[u,ra,c,cp,pp]=await Promise.all([db.collection('usuarios').get(),db.collection('rifas').where('activa','==',true).get(),db.collection('compras').where('estado','==','aprobado').get(),db.collection('usuarios').where('activo','==',false).get(),db.collection('compras').where('estado','==','pendiente').get()]);let b=0,ing=0,com=0;c.forEach(d=>{const x=d.data();b+=x.cantidad||0;ing+=x.total||0;if(x.referidorId)com+=(x.cantidad||0)*(x.comisionPorBoleto||0.1)});document.getElementById('dashboardStats').innerHTML=`<div class="stat-card"><div class="stat-card-value">${u.size}</div><div class="stat-card-label">Usuarios</div></div><div class="stat-card"><div class="stat-card-value">${ra.size}</div><div class="stat-card-label">Rifas</div></div><div class="stat-card"><div class="stat-card-value">${b}</div><div class="stat-card-label">Boletos</div></div><div class="stat-card"><div class="stat-card-value">$${ing.toFixed(0)}</div><div class="stat-card-label">Ingresos</div></div><div class="stat-card"><div class="stat-card-value">${cp.size}</div><div class="stat-card-label">Cuentas Pend</div></div><div class="stat-card"><div class="stat-card-value">${pp.size}</div><div class="stat-card-label">Pagos Pend</div></div>`}catch{}}
 
@@ -978,7 +1137,76 @@
             setTimeout(() => container.remove(), 5000);
         }
 
-        async function cargarUsuariosAdmin(){const tb=document.getElementById('usuariosAdminBody');tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('usuarios').where('activo','==',true).get();tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay</td></tr>':'';s.forEach(d=>{const u={id:d.id,...d.data()};tb.innerHTML+=`<tr><td>${u.nombre} ${u.apellido}</td><td>${u.email}</td><td>${u.totalReferidos||0}</td><td><button class="btn-small btn-view" onclick="verUsuarioAdmin('${u.id}')">👁️</button></td></tr>`})}catch{}}
+        async function cargarUsuariosAdmin(){
+            const tb=document.getElementById('usuariosAdminBody');
+            tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';
+            try{
+                const s=await db.collection('usuarios').where('activo','==',true).get();
+                tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay usuarios</td></tr>':'';
+                s.forEach(d=>{
+                    const u={id:d.id,...d.data()};
+                    // No mostrar botón eliminar para el admin
+                    const btnEliminar = u.email !== ADMIN_EMAIL 
+                        ? `<button class="btn-small btn-delete" onclick="eliminarUsuario('${u.id}','${u.nombre} ${u.apellido}')">🗑️</button>`
+                        : '';
+                    tb.innerHTML+=`<tr>
+                        <td>${u.nombre} ${u.apellido}</td>
+                        <td>${u.email}</td>
+                        <td>${u.totalReferidos||0}</td>
+                        <td>
+                            <button class="btn-small btn-view" onclick="verUsuarioAdmin('${u.id}')">👁️</button>
+                            ${btnEliminar}
+                        </td>
+                    </tr>`;
+                });
+            }catch(er){console.error(er)}
+        }
+        
+        async function eliminarUsuario(userId, nombreUsuario) {
+            if(!confirm(`⚠️ ¿Eliminar a "${nombreUsuario}"?\n\nEsta acción eliminará:\n- Su cuenta\n- Sus compras\n- Sus boletos\n\n¡Esta acción es IRREVERSIBLE!`)) return;
+            
+            try {
+                // Obtener compras aprobadas para actualizar contadores de rifas
+                const comprasAprobadas = await db.collection('compras')
+                    .where('usuarioId', '==', userId)
+                    .where('estado', '==', 'aprobado')
+                    .get();
+                
+                // Actualizar contadores de rifas
+                for (const doc of comprasAprobadas.docs) {
+                    const compra = doc.data();
+                    await db.collection('rifas').doc(compra.rifaId).update({
+                        boletosVendidos: firebase.firestore.FieldValue.increment(-compra.cantidad)
+                    });
+                }
+                
+                // Eliminar todas las compras del usuario
+                const todasCompras = await db.collection('compras').where('usuarioId', '==', userId).get();
+                const batch = db.batch();
+                todasCompras.forEach(doc => batch.delete(doc.ref));
+                
+                // Eliminar de ganadores si existe
+                const ganadores = await db.collection('ganadores').where('usuarioId', '==', userId).get();
+                ganadores.forEach(doc => batch.delete(doc.ref));
+                
+                // Eliminar mensajes de soporte
+                const soporte = await db.collection('soporte').where('usuarioId', '==', userId).get();
+                soporte.forEach(doc => batch.delete(doc.ref));
+                
+                await batch.commit();
+                
+                // Eliminar usuario
+                await db.collection('usuarios').doc(userId).delete();
+                
+                mostrarToast(`Usuario "${nombreUsuario}" eliminado`, 'success');
+                cargarUsuariosAdmin();
+                cargarDashboardAdmin();
+                cargarRifas();
+            } catch(er) {
+                console.error(er);
+                mostrarToast('Error al eliminar: ' + er.message, 'error');
+            }
+        }
 
         async function cargarComprasAdmin(){
             const tb=document.getElementById('comprasAdminBody');
@@ -1003,32 +1231,112 @@
         async function cargarSoporteAdmin(){const ct=document.getElementById('soporteAdminBody');ct.innerHTML='<div class="loading"><div class="spinner"></div></div>';try{const s=await db.collection('soporte').orderBy('fecha','desc').limit(20).get();ct.innerHTML=s.empty?'<div class="empty-state"><span>💬</span><p>Sin mensajes</p></div>':'';s.forEach(d=>{const x={id:d.id,...d.data()};ct.innerHTML+=`<div class="ganador-item" style="border-color:${x.leido?'var(--success)':'var(--warning)'}"><div class="ganador-icon">${x.leido?'✅':'📩'}</div><div class="ganador-info"><div class="ganador-nombre">${x.usuarioNombre} <small style="opacity:.6">(${x.usuarioEmail})</small></div><div class="ganador-premio">${x.mensaje}</div></div>${!x.leido?`<button class="btn-small btn-approve" onclick="marcarLeidoSoporte('${x.id}')">✓</button>`:''}</div>`})}catch{}}
         async function marcarLeidoSoporte(id){await db.collection('soporte').doc(id).update({leido:true});cargarSoporteAdmin();cargarBadges()}
 
+        // Gestión de Ganadores
+        async function cargarGanadoresAdmin(){
+            const ct=document.getElementById('ganadoresAdminBody');
+            ct.innerHTML='<div class="loading"><div class="spinner"></div></div>';
+            try{
+                const s=await db.collection('ganadores').orderBy('fecha','desc').get();
+                if(s.empty){
+                    ct.innerHTML='<div class="empty-state"><span>🏆</span><p>No hay ganadores registrados</p></div>';
+                    return;
+                }
+                ct.innerHTML='';
+                s.forEach(d=>{
+                    const g={id:d.id,...d.data()};
+                    const fecha = g.fecha?.toDate ? g.fecha.toDate().toLocaleDateString() : 'N/A';
+                    ct.innerHTML+=`
+                        <div class="ganador-admin-card">
+                            <div class="ganador-admin-header">
+                                <span class="ganador-admin-rifa">${g.icono||'🎁'} ${g.rifaTitulo}</span>
+                                <span class="ganador-admin-fecha">${fecha}</span>
+                            </div>
+                            <div class="ganador-admin-body">
+                                <div class="ganador-admin-info">
+                                    <div class="ganador-admin-numero">#${String(g.numeroGanador||0).padStart(3,'0')}</div>
+                                    <div class="ganador-admin-datos">
+                                        <strong>${g.nombre}</strong>
+                                        <small>${g.email}</small>
+                                    </div>
+                                </div>
+                                <div class="ganador-admin-premio">
+                                    <span>Premio:</span>
+                                    <strong>${g.tipoPremio==='dinero'?'$':''}${g.premio}</strong>
+                                </div>
+                            </div>
+                            <div class="ganador-admin-actions">
+                                <button class="btn-small btn-delete" onclick="eliminarGanador('${g.id}','${g.rifaId}','${g.nombre}')">🗑️ Eliminar Ganador</button>
+                            </div>
+                        </div>`;
+                });
+            }catch(er){console.error(er);ct.innerHTML='<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>'}
+        }
+        
+        async function eliminarGanador(ganadorId, rifaId, nombreGanador) {
+            if(!confirm(`⚠️ ¿Eliminar a "${nombreGanador}" como ganador?\n\nEsto:\n- Quitará el registro de ganador\n- Permitirá volver a sortear la rifa\n\n¿Continuar?`)) return;
+            
+            try {
+                // Eliminar registro de ganador
+                await db.collection('ganadores').doc(ganadorId).delete();
+                
+                // Reactivar la rifa para poder sortear de nuevo
+                if(rifaId) {
+                    await db.collection('rifas').doc(rifaId).update({
+                        finalizada: false,
+                        activa: false,
+                        ganadorId: null,
+                        numeroGanador: null,
+                        fechaSorteo: null
+                    });
+                }
+                
+                mostrarToast('Ganador eliminado correctamente', 'success');
+                cargarGanadoresAdmin();
+                cargarRifasAdmin();
+                cargarGanadores(); // Actualizar lista pública
+            } catch(er) {
+                console.error(er);
+                mostrarToast('Error: ' + er.message, 'error');
+            }
+        }
+
         async function verUsuarioAdmin(id){
             try{
                 const ud=await db.collection('usuarios').doc(id).get();
                 const u={id,...ud.data()};
                 const cs=await db.collection('compras').where('usuarioId','==',id).get();
                 
+                // Botón eliminar (no mostrar si es admin)
+                const btnEliminar = u.email !== ADMIN_EMAIL 
+                    ? `<button class="btn-submit" style="background:var(--danger);margin-top:1rem" onclick="eliminarUsuario('${u.id}','${u.nombre} ${u.apellido}');cerrarModal('modalVerUsuario')">🗑️ Eliminar Usuario</button>`
+                    : '';
+                
                 let h=`<p><strong>${u.nombre} ${u.apellido}</strong><br>
                     <small style="opacity:.7">${u.email}</small><br>
-                    <small>Binance: ${u.balanceEmail||'No configurado'}</small></p>
-                    <h4 style="margin:1rem 0 .5rem;font-size:.9rem">Compras</h4>
+                    <small>Tel: ${u.telefono || 'N/A'}</small><br>
+                    <small>Binance: ${u.balanceEmail||'No configurado'}</small><br>
+                    <small>Código Referido: ${u.codigoReferido||'N/A'}</small></p>
+                    <h4 style="margin:1rem 0 .5rem;font-size:.9rem">Compras (${cs.size})</h4>
                     <table class="admin-table">
                         <thead><tr><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th></tr></thead>
                         <tbody>`;
                 
-                cs.forEach(d=>{
-                    const c=d.data();
-                    const numeros = c.numerosBoleto ? c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', ') : 'Pendiente';
-                    h+=`<tr>
-                        <td>${c.rifaTitulo}</td>
-                        <td style="font-size:.7rem">${numeros}</td>
-                        <td>$${c.total}</td>
-                        <td><span class="status-badge ${c.estado==='aprobado'?'status-active':'status-inactive'}">${c.estado}</span></td>
-                    </tr>`;
-                });
+                if(cs.empty) {
+                    h += '<tr><td colspan="4" style="text-align:center;opacity:.6">Sin compras</td></tr>';
+                } else {
+                    cs.forEach(d=>{
+                        const c=d.data();
+                        const numeros = c.numerosBoleto ? c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', ') : 'Pendiente';
+                        h+=`<tr>
+                            <td>${c.rifaTitulo}</td>
+                            <td style="font-size:.7rem">${numeros}</td>
+                            <td>$${c.total}</td>
+                            <td><span class="status-badge ${c.estado==='aprobado'?'status-active':'status-inactive'}">${c.estado}</span></td>
+                        </tr>`;
+                    });
+                }
                 
-                h+='</tbody></table>';
+                h+=`</tbody></table>${btnEliminar}`;
                 document.getElementById('detalleUsuarioContent').innerHTML=h;
                 abrirModal('modalVerUsuario');
             }catch(er){console.error(er);mostrarToast('Error','error')}
