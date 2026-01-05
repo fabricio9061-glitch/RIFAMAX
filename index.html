@@ -742,6 +742,7 @@
         async function registrarUsuario(e){
             e.preventDefault();
             if(!documentoBase64){mostrarToast('Debes subir tu documento de identidad','error');return}
+            
             const nombre=document.getElementById('regNombre').value.trim();
             const apellido=document.getElementById('regApellido').value.trim();
             const email=document.getElementById('regEmail').value.trim().toLowerCase();
@@ -759,95 +760,92 @@
             if(pass.length<6){mostrarToast('Contraseña: mínimo 6 caracteres','error');return}
             if(pass!==passC){mostrarToast('Las contraseñas no coinciden','error');return}
             
-            const btn=document.getElementById('btnRegistro');btn.disabled=true;btn.textContent='Creando cuenta...';
+            const btn=document.getElementById('btnRegistro');
+            btn.disabled=true;
+            btn.textContent='Creando cuenta...';
+            
             try{
+                // Verificar código de referido si existe
                 let refId=null;
                 if(codRef){
                     const q=await db.collection('usuarios').where('codigoReferido','==',codRef).get();
-                    if(q.empty){mostrarToast('Código de referido inválido','error');btn.disabled=false;btn.textContent='Crear Cuenta';return}
+                    if(q.empty){
+                        mostrarToast('Código de referido inválido','error');
+                        btn.disabled=false;
+                        btn.textContent='Crear Cuenta';
+                        return;
+                    }
                     refId=q.docs[0].id;
                 }
                 
-                let uc;
-                let esReRegistro = false;
+                // Crear usuario en Firebase Auth
+                const uc = await auth.createUserWithEmailAndPassword(email, pass);
                 
-                try {
-                    // Intentar crear usuario nuevo
-                    uc = await auth.createUserWithEmailAndPassword(email,pass);
-                } catch(authError) {
-                    if(authError.code === 'auth/email-already-in-use') {
-                        // El email existe en Auth, verificar si tiene documento en Firestore
-                        try {
-                            const signIn = await auth.signInWithEmailAndPassword(email, pass);
-                            const docCheck = await db.collection('usuarios').doc(signIn.user.uid).get();
-                            
-                            if(!docCheck.exists) {
-                                // No tiene documento (fue rechazado), permitir re-registro
-                                uc = signIn;
-                                esReRegistro = true;
-                            } else {
-                                // Ya tiene documento activo
-                                await auth.signOut();
-                                throw {code: 'auth/email-already-in-use'};
-                            }
-                        } catch(signInError) {
-                            if(signInError.code === 'auth/wrong-password' || signInError.code === 'auth/invalid-credential') {
-                                mostrarToast('Este correo ya está registrado con otra contraseña','error');
-                                btn.disabled=false;btn.textContent='Crear Cuenta';
-                                return;
-                            }
-                            throw signInError;
-                        }
-                    } else {
-                        throw authError;
-                    }
-                }
-                
+                // Guardar datos en Firestore
                 await db.collection('usuarios').doc(uc.user.uid).set({
-                    nombre:nombre,
-                    apellido:apellido,
-                    email:email,
-                    telefono:cod+tel,
-                    codigoReferido:generarCodigoReferido(),
-                    referidoPor:refId,
-                    avatarBase64:null,
-                    balanceEmail:null,
-                    documentoBase64:documentoBase64,
-                    activo:email===ADMIN_EMAIL,
-                    esAdmin:email===ADMIN_EMAIL,
-                    totalReferidos:0,
-                    fechaRegistro:firebase.firestore.FieldValue.serverTimestamp(),
+                    nombre: nombre,
+                    apellido: apellido,
+                    email: email,
+                    telefono: cod + tel,
+                    codigoReferido: generarCodigoReferido(),
+                    referidoPor: refId,
+                    avatarBase64: null,
+                    balanceEmail: null,
+                    documentoBase64: documentoBase64,
+                    activo: email === ADMIN_EMAIL,
+                    esAdmin: email === ADMIN_EMAIL,
+                    totalReferidos: 0,
+                    fechaRegistro: firebase.firestore.FieldValue.serverTimestamp(),
                     fechaExpiracion: new Date(Date.now() + 48 * 60 * 60 * 1000)
                 });
-                if(refId)await db.collection('usuarios').doc(refId).update({totalReferidos:firebase.firestore.FieldValue.increment(1)});
+                
+                // Incrementar referidos si aplica
+                if(refId){
+                    await db.collection('usuarios').doc(refId).update({
+                        totalReferidos: firebase.firestore.FieldValue.increment(1)
+                    });
+                }
+                
+                // Cerrar sesión inmediatamente
                 await auth.signOut();
-                btn.disabled=false;btn.textContent='Crear Cuenta';
-                cerrarModal('modalRegistro');
+                
+                // Limpiar formulario
+                documentoBase64 = null;
+                document.getElementById('regNombre').value = '';
+                document.getElementById('regApellido').value = '';
+                document.getElementById('regEmail').value = '';
+                document.getElementById('regEmailConfirm').value = '';
+                document.getElementById('regTelefono').value = '';
+                document.getElementById('regPassword').value = '';
+                document.getElementById('regPasswordConfirm').value = '';
+                document.getElementById('regCodigoReferido').value = '';
                 document.getElementById('docUploadZone').classList.remove('has-file');
-                document.getElementById('docUploadText').textContent='Click para subir';
-                documentoBase64=null;
-                document.getElementById('regNombre').value='';
-                document.getElementById('regApellido').value='';
-                document.getElementById('regEmail').value='';
-                document.getElementById('regEmailConfirm').value='';
-                document.getElementById('regTelefono').value='';
-                document.getElementById('regPassword').value='';
-                document.getElementById('regPasswordConfirm').value='';
-                document.getElementById('regCodigoReferido').value='';
-                abrirModal('modalCuentaPendiente');
-                mostrarToast('¡Cuenta creada! Espera verificación','success');
-                return;
-            }catch(er){
-                console.error('Error registro:',er);
-                let msg='Error al crear cuenta';
-                if(er.code==='auth/email-already-in-use')msg='Este correo ya está registrado';
-                else if(er.code==='auth/invalid-email')msg='Correo electrónico inválido';
-                else if(er.code==='auth/weak-password')msg='Contraseña muy débil';
-                else if(er.code==='auth/network-request-failed')msg='Error de conexión';
-                else if(er.message)msg=er.message;
-                mostrarToast(msg,'error');
+                document.getElementById('docUploadText').textContent = 'Click para subir';
+                
+                // Restaurar botón
+                btn.disabled = false;
+                btn.textContent = 'Crear Cuenta';
+                
+                // Cerrar modal de registro y mostrar modal de verificación
+                cerrarModal('modalRegistro');
+                setTimeout(() => {
+                    abrirModal('modalCuentaPendiente');
+                    mostrarToast('¡Cuenta creada! Espera verificación', 'success');
+                }, 300);
+                
+            } catch(error) {
+                console.error('Error en registro:', error);
+                btn.disabled = false;
+                btn.textContent = 'Crear Cuenta';
+                
+                let mensaje = 'Error al crear cuenta';
+                if(error.code === 'auth/email-already-in-use') mensaje = 'Este correo ya está registrado';
+                else if(error.code === 'auth/invalid-email') mensaje = 'Correo electrónico inválido';
+                else if(error.code === 'auth/weak-password') mensaje = 'Contraseña muy débil';
+                else if(error.code === 'auth/network-request-failed') mensaje = 'Error de conexión a internet';
+                
+                mostrarToast(mensaje, 'error');
             }
-            btn.disabled=false;btn.textContent='Crear Cuenta';
         }
 
         async function iniciarSesion(e){
