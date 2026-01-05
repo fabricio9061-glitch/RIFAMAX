@@ -684,7 +684,7 @@
         firebase.initializeApp(firebaseConfig);
         const db=firebase.firestore(),auth=firebase.auth();
         const ADMIN_EMAIL='fabricio9061@gmail.com',BINANCE_EMAIL='Fabricio9061@gmail.com';
-        let currentUser=null,userData=null,rifas=[],rifaSeleccionada=null,cantidadBoletos=1,rifaEditando=null,comprobanteBase64=null,documentoBase64=null,comisionesActivas=false;
+        let currentUser=null,userData=null,rifas=[],rifaSeleccionada=null,cantidadBoletos=1,rifaEditando=null,comprobanteBase64=null,documentoBase64=null,comisionesActivas=false,registrandoUsuario=false;
 
         function fileToBase64(file, maxWidth = 600) {
             return new Promise((resolve, reject) => {
@@ -718,6 +718,7 @@
             const saved=localStorage.getItem('rifamax_email');
             if(saved){document.getElementById('loginEmail').value=saved;document.getElementById('recordarUsuario').checked=true}
             auth.onAuthStateChanged(async u=>{
+                if(registrandoUsuario) return; // Ignorar durante registro
                 currentUser=u;
                 if(u){await cargarDatosUsuario();if(userData&&!userData.activo&&userData.email!==ADMIN_EMAIL){await auth.signOut();abrirModal('modalCuentaPendiente');return}actualizarUIUsuario()}
                 else{userData=null;actualizarUIUsuario()}
@@ -763,6 +764,7 @@
             const btn=document.getElementById('btnRegistro');
             btn.disabled=true;
             btn.textContent='Creando cuenta...';
+            registrandoUsuario = true; // Bloquear onAuthStateChanged
             
             try{
                 // Verificar código de referido si existe
@@ -771,6 +773,7 @@
                     const q=await db.collection('usuarios').where('codigoReferido','==',codRef).get();
                     if(q.empty){
                         mostrarToast('Código de referido inválido','error');
+                        registrandoUsuario = false;
                         btn.disabled=false;
                         btn.textContent='Crear Cuenta';
                         return;
@@ -825,6 +828,7 @@
                 // Restaurar botón
                 btn.disabled = false;
                 btn.textContent = 'Crear Cuenta';
+                registrandoUsuario = false; // Desbloquear onAuthStateChanged
                 
                 // Cerrar modal de registro y mostrar modal de verificación
                 cerrarModal('modalRegistro');
@@ -835,6 +839,7 @@
                 
             } catch(error) {
                 console.error('Error en registro:', error);
+                registrandoUsuario = false; // Desbloquear onAuthStateChanged
                 btn.disabled = false;
                 btn.textContent = 'Crear Cuenta';
                 
