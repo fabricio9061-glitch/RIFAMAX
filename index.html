@@ -34,8 +34,8 @@
         .hero h1{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
         .section{position:relative;z-index:5;padding:2rem 5%;max-width:1400px;margin:0 auto}
         .section-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;text-align:center;margin-bottom:1.5rem}
-        .rifas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,350px));gap:1.5rem;justify-content:center}
-        .rifa-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;overflow:hidden;transition:.3s}
+        .rifas-grid{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center}
+        .rifa-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;overflow:hidden;transition:.3s;width:340px;max-width:100%}
         .rifa-card:hover{transform:translateY(-5px);border-color:var(--primary)}
         .rifa-image{width:100%;height:150px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
         .rifa-image img{width:100%;height:100%;object-fit:cover}
@@ -203,7 +203,8 @@
             .admin-tabs{gap:.3rem}
             .admin-tab{padding:.4rem .6rem;font-size:.75rem}
             .stats-grid{grid-template-columns:repeat(3,1fr)}
-            .rifas-grid{grid-template-columns:repeat(2,minmax(280px,350px));justify-content:center}
+            .rifas-grid{gap:1rem}
+            .rifa-card{width:320px}
         }
         
         /* Móviles */
@@ -228,8 +229,8 @@
             .section-title{font-size:1.5rem;margin-bottom:1.2rem}
             
             /* Grid de rifas */
-            .rifas-grid{grid-template-columns:1fr;gap:1.2rem;justify-content:center}
-            .rifa-card{margin:0 auto;max-width:400px;width:100%}
+            .rifas-grid{gap:1.2rem}
+            .rifa-card{width:100%;max-width:400px}
             .rifa-image{height:160px}
             .rifa-content{padding:1rem}
             .rifa-title{font-size:1.15rem}
@@ -350,14 +351,15 @@
         /* Pantallas grandes */
         @media(min-width:1200px){
             .section{max-width:1400px}
-            .rifas-grid{grid-template-columns:repeat(3,minmax(300px,380px));gap:2rem;justify-content:center}
+            .rifas-grid{gap:2rem}
+            .rifa-card{width:380px}
             .admin-panel{max-width:1400px;margin:0 auto}
             .stats-grid{grid-template-columns:repeat(6,1fr)}
         }
         
         /* Pantallas muy grandes */
         @media(min-width:1600px){
-            .rifas-grid{grid-template-columns:repeat(4,minmax(280px,350px));justify-content:center}
+            .rifa-card{width:350px}
             body{font-size:1.05rem}
         }
     </style>
@@ -672,7 +674,7 @@
         </div>
     </div>
 
-    <footer><p>&copy; 2025 RifaMax. Mayores de 18.</p></footer>
+    <footer><p>RifaMax. Mayores de 18. | Versión: 5.1.0 | © 2025 Anibal Malave</p></footer>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -765,7 +767,42 @@
                     if(q.empty){mostrarToast('Código de referido inválido','error');btn.disabled=false;btn.textContent='Crear Cuenta';return}
                     refId=q.docs[0].id;
                 }
-                const uc=await auth.createUserWithEmailAndPassword(email,pass);
+                
+                let uc;
+                let esReRegistro = false;
+                
+                try {
+                    // Intentar crear usuario nuevo
+                    uc = await auth.createUserWithEmailAndPassword(email,pass);
+                } catch(authError) {
+                    if(authError.code === 'auth/email-already-in-use') {
+                        // El email existe en Auth, verificar si tiene documento en Firestore
+                        try {
+                            const signIn = await auth.signInWithEmailAndPassword(email, pass);
+                            const docCheck = await db.collection('usuarios').doc(signIn.user.uid).get();
+                            
+                            if(!docCheck.exists) {
+                                // No tiene documento (fue rechazado), permitir re-registro
+                                uc = signIn;
+                                esReRegistro = true;
+                            } else {
+                                // Ya tiene documento activo
+                                await auth.signOut();
+                                throw {code: 'auth/email-already-in-use'};
+                            }
+                        } catch(signInError) {
+                            if(signInError.code === 'auth/wrong-password' || signInError.code === 'auth/invalid-credential') {
+                                mostrarToast('Este correo ya está registrado con otra contraseña','error');
+                                btn.disabled=false;btn.textContent='Crear Cuenta';
+                                return;
+                            }
+                            throw signInError;
+                        }
+                    } else {
+                        throw authError;
+                    }
+                }
+                
                 await db.collection('usuarios').doc(uc.user.uid).set({
                     nombre:nombre,
                     apellido:apellido,
@@ -779,17 +816,27 @@
                     activo:email===ADMIN_EMAIL,
                     esAdmin:email===ADMIN_EMAIL,
                     totalReferidos:0,
-                    fechaRegistro:firebase.firestore.FieldValue.serverTimestamp()
+                    fechaRegistro:firebase.firestore.FieldValue.serverTimestamp(),
+                    fechaExpiracion: new Date(Date.now() + 48 * 60 * 60 * 1000)
                 });
                 if(refId)await db.collection('usuarios').doc(refId).update({totalReferidos:firebase.firestore.FieldValue.increment(1)});
                 await auth.signOut();
+                btn.disabled=false;btn.textContent='Crear Cuenta';
                 cerrarModal('modalRegistro');
                 document.getElementById('docUploadZone').classList.remove('has-file');
                 document.getElementById('docUploadText').textContent='Click para subir';
                 documentoBase64=null;
-                event.target.reset();
+                document.getElementById('regNombre').value='';
+                document.getElementById('regApellido').value='';
+                document.getElementById('regEmail').value='';
+                document.getElementById('regEmailConfirm').value='';
+                document.getElementById('regTelefono').value='';
+                document.getElementById('regPassword').value='';
+                document.getElementById('regPasswordConfirm').value='';
+                document.getElementById('regCodigoReferido').value='';
                 abrirModal('modalCuentaPendiente');
                 mostrarToast('¡Cuenta creada! Espera verificación','success');
+                return;
             }catch(er){
                 console.error('Error registro:',er);
                 let msg='Error al crear cuenta';
@@ -985,9 +1032,91 @@
 
         async function cargarDashboardAdmin(){try{const[u,ra,c,cp,pp]=await Promise.all([db.collection('usuarios').get(),db.collection('rifas').where('activa','==',true).get(),db.collection('compras').where('estado','==','aprobado').get(),db.collection('usuarios').where('activo','==',false).get(),db.collection('compras').where('estado','==','pendiente').get()]);let b=0,ing=0,com=0;c.forEach(d=>{const x=d.data();b+=x.cantidad||0;ing+=x.total||0;if(x.referidorId)com+=(x.cantidad||0)*(x.comisionPorBoleto||0.1)});document.getElementById('dashboardStats').innerHTML=`<div class="stat-card"><div class="stat-card-value">${u.size}</div><div class="stat-card-label">Usuarios</div></div><div class="stat-card"><div class="stat-card-value">${ra.size}</div><div class="stat-card-label">Rifas</div></div><div class="stat-card"><div class="stat-card-value">${b}</div><div class="stat-card-label">Boletos</div></div><div class="stat-card"><div class="stat-card-value">$${ing.toFixed(0)}</div><div class="stat-card-label">Ingresos</div></div><div class="stat-card"><div class="stat-card-value">${cp.size}</div><div class="stat-card-label">Cuentas Pend</div></div><div class="stat-card"><div class="stat-card-value">${pp.size}</div><div class="stat-card-label">Pagos Pend</div></div>`}catch{}}
 
-        async function cargarCuentasAdmin(){const tb=document.getElementById('cuentasAdminBody');tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('usuarios').where('activo','==',false).get();tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay pendientes 🎉</td></tr>':'';s.forEach(d=>{const u={id:d.id,...d.data()};tb.innerHTML+=`<tr><td>${u.nombre} ${u.apellido}</td><td>${u.email}</td><td><button class="btn-small btn-view" onclick="verImagen('${u.documentoBase64}')">Ver</button></td><td><button class="btn-small btn-approve" onclick="activarCuenta('${u.id}')">✓</button><button class="btn-small btn-reject" onclick="rechazarCuenta('${u.id}')">✗</button></td></tr>`})}catch{}}
-        async function activarCuenta(id){if(!confirm('¿Activar?'))return;try{await db.collection('usuarios').doc(id).update({activo:true});mostrarToast('¡Activada!','success');cargarCuentasAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
-        async function rechazarCuenta(id){if(!confirm('¿Rechazar y eliminar?'))return;try{await db.collection('usuarios').doc(id).delete();mostrarToast('Rechazada','success');cargarCuentasAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
+        async function cargarCuentasAdmin(){
+            // Primero limpiar cuentas expiradas (más de 48 horas sin activar)
+            await limpiarCuentasExpiradas();
+            
+            const tb=document.getElementById('cuentasAdminBody');tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';
+            try{
+                const s=await db.collection('usuarios').where('activo','==',false).get();
+                tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay pendientes 🎉</td></tr>':'';
+                s.forEach(d=>{
+                    const u={id:d.id,...d.data()};
+                    const fechaReg = u.fechaRegistro?.toDate ? u.fechaRegistro.toDate().toLocaleDateString() : 'N/A';
+                    tb.innerHTML+=`<tr>
+                        <td>${u.nombre} ${u.apellido}<br><small style="opacity:.6">${fechaReg}</small></td>
+                        <td>${u.email}</td>
+                        <td><button class="btn-small btn-view" onclick="verImagen('${u.documentoBase64}')">Ver</button></td>
+                        <td>
+                            <button class="btn-small btn-approve" onclick="activarCuenta('${u.id}')">✓ Activar</button>
+                            <button class="btn-small btn-reject" onclick="rechazarCuenta('${u.id}','${u.email}')">✗ Rechazar</button>
+                        </td>
+                    </tr>`;
+                });
+            }catch(er){console.error(er)}
+        }
+        
+        async function limpiarCuentasExpiradas(){
+            try{
+                const ahora = new Date();
+                const snapshot = await db.collection('usuarios').where('activo','==',false).get();
+                
+                for(const doc of snapshot.docs){
+                    const data = doc.data();
+                    // Si tiene fechaExpiracion y ya pasó, o si no tiene y pasaron 48h desde registro
+                    let expirada = false;
+                    
+                    if(data.fechaExpiracion){
+                        const fechaExp = data.fechaExpiracion.toDate ? data.fechaExpiracion.toDate() : new Date(data.fechaExpiracion);
+                        expirada = ahora > fechaExp;
+                    } else if(data.fechaRegistro){
+                        const fechaReg = data.fechaRegistro.toDate ? data.fechaRegistro.toDate() : new Date(data.fechaRegistro);
+                        const hace48h = new Date(fechaReg.getTime() + 48 * 60 * 60 * 1000);
+                        expirada = ahora > hace48h;
+                    }
+                    
+                    if(expirada && data.email !== ADMIN_EMAIL){
+                        console.log('Eliminando cuenta expirada:', data.email);
+                        await doc.ref.delete();
+                    }
+                }
+            }catch(er){console.error('Error limpiando cuentas:', er)}
+        }
+        
+        async function activarCuenta(id){
+            if(!confirm('¿Activar esta cuenta?'))return;
+            try{
+                await db.collection('usuarios').doc(id).update({
+                    activo:true,
+                    fechaExpiracion: null,
+                    fechaActivacion: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                mostrarToast('¡Cuenta activada!','success');
+                cargarCuentasAdmin();
+                cargarBadges();
+            }catch(er){
+                console.error(er);
+                mostrarToast('Error al activar','error');
+            }
+        }
+        
+        async function rechazarCuenta(id, email){
+            if(!confirm(`¿Rechazar y eliminar la cuenta de ${email}?\n\nEl usuario podrá registrarse nuevamente con este correo.`))return;
+            try{
+                // Eliminar documento de Firestore
+                await db.collection('usuarios').doc(id).delete();
+                
+                // Nota: La cuenta en Firebase Auth permanecerá pero sin datos en Firestore
+                // El usuario podrá re-registrarse y se creará nuevo documento
+                
+                mostrarToast('Cuenta rechazada y eliminada','success');
+                cargarCuentasAdmin();
+                cargarBadges();
+            }catch(er){
+                console.error(er);
+                mostrarToast('Error al rechazar','error');
+            }
+        }
 
         async function cargarPagosAdmin(){const tb=document.getElementById('pagosAdminBody');tb.innerHTML='<tr><td colspan="7"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('compras').where('estado','==','pendiente').get();tb.innerHTML=s.empty?'<tr><td colspan="7" style="text-align:center">No hay pendientes 🎉</td></tr>':'';s.forEach(d=>{const c={id:d.id,...d.data()};tb.innerHTML+=`<tr><td>${c.usuarioNombre}</td><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td>$${c.total}</td><td>${c.idOrden||'N/A'}</td><td><button class="btn-small btn-view" onclick="verImagen('${c.comprobanteBase64}')">Ver</button></td><td><button class="btn-small btn-approve" onclick="aprobarPago('${c.id}')">✓</button><button class="btn-small btn-reject" onclick="rechazarPago('${c.id}')">✗</button></td></tr>`})}catch{}}
         function verImagen(b){document.getElementById('imagenViewer').src=b;abrirModal('modalVerImagen')}
