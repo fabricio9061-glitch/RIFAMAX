@@ -729,7 +729,9 @@
         function seleccionarMetodoPago(metodo) {
             metodoPagoSeleccionado = metodo;
             document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
-            document.getElementById('opcion' + metodo.charAt(0).toUpperCase() + metodo.slice(1)).classList.add('active');
+            // Mapear correctamente los IDs
+            const idMap = {email: 'opcionEmail', qr: 'opcionQR', enlace: 'opcionEnlace'};
+            document.getElementById(idMap[metodo]).classList.add('active');
             document.getElementById('pagoEmail').style.display = metodo === 'email' ? 'block' : 'none';
             document.getElementById('pagoQR').style.display = metodo === 'qr' ? 'block' : 'none';
             document.getElementById('pagoEnlace').style.display = metodo === 'enlace' ? 'block' : 'none';
