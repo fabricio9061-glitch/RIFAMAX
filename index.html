@@ -8,7 +8,18 @@
     <style>
         :root{--primary:#FF6B35;--secondary:#FFD23F;--accent:#00B4D8;--dark:#1a1a2e;--darker:#0f0f1e;--light:#fff;--success:#06FFA5;--danger:#FF5252;--purple:#9B5DE5;--warning:#FFA726}
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,var(--darker),var(--dark));color:var(--light);min-height:100vh}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,var(--darker),var(--dark));color:var(--light);min-height:100vh;overflow-x:hidden}
+        
+        /* LUCES ANIMADAS DE FONDO */
+        .bg-lights{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .bg-light{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;animation:float-light 15s ease-in-out infinite}
+        .bg-light:nth-child(1){width:400px;height:400px;background:var(--primary);top:-100px;left:-100px;animation-delay:0s}
+        .bg-light:nth-child(2){width:350px;height:350px;background:var(--accent);top:50%;right:-150px;animation-delay:-5s}
+        .bg-light:nth-child(3){width:300px;height:300px;background:var(--purple);bottom:-100px;left:30%;animation-delay:-10s}
+        .bg-light:nth-child(4){width:250px;height:250px;background:var(--secondary);top:40%;left:10%;animation-delay:-7s}
+        .bg-light:nth-child(5){width:200px;height:200px;background:var(--success);bottom:20%;right:20%;animation-delay:-3s}
+        @keyframes float-light{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(30px,-30px) scale(1.1)}50%{transform:translate(-20px,20px) scale(0.9)}75%{transform:translate(20px,10px) scale(1.05)}}
+        
         select,input,textarea{background-color:#2a2a4e!important;color:#fff!important;border:1px solid rgba(255,255,255,.3)!important}
         select option{background-color:#2a2a4e!important;color:#fff!important}
         input::placeholder{color:rgba(255,255,255,.5)!important}
@@ -35,13 +46,13 @@
         .section{position:relative;z-index:5;padding:2rem 5%;max-width:1400px;margin:0 auto}
         .section-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;text-align:center;margin-bottom:1.5rem}
         .rifas-grid{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center}
-        .rifa-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;overflow:hidden;transition:.3s;width:340px;max-width:100%}
+        .rifa-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;overflow:hidden;transition:.3s;width:340px;max-width:100%;display:flex;flex-direction:column}
         .rifa-card:hover{transform:translateY(-5px);border-color:var(--primary)}
         .rifa-image{width:100%;height:150px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
         .rifa-image img{width:100%;height:100%;object-fit:cover}
         .rifa-badge{position:absolute;top:8px;right:8px;background:var(--success);color:var(--dark);padding:.2rem .6rem;border-radius:15px;font-size:.7rem;font-weight:700}
         .rifa-timer{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.8);color:var(--secondary);padding:.2rem .6rem;border-radius:8px;font-size:.7rem;font-weight:600}
-        .rifa-content{padding:1rem}
+        .rifa-content{padding:1rem;display:flex;flex-direction:column;flex:1}
         .rifa-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--secondary);margin-bottom:.3rem}
         .rifa-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;margin-bottom:.6rem;padding:.6rem;background:rgba(0,0,0,.3);border-radius:8px}
         .stat{text-align:center}
@@ -49,7 +60,7 @@
         .stat-label{font-size:.6rem;opacity:.7}
         .progress-bar{width:100%;height:5px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;margin-bottom:.6rem}
         .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:5px}
-        .btn-participar{width:100%;padding:.6rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--dark);border:none;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer}
+        .btn-participar{width:100%;padding:.6rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--dark);border:none;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;margin-top:auto}
         .btn-participar:disabled{opacity:.5;cursor:not-allowed}
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:1000;align-items:center;justify-content:center;padding:1rem;overflow-y:auto}
         .modal.active{display:flex}
@@ -109,7 +120,9 @@
         .toast.error{border-color:var(--danger)}
         .boletos-selector{display:flex;align-items:center;justify-content:center;gap:.8rem;margin:.8rem 0}
         .btn-cantidad{width:36px;height:36px;background:var(--primary);color:var(--light);border:none;border-radius:8px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
-        .cantidad-display{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;min-width:40px;text-align:center}
+        .cantidad-display{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;min-width:60px;text-align:center;cursor:pointer;padding:.2rem .5rem;border-radius:8px;transition:.3s}
+        .cantidad-display:hover{background:rgba(255,255,255,.1)}
+        .cantidad-input{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;width:70px;text-align:center;background:rgba(255,255,255,.1)!important;border:2px solid var(--primary)!important;border-radius:8px;padding:.2rem;color:var(--light)!important}
         .payment-box{background:linear-gradient(135deg,rgba(255,210,63,.1),rgba(255,107,53,.1));border:2px solid var(--secondary);border-radius:10px;padding:1rem;text-align:center;margin:.6rem 0}
         .payment-email{font-family:monospace;background:rgba(255,255,255,.1);padding:.3rem .6rem;border-radius:6px;cursor:pointer;font-size:.85rem}
         .comprobante-preview{max-width:100%;max-height:120px;border-radius:8px;margin:.4rem auto;display:block}
@@ -118,10 +131,6 @@
         .referral-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;margin-top:.6rem}
         .referral-stat-value{font-weight:700;color:var(--success);font-size:1rem}
         .referral-stat-label{font-size:.6rem;opacity:.7}
-        .profile-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:.8rem}
-        .profile-stat{background:rgba(255,255,255,.05);padding:.6rem;border-radius:8px;text-align:center}
-        .profile-stat-value{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--success)}
-        .profile-stat-label{font-size:.7rem;opacity:.7}
         .profile-avatar{width:70px;height:70px;border-radius:50%;border:3px solid var(--primary);margin:0 auto .6rem;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--dark);cursor:pointer;overflow:hidden}
         .profile-avatar img{width:100%;height:100%;object-fit:cover}
         .modal-tabs{display:flex;gap:.3rem;margin-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:.3rem}
@@ -135,8 +144,6 @@
         footer{position:relative;z-index:5;text-align:center;padding:1rem 5%;border-top:1px solid rgba(255,255,255,.1);margin-top:2rem;font-size:.8rem}
         .auth-buttons.hidden{display:none}
         .balance-badge{background:linear-gradient(135deg,var(--success),var(--accent));color:var(--dark);padding:.15rem .5rem;border-radius:15px;font-size:.7rem;font-weight:700;margin-left:auto}
-        
-        /* Estilos para boletos numerados */
         .boleto-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;margin-bottom:.8rem}
         .boleto-card.pendiente{border-color:var(--warning);background:rgba(255,167,38,.05)}
         .boleto-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
@@ -147,12 +154,8 @@
         .boleto-info{font-size:.85rem;opacity:.8;margin-bottom:.6rem}
         .boletos-numeros{display:flex;flex-wrap:wrap;gap:.4rem}
         .boleto-numero{background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--dark);padding:.25rem .5rem;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:1px}
-        
-        /* Botón sorteo */
         .btn-sorteo{background:linear-gradient(135deg,var(--secondary),var(--primary))!important;color:var(--dark)!important;font-size:.85rem!important;padding:.35rem .6rem!important}
         .btn-sorteo:hover{transform:scale(1.1)}
-        
-        /* Modal resultado sorteo */
         .sorteo-resultado{text-align:center;padding:1rem}
         .sorteo-animacion{font-size:4rem;margin:1rem 0;animation:bounce 1s ease infinite}
         @keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
@@ -162,11 +165,9 @@
         .sorteo-ganador-email{font-size:.85rem;opacity:.7}
         .sorteo-premio{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--secondary);margin:.5rem 0}
         .sorteo-stats{font-size:.8rem;opacity:.7;margin-top:.5rem}
-        
         .confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
         .confetti-piece{position:absolute;width:10px;height:10px;animation:confetti-fall 3s ease-out forwards}
         @keyframes confetti-fall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-        
         .toggle-container{display:flex;align-items:center;gap:.4rem;margin:.3rem 0}
         .toggle{position:relative;width:40px;height:22px;background:rgba(255,255,255,.2);border-radius:11px;cursor:pointer}
         .toggle.active{background:var(--success)}
@@ -178,8 +179,6 @@
         .phone-input{display:flex;gap:.5rem}
         .phone-input select{width:110px;flex-shrink:0}
         .phone-input input{flex:1;min-width:0}
-        
-        /* Estilos para tarjetas de ganadores en admin */
         .ganador-admin-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;margin-bottom:1rem;transition:.3s}
         .ganador-admin-card:hover{border-color:var(--primary);transform:translateY(-2px)}
         .ganador-admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem}
@@ -195,176 +194,21 @@
         .ganador-admin-premio span{font-size:.75rem;opacity:.7;display:block}
         .ganador-admin-premio strong{font-size:1.2rem;color:var(--success)}
         .ganador-admin-actions{border-top:1px solid rgba(255,255,255,.1);padding-top:.8rem;display:flex;justify-content:flex-end}
-        
-        /* ============ RESPONSIVE DESIGN ============ */
-        
-        /* Tablets y pantallas medianas */
-        @media(max-width:992px){
-            .admin-tabs{gap:.3rem}
-            .admin-tab{padding:.4rem .6rem;font-size:.75rem}
-            .stats-grid{grid-template-columns:repeat(3,1fr)}
-            .rifas-grid{gap:1rem}
-            .rifa-card{width:320px}
-        }
-        
-        /* Móviles */
-        @media(max-width:768px){
-            /* Header */
-            header{flex-direction:column;gap:.8rem;padding:.8rem 4%}
-            .logo{font-size:1.8rem}
-            nav{width:100%;justify-content:center;flex-wrap:wrap;gap:.5rem}
-            nav a{font-size:.85rem;padding:.2rem .4rem}
-            .nav-buttons{width:100%;justify-content:center;gap:.8rem}
-            .btn-login,.btn-register{padding:.45rem 1rem;font-size:.85rem}
-            .user-dropdown{min-width:220px;right:-10px}
-            .user-avatar{width:38px;height:38px}
-            
-            /* Hero */
-            .hero{padding:2rem 4% 1.5rem}
-            .hero h1{font-size:1.9rem;line-height:1.2}
-            .hero p{font-size:.95rem;margin-bottom:1rem}
-            
-            /* Secciones */
-            .section{padding:1.5rem 4%}
-            .section-title{font-size:1.5rem;margin-bottom:1.2rem}
-            
-            /* Grid de rifas */
-            .rifas-grid{gap:1.2rem}
-            .rifa-card{width:100%;max-width:400px}
-            .rifa-image{height:160px}
-            .rifa-content{padding:1rem}
-            .rifa-title{font-size:1.15rem}
-            .rifa-stats{padding:.7rem;gap:.3rem}
-            .stat-value{font-size:1rem}
-            .stat-label{font-size:.65rem}
-            .btn-participar{padding:.7rem;font-size:.95rem}
-            
-            /* Admin Panel */
-            .admin-panel{padding:1rem 4%}
-            .admin-header{flex-direction:column;gap:.8rem}
-            .admin-header h2{font-size:1.3rem}
-            .admin-tabs{overflow-x:auto;padding-bottom:.5rem;gap:.4rem;justify-content:flex-start;-webkit-overflow-scrolling:touch}
-            .admin-tab{white-space:nowrap;padding:.5rem .8rem;font-size:.75rem;flex-shrink:0}
-            .admin-tab .badge{font-size:.65rem;padding:.15rem .4rem}
-            .stats-grid{grid-template-columns:repeat(2,1fr);gap:.8rem}
-            .stat-card{padding:1rem}
-            .stat-card-value{font-size:1.5rem}
-            .stat-card-label{font-size:.7rem}
-            
-            /* Tablas admin */
-            .admin-table{font-size:.75rem}
-            .admin-table th,.admin-table td{padding:.5rem .4rem}
-            .btn-small{padding:.3rem .5rem;font-size:.7rem}
-            .btn-nuevo{padding:.5rem 1rem;font-size:.8rem}
-            
-            /* Modales */
-            .modal{padding:.5rem}
-            .modal-content{padding:1.2rem;margin:.5rem;max-height:92vh;border-radius:15px}
-            .modal-content.wide{max-width:95%}
-            .modal-title{font-size:1.2rem}
-            .form-row{grid-template-columns:1fr}
-            .form-group{margin-bottom:.9rem}
-            .form-group label{font-size:.85rem;margin-bottom:.4rem}
-            .form-group input,.form-group select,.form-group textarea{padding:.6rem;font-size:.9rem}
-            .btn-submit{padding:.7rem;font-size:.9rem}
-            .phone-input select{width:100px}
-            
-            /* File upload */
-            .file-upload{padding:1.2rem}
-            .file-upload span{font-size:1.8rem}
-            
-            /* Boletos */
-            .boleto-card{padding:1rem}
-            .boleto-rifa{font-size:.9rem}
-            .boleto-numero{padding:.25rem .5rem;font-size:.85rem}
-            .boletos-numeros{gap:.4rem}
-            
-            /* Ganadores admin */
-            .ganador-admin-card{padding:1rem}
-            .ganador-admin-rifa{font-size:.95rem}
-            .ganador-admin-body{flex-direction:column;align-items:flex-start}
-            .ganador-admin-numero{font-size:1.2rem;padding:.35rem .7rem}
-            .ganador-admin-premio{text-align:left;margin-top:.5rem}
-            .ganador-admin-actions{justify-content:center}
-            .ganador-admin-actions .btn-small{width:100%;justify-content:center;padding:.6rem}
-            
-            /* Soporte bubble */
-            .support-bubble{bottom:15px;right:15px}
-            .support-btn{width:50px;height:50px;font-size:1.3rem}
-            .support-chat{width:280px;bottom:60px;right:0}
-            
-            /* Selector de boletos */
-            .boletos-selector{gap:.8rem}
-            .btn-cantidad{width:40px;height:40px;font-size:1.2rem}
-            .cantidad-display{font-size:1.8rem;min-width:50px}
-            
-            /* Referidos */
-            .referral-box{padding:1rem}
-            .referral-code{font-size:1.5rem;letter-spacing:3px;padding:.4rem 1rem}
-            .referral-stats{gap:.5rem}
-            .referral-stat-value{font-size:1rem}
-            
-            /* Perfil */
-            .profile-avatar{width:70px;height:70px;font-size:1.8rem}
-            
-            /* Ganadores públicos */
-            .ganador-item{padding:.8rem;gap:.8rem}
-            .ganador-icon{font-size:1.8rem}
-            .ganador-nombre{font-size:.95rem}
-            .ganador-premio{font-size:.8rem}
-            
-            /* Toast */
-            .toast{left:15px;right:15px;max-width:none;font-size:.85rem;padding:.7rem 1rem;bottom:15px}
-            
-            /* Footer */
-            footer{padding:1rem 4%;font-size:.8rem}
-        }
-        
-        /* Móviles pequeños */
-        @media(max-width:400px){
-            header{padding:.6rem 3%}
-            .logo{font-size:1.5rem}
-            nav a{font-size:.75rem}
-            .btn-login,.btn-register{padding:.4rem .8rem;font-size:.8rem}
-            .hero h1{font-size:1.6rem}
-            .hero p{font-size:.85rem}
-            .section{padding:1rem 3%}
-            .section-title{font-size:1.3rem}
-            .rifa-card{max-width:100%}
-            .admin-panel{padding:.8rem 3%}
-            .modal-content{padding:1rem;margin:.3rem}
-            .modal-title{font-size:1.1rem}
-            .stats-grid{grid-template-columns:1fr 1fr;gap:.6rem}
-            .stat-card{padding:.8rem}
-            .stat-card-value{font-size:1.3rem}
-            .admin-table{font-size:.7rem}
-            .admin-table th,.admin-table td{padding:.35rem .25rem}
-            .btn-small{padding:.25rem .35rem;font-size:.65rem}
-            .phone-input{flex-direction:column}
-            .phone-input select{width:100%}
-            .referral-code{font-size:1.3rem;letter-spacing:2px}
-            .boletos-selector{gap:.5rem}
-            .btn-cantidad{width:35px;height:35px}
-            .cantidad-display{font-size:1.5rem}
-        }
-        
-        /* Pantallas grandes */
-        @media(min-width:1200px){
-            .section{max-width:1400px}
-            .rifas-grid{gap:2rem}
-            .rifa-card{width:380px}
-            .admin-panel{max-width:1400px;margin:0 auto}
-            .stats-grid{grid-template-columns:repeat(6,1fr)}
-        }
-        
-        /* Pantallas muy grandes */
-        @media(min-width:1600px){
-            .rifa-card{width:350px}
-            body{font-size:1.05rem}
-        }
+        .withdraw-box{background:linear-gradient(135deg,rgba(6,255,165,.1),rgba(0,180,216,.1));border:2px solid var(--success);border-radius:12px;padding:1rem;margin-top:1rem}
+        .withdraw-title{font-size:.9rem;font-weight:600;color:var(--success);margin-bottom:.5rem;text-align:center}
+        .withdraw-balance{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--secondary);text-align:center;margin:.5rem 0}
+        .withdraw-input{display:flex;gap:.5rem;margin:.5rem 0}
+        .withdraw-input input{flex:1}
+        .btn-withdraw{background:linear-gradient(135deg,var(--success),var(--accent))!important;color:var(--dark)!important}
+        .btn-cobrar{background:linear-gradient(135deg,var(--secondary),var(--primary));color:var(--dark);border:none;padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem;margin-top:.5rem;width:100%}
+        .btn-cobrar:disabled{opacity:.5;cursor:not-allowed}
+        @media(max-width:768px){header{flex-direction:column;gap:.8rem;padding:.8rem 4%}.logo{font-size:1.8rem}nav{width:100%;justify-content:center;flex-wrap:wrap;gap:.5rem}.hero{padding:2rem 4% 1.5rem}.hero h1{font-size:1.9rem}.section{padding:1.5rem 4%}.rifas-grid{gap:1.2rem}.rifa-card{width:100%;max-width:400px}.modal-content{padding:1.2rem;margin:.5rem}.form-row{grid-template-columns:1fr}}
+        @media(max-width:400px){.hero h1{font-size:1.6rem}.section{padding:1rem 3%}.modal-content{padding:1rem}}
     </style>
 </head>
 <body>
+    <div class="bg-lights"><div class="bg-light"></div><div class="bg-light"></div><div class="bg-light"></div><div class="bg-light"></div><div class="bg-light"></div></div>
+
     <header>
         <div class="logo" onclick="irInicio()">RIFAMAX</div>
         <nav>
@@ -414,6 +258,8 @@
             <div class="admin-tab active" onclick="cambiarTabAdmin('dashboard',this)">📊 Dashboard</div>
             <div class="admin-tab" onclick="cambiarTabAdmin('cuentas',this)">👤 Cuentas<span class="badge" id="badgeCuentas">0</span></div>
             <div class="admin-tab" onclick="cambiarTabAdmin('pagos',this)">💳 Pagos<span class="badge" id="badgePagos">0</span></div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('retiros',this)">💸 Retiros<span class="badge" id="badgeRetiros">0</span></div>
+            <div class="admin-tab" onclick="cambiarTabAdmin('cobros',this)">🏆 Cobros<span class="badge" id="badgeCobros">0</span></div>
             <div class="admin-tab" onclick="cambiarTabAdmin('rifas',this)">🎰 Rifas</div>
             <div class="admin-tab" onclick="cambiarTabAdmin('ganadores',this)">🏆 Ganadores</div>
             <div class="admin-tab" onclick="cambiarTabAdmin('usuarios',this)">👥 Usuarios</div>
@@ -424,8 +270,10 @@
             <div id="tabDashboard"><div class="stats-grid" id="dashboardStats"></div></div>
             <div id="tabCuentas" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Cuentas Pendientes</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Doc</th><th>Acción</th></tr></thead><tbody id="cuentasAdminBody"></tbody></table></div></div>
             <div id="tabPagos" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Pagos Pendientes</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Cant</th><th>Total</th><th>ID</th><th>Comp</th><th>Acción</th></tr></thead><tbody id="pagosAdminBody"></tbody></table></div></div>
+            <div id="tabRetiros" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">💸 Solicitudes de Retiro</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email Binance</th><th>Monto</th><th>Fecha</th><th>Acción</th></tr></thead><tbody id="retirosAdminBody"></tbody></table></div></div>
+            <div id="tabCobros" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">🏆 Solicitudes de Cobro</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Ganador</th><th>Premio</th><th>Rifa</th><th>Email Binance</th><th>Fecha</th><th>Acción</th></tr></thead><tbody id="cobrosAdminBody"></tbody></table></div></div>
             <div id="tabRifas" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem"><h3 style="font-size:.9rem;margin:0">Rifas</h3><button class="btn-nuevo" onclick="abrirModalNuevaRifa()">+ Nueva</button></div><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Rifa</th><th>Premio</th><th>Boletos</th><th>Estado</th><th>Sorteo</th><th>Acción</th></tr></thead><tbody id="rifasAdminBody"></tbody></table></div></div>
-            <div id="tabGanadores" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">🏆 Ganadores de Sorteos</h3><div id="ganadoresAdminBody"></div></div>
+            <div id="tabGanadores" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">🏆 Ganadores</h3><div id="ganadoresAdminBody"></div></div>
             <div id="tabUsuarios" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Usuarios Activos</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Email</th><th>Refs</th><th>Acciones</th></tr></thead><tbody id="usuariosAdminBody"></tbody></table></div></div>
             <div id="tabCompras" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Compras Aprobadas</h3><div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Usuario</th><th>Rifa</th><th>Cant</th><th>Boletos</th><th>Total</th></tr></thead><tbody id="comprasAdminBody"></tbody></table></div></div>
             <div id="tabSoporte" style="display:none"><h3 style="font-size:.9rem;margin-bottom:.8rem">Soporte</h3><div id="soporteAdminBody"></div></div>
@@ -521,7 +369,7 @@
                     <div class="form-group"><label>Nombre</label><input type="text" id="editNombre"></div>
                     <div class="form-group"><label>Apellido</label><input type="text" id="editApellido"></div>
                 </div>
-                <div class="form-group"><label>📧 Binance (reembolsos)</label><input type="email" id="editBalanceEmail" placeholder="correo@binance.com"></div>
+                <div class="form-group"><label>📧 Binance (pagos)</label><input type="email" id="editBalanceEmail" placeholder="correo@binance.com"></div>
                 <button type="submit" class="btn-submit">Guardar</button>
             </form>
         </div>
@@ -549,7 +397,7 @@
     </div>
 
     <div class="modal" id="modalReferidos">
-        <div class="modal-content" style="max-width:380px">
+        <div class="modal-content" style="max-width:400px">
             <button class="modal-close" onclick="cerrarModal('modalReferidos')">×</button>
             <h3 class="modal-title">🤝 Referidos</h3>
             <div class="referral-box">
@@ -562,6 +410,16 @@
                     <div><div class="referral-stat-value" id="dineroReferidos">$0</div><div class="referral-stat-label">Ganado</div></div>
                 </div>
             </div>
+            <div class="withdraw-box">
+                <div class="withdraw-title">💸 Retirar Ganancias</div>
+                <div class="withdraw-balance">$<span id="saldoDisponibleRetiro">0.00</span></div>
+                <p style="font-size:.7rem;opacity:.6;text-align:center;margin-bottom:.5rem">Mínimo: $5.00 USD</p>
+                <div class="withdraw-input">
+                    <input type="number" id="montoRetiro" placeholder="Monto" step="0.01" min="5">
+                </div>
+                <button class="btn-submit btn-withdraw" onclick="solicitarRetiro()" id="btnSolicitarRetiro">💸 Solicitar Retiro</button>
+                <p style="font-size:.7rem;opacity:.6;text-align:center;margin-top:.5rem">* Configura tu email Binance en tu perfil</p>
+            </div>
         </div>
     </div>
 
@@ -573,7 +431,8 @@
                 <p style="text-align:center;font-size:.9rem">Precio: <strong style="color:var(--success)" id="precioBoletoPaso1">$1</strong></p>
                 <div class="boletos-selector">
                     <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(-1)">−</button>
-                    <div class="cantidad-display" id="cantidadBoletosDisplay">1</div>
+                    <div class="cantidad-display" id="cantidadBoletosDisplay" onclick="habilitarEdicionCantidad()">1</div>
+                    <input type="number" class="cantidad-input" id="cantidadBoletosInput" style="display:none" min="1" onblur="confirmarCantidadManual()" onkeypress="if(event.key==='Enter'){confirmarCantidadManual();event.preventDefault()}">
                     <button type="button" class="btn-cantidad" onclick="cambiarCantidadBoletos(1)">+</button>
                 </div>
                 <p style="text-align:center;font-family:'Bebas Neue';font-size:1.8rem;color:var(--secondary)" id="totalPagarBoletos">$1.00</p>
@@ -622,7 +481,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group"><label>Días</label><input type="number" id="rifaDias" value="7" min="1"></div>
-                    <div class="form-group"><label>Imagen (máx 400KB)</label><input type="file" id="rifaImagen" accept="image/*"></div>
+                    <div class="form-group"><label>Imagen</label><input type="file" id="rifaImagen" accept="image/*"></div>
                 </div>
                 <div class="form-group">
                     <div class="toggle-container"><div class="toggle" id="toggleComisiones" onclick="toggleComisiones()"></div><span style="font-size:.8rem">Comisiones</span></div>
@@ -648,7 +507,6 @@
         </div>
     </div>
 
-    <!-- Modal Resultado Sorteo -->
     <div class="modal" id="modalResultadoSorteo">
         <div class="modal-content" style="max-width:450px">
             <button class="modal-close" onclick="cerrarModal('modalResultadoSorteo')">×</button>
@@ -657,24 +515,20 @@
                 <h3 class="modal-title" style="margin:0">¡TENEMOS GANADOR!</h3>
                 <p style="font-size:.9rem;opacity:.8" id="sorteoRifaTitulo">Rifa</p>
                 <p class="sorteo-premio" id="sorteoPremio">$100</p>
-                
                 <p style="font-size:.85rem;margin-top:1rem">Número Ganador:</p>
                 <div class="sorteo-numero-ganador" id="sorteoNumeroGanador">#001</div>
-                
                 <div class="sorteo-ganador-info">
                     <p style="font-size:.8rem;opacity:.7">🏆 Ganador:</p>
                     <p class="sorteo-ganador-nombre" id="sorteoGanadorNombre">Nombre</p>
                     <p class="sorteo-ganador-email" id="sorteoGanadorEmail">email@ejemplo.com</p>
                 </div>
-                
                 <p class="sorteo-stats" id="sorteoTotalBoletos">100 boletos participaron</p>
-                
                 <button class="btn-submit" onclick="cerrarModal('modalResultadoSorteo')" style="margin-top:1rem">¡Entendido!</button>
             </div>
         </div>
     </div>
 
-    <footer><p>RifaMax. Mayores de 18. | Versión: 5.1.0 | © 2025 Anibal Malave</p></footer>
+    <footer><p>RifaMax. Mayores de 18. | Versión: 5.2.0 | © 2025 Anibal Malave</p></footer>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -684,7 +538,7 @@
         firebase.initializeApp(firebaseConfig);
         const db=firebase.firestore(),auth=firebase.auth();
         const ADMIN_EMAIL='fabricio9061@gmail.com',BINANCE_EMAIL='Fabricio9061@gmail.com';
-        let currentUser=null,userData=null,rifas=[],rifaSeleccionada=null,cantidadBoletos=1,rifaEditando=null,comprobanteBase64=null,documentoBase64=null,comisionesActivas=false,registrandoUsuario=false;
+        let currentUser=null,userData=null,rifas=[],rifaSeleccionada=null,cantidadBoletos=1,rifaEditando=null,comprobanteBase64=null,documentoBase64=null,comisionesActivas=false,registrandoUsuario=false,saldoReferidosActual=0;
 
         function fileToBase64(file, maxWidth = 600) {
             return new Promise((resolve, reject) => {
@@ -718,7 +572,7 @@
             const saved=localStorage.getItem('rifamax_email');
             if(saved){document.getElementById('loginEmail').value=saved;document.getElementById('recordarUsuario').checked=true}
             auth.onAuthStateChanged(async u=>{
-                if(registrandoUsuario) return; // Ignorar durante registro
+                if(registrandoUsuario) return;
                 currentUser=u;
                 if(u){await cargarDatosUsuario();if(userData&&!userData.activo&&userData.email!==ADMIN_EMAIL){await auth.signOut();abrirModal('modalCuentaPendiente');return}actualizarUIUsuario()}
                 else{userData=null;actualizarUIUsuario()}
@@ -730,839 +584,123 @@
             });
         });
 
-        async function previewDocumento(e){
-            const f=e.target.files[0];if(!f)return;
-            try{
-                document.getElementById('docUploadText').textContent='Procesando...';
-                documentoBase64=await fileToBase64(f);
-                document.getElementById('docUploadZone').classList.add('has-file');
-                document.getElementById('docUploadText').textContent='✓ '+f.name.substring(0,20);
-            }catch(er){console.error(er);mostrarToast('Error al cargar','error')}
-        }
+        async function previewDocumento(e){const f=e.target.files[0];if(!f)return;try{document.getElementById('docUploadText').textContent='Procesando...';documentoBase64=await fileToBase64(f);document.getElementById('docUploadZone').classList.add('has-file');document.getElementById('docUploadText').textContent='✓ '+f.name.substring(0,20)}catch(er){console.error(er);mostrarToast('Error al cargar','error')}}
 
         async function registrarUsuario(e){
             e.preventDefault();
-            if(!documentoBase64){mostrarToast('Debes subir tu documento de identidad','error');return}
-            
-            const nombre=document.getElementById('regNombre').value.trim();
-            const apellido=document.getElementById('regApellido').value.trim();
-            const email=document.getElementById('regEmail').value.trim().toLowerCase();
-            const emailC=document.getElementById('regEmailConfirm').value.trim().toLowerCase();
-            const cod=document.getElementById('regCodigoPais').value;
-            const tel=document.getElementById('regTelefono').value.trim();
-            const pass=document.getElementById('regPassword').value;
-            const passC=document.getElementById('regPasswordConfirm').value;
-            const codRef=document.getElementById('regCodigoReferido').value.trim().toUpperCase();
-            
+            if(!documentoBase64){mostrarToast('Debes subir tu documento','error');return}
+            const nombre=document.getElementById('regNombre').value.trim(),apellido=document.getElementById('regApellido').value.trim(),email=document.getElementById('regEmail').value.trim().toLowerCase(),emailC=document.getElementById('regEmailConfirm').value.trim().toLowerCase(),cod=document.getElementById('regCodigoPais').value,tel=document.getElementById('regTelefono').value.trim(),pass=document.getElementById('regPassword').value,passC=document.getElementById('regPasswordConfirm').value,codRef=document.getElementById('regCodigoReferido').value.trim().toUpperCase();
             if(!nombre||!apellido){mostrarToast('Completa nombre y apellido','error');return}
-            if(!email){mostrarToast('Ingresa tu correo','error');return}
             if(email!==emailC){mostrarToast('Los correos no coinciden','error');return}
-            if(!tel){mostrarToast('Ingresa tu teléfono','error');return}
             if(pass.length<6){mostrarToast('Contraseña: mínimo 6 caracteres','error');return}
             if(pass!==passC){mostrarToast('Las contraseñas no coinciden','error');return}
-            
-            const btn=document.getElementById('btnRegistro');
-            btn.disabled=true;
-            btn.textContent='Creando cuenta...';
-            registrandoUsuario = true; // Bloquear onAuthStateChanged
-            
+            const btn=document.getElementById('btnRegistro');btn.disabled=true;btn.textContent='Creando...';registrandoUsuario=true;
             try{
-                // Verificar código de referido si existe
                 let refId=null;
-                if(codRef){
-                    const q=await db.collection('usuarios').where('codigoReferido','==',codRef).get();
-                    if(q.empty){
-                        mostrarToast('Código de referido inválido','error');
-                        registrandoUsuario = false;
-                        btn.disabled=false;
-                        btn.textContent='Crear Cuenta';
-                        return;
-                    }
-                    refId=q.docs[0].id;
-                }
-                
-                // Crear usuario en Firebase Auth
-                const uc = await auth.createUserWithEmailAndPassword(email, pass);
-                
-                // Guardar datos en Firestore
-                await db.collection('usuarios').doc(uc.user.uid).set({
-                    nombre: nombre,
-                    apellido: apellido,
-                    email: email,
-                    telefono: cod + tel,
-                    codigoReferido: generarCodigoReferido(),
-                    referidoPor: refId,
-                    avatarBase64: null,
-                    balanceEmail: null,
-                    documentoBase64: documentoBase64,
-                    activo: email === ADMIN_EMAIL,
-                    esAdmin: email === ADMIN_EMAIL,
-                    totalReferidos: 0,
-                    fechaRegistro: firebase.firestore.FieldValue.serverTimestamp(),
-                    fechaExpiracion: new Date(Date.now() + 48 * 60 * 60 * 1000)
-                });
-                
-                // Incrementar referidos si aplica
-                if(refId){
-                    await db.collection('usuarios').doc(refId).update({
-                        totalReferidos: firebase.firestore.FieldValue.increment(1)
-                    });
-                }
-                
-                // Cerrar sesión inmediatamente
-                await auth.signOut();
-                
-                // Limpiar formulario
-                documentoBase64 = null;
-                document.getElementById('regNombre').value = '';
-                document.getElementById('regApellido').value = '';
-                document.getElementById('regEmail').value = '';
-                document.getElementById('regEmailConfirm').value = '';
-                document.getElementById('regTelefono').value = '';
-                document.getElementById('regPassword').value = '';
-                document.getElementById('regPasswordConfirm').value = '';
-                document.getElementById('regCodigoReferido').value = '';
-                document.getElementById('docUploadZone').classList.remove('has-file');
-                document.getElementById('docUploadText').textContent = 'Click para subir';
-                
-                // Restaurar botón
-                btn.disabled = false;
-                btn.textContent = 'Crear Cuenta';
-                registrandoUsuario = false; // Desbloquear onAuthStateChanged
-                
-                // Cerrar modal de registro y mostrar modal de verificación
-                cerrarModal('modalRegistro');
-                setTimeout(() => {
-                    abrirModal('modalCuentaPendiente');
-                    mostrarToast('¡Cuenta creada! Espera verificación', 'success');
-                }, 300);
-                
-            } catch(error) {
-                console.error('Error en registro:', error);
-                registrandoUsuario = false; // Desbloquear onAuthStateChanged
-                btn.disabled = false;
-                btn.textContent = 'Crear Cuenta';
-                
-                let mensaje = 'Error al crear cuenta';
-                if(error.code === 'auth/email-already-in-use') mensaje = 'Este correo ya está registrado';
-                else if(error.code === 'auth/invalid-email') mensaje = 'Correo electrónico inválido';
-                else if(error.code === 'auth/weak-password') mensaje = 'Contraseña muy débil';
-                else if(error.code === 'auth/network-request-failed') mensaje = 'Error de conexión a internet';
-                
-                mostrarToast(mensaje, 'error');
-            }
+                if(codRef){const q=await db.collection('usuarios').where('codigoReferido','==',codRef).get();if(q.empty){mostrarToast('Código inválido','error');registrandoUsuario=false;btn.disabled=false;btn.textContent='Crear Cuenta';return}refId=q.docs[0].id}
+                const uc=await auth.createUserWithEmailAndPassword(email,pass);
+                await db.collection('usuarios').doc(uc.user.uid).set({nombre,apellido,email,telefono:cod+tel,codigoReferido:generarCodigoReferido(),referidoPor:refId,avatarBase64:null,balanceEmail:null,documentoBase64,activo:email===ADMIN_EMAIL,esAdmin:email===ADMIN_EMAIL,totalReferidos:0,saldoReferidos:0,fechaRegistro:firebase.firestore.FieldValue.serverTimestamp(),fechaExpiracion:new Date(Date.now()+48*60*60*1000)});
+                if(refId)await db.collection('usuarios').doc(refId).update({totalReferidos:firebase.firestore.FieldValue.increment(1)});
+                await auth.signOut();documentoBase64=null;document.querySelector('#modalRegistro form').reset();document.getElementById('docUploadZone').classList.remove('has-file');document.getElementById('docUploadText').textContent='Click para subir';btn.disabled=false;btn.textContent='Crear Cuenta';registrandoUsuario=false;cerrarModal('modalRegistro');setTimeout(()=>{abrirModal('modalCuentaPendiente');mostrarToast('¡Cuenta creada!','success')},300)
+            }catch(error){console.error(error);registrandoUsuario=false;btn.disabled=false;btn.textContent='Crear Cuenta';let msg='Error';if(error.code==='auth/email-already-in-use')msg='Correo ya registrado';mostrarToast(msg,'error')}
         }
 
-        async function iniciarSesion(e){
-            e.preventDefault();const email=document.getElementById('loginEmail').value.trim(),pass=document.getElementById('loginPassword').value,rec=document.getElementById('recordarUsuario').checked;
-            if(rec)localStorage.setItem('rifamax_email',email);else localStorage.removeItem('rifamax_email');
-            const btn=document.getElementById('btnLogin');btn.disabled=true;btn.textContent='Entrando...';
-            try{await auth.signInWithEmailAndPassword(email,pass);cerrarModal('modalLogin');mostrarToast('¡Bienvenido!','success')}catch{mostrarToast('Credenciales incorrectas','error')}
-            btn.disabled=false;btn.textContent='Entrar';
-        }
-
+        async function iniciarSesion(e){e.preventDefault();const email=document.getElementById('loginEmail').value.trim(),pass=document.getElementById('loginPassword').value,rec=document.getElementById('recordarUsuario').checked;if(rec)localStorage.setItem('rifamax_email',email);else localStorage.removeItem('rifamax_email');const btn=document.getElementById('btnLogin');btn.disabled=true;btn.textContent='Entrando...';try{await auth.signInWithEmailAndPassword(email,pass);cerrarModal('modalLogin');mostrarToast('¡Bienvenido!','success')}catch{mostrarToast('Credenciales incorrectas','error')}btn.disabled=false;btn.textContent='Entrar'}
         async function cerrarSesion(){await auth.signOut();cerrarPanelAdmin();document.getElementById('userDropdown').classList.remove('show')}
         async function cargarDatosUsuario(){if(!currentUser)return;try{const d=await db.collection('usuarios').doc(currentUser.uid).get();if(d.exists)userData={id:d.id,...d.data()}}catch{}}
-        function actualizarUIUsuario(){
-            const ab=document.getElementById('authButtons'),um=document.getElementById('userMenu');
-            if(currentUser&&userData){ab.classList.add('hidden');um.classList.add('active');const ini=userData.nombre?userData.nombre.charAt(0).toUpperCase():'👤';document.getElementById('avatarContent').innerHTML=userData.avatarBase64?`<img src="${userData.avatarBase64}">`:(ini);document.getElementById('adminMenuItem').style.display=(userData.esAdmin||userData.email===ADMIN_EMAIL)?'flex':'none';actualizarBalanceReferidos()}
-            else{ab.classList.remove('hidden');um.classList.remove('active')}
+        function actualizarUIUsuario(){const ab=document.getElementById('authButtons'),um=document.getElementById('userMenu');if(currentUser&&userData){ab.classList.add('hidden');um.classList.add('active');const ini=userData.nombre?userData.nombre.charAt(0).toUpperCase():'👤';document.getElementById('avatarContent').innerHTML=userData.avatarBase64?`<img src="${userData.avatarBase64}">`:(ini);document.getElementById('adminMenuItem').style.display=(userData.esAdmin||userData.email===ADMIN_EMAIL)?'flex':'none';actualizarBalanceReferidos()}else{ab.classList.remove('hidden');um.classList.remove('active')}}
+        
+        async function actualizarBalanceReferidos(){
+            if(!currentUser)return;
+            try{
+                const q=await db.collection('compras').where('referidorId','==',currentUser.uid).where('estado','==','aprobado').get();
+                let totalGanado=0;q.forEach(d=>{const x=d.data();totalGanado+=(x.cantidad||0)*(x.comisionPorBoleto||0.1)});
+                const retiros=await db.collection('retiros').where('usuarioId','==',currentUser.uid).where('estado','==','aprobado').get();
+                let totalRetirado=0;retiros.forEach(d=>{totalRetirado+=d.data().monto||0});
+                saldoReferidosActual=Math.max(0,totalGanado-totalRetirado);
+                document.getElementById('balanceReferidos').textContent=`$${saldoReferidosActual.toFixed(2)}`
+            }catch(er){console.error(er)}
         }
-        async function actualizarBalanceReferidos(){if(!currentUser)return;try{const q=await db.collection('compras').where('referidorId','==',currentUser.uid).where('estado','==','aprobado').get();let t=0;q.forEach(d=>{const x=d.data();t+=(x.cantidad||0)*(x.comisionPorBoleto||0.1)});document.getElementById('balanceReferidos').textContent=`$${t.toFixed(2)}`}catch{}}
+
         function generarCodigoReferido(){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';let r='';for(let i=0;i<6;i++)r+=c.charAt(Math.floor(Math.random()*c.length));return r}
         function copiarCodigoReferido(){navigator.clipboard.writeText(document.getElementById('miCodigoReferido').textContent);mostrarToast('¡Copiado!','success')}
         function copiarEmailPago(){navigator.clipboard.writeText(BINANCE_EMAIL);mostrarToast('¡Copiado!','success')}
 
         async function cargarRifas(){try{const s=await db.collection('rifas').where('activa','==',true).get();rifas=[];s.forEach(d=>rifas.push({id:d.id,...d.data()}));renderizarRifas()}catch{document.getElementById('rifasGrid').innerHTML='<div class="empty-state"><span>❌</span><p>Error</p></div>'}}
-        function renderizarRifas(){
-            const g=document.getElementById('rifasGrid');if(rifas.length===0){g.innerHTML='<div class="empty-state"><span>🎰</span><p>No hay rifas</p></div>';return}
-            g.innerHTML=rifas.map(r=>{const prog=((r.boletosVendidos||0)/r.totalBoletos)*100,disp=r.totalBoletos-(r.boletosVendidos||0);return`<div class="rifa-card"><div class="rifa-image">${r.imagenBase64?`<img src="${r.imagenBase64}">`:(r.icono||'🎁')}<span class="rifa-badge">🔥</span><div class="rifa-timer" data-id="${r.id}">⏱️...</div></div><div class="rifa-content"><h3 class="rifa-title">${r.titulo}</h3><div class="rifa-stats"><div class="stat"><div class="stat-value">$${r.precioBoleto||1}</div><div class="stat-label">Boleto</div></div><div class="stat"><div class="stat-value">${r.tipoPremio==='dinero'?'$':''}${r.premio}</div><div class="stat-label">Premio</div></div><div class="stat"><div class="stat-value">${disp}</div><div class="stat-label">Disp</div></div></div><div class="progress-bar"><div class="progress-fill" style="width:${prog}%"></div></div><button class="btn-participar" onclick="abrirModalParticipar('${r.id}')" ${disp<=0?'disabled':''}>${disp<=0?'Agotada':'🎟️ Comprar'}</button></div></div>`}).join('');
-            actualizarTemporizadores();
-        }
+        function renderizarRifas(){const g=document.getElementById('rifasGrid');if(rifas.length===0){g.innerHTML='<div class="empty-state"><span>🎰</span><p>No hay rifas</p></div>';return}g.innerHTML=rifas.map(r=>{const prog=((r.boletosVendidos||0)/r.totalBoletos)*100,disp=r.totalBoletos-(r.boletosVendidos||0);return`<div class="rifa-card"><div class="rifa-image">${r.imagenBase64?`<img src="${r.imagenBase64}">`:(r.icono||'🎁')}<span class="rifa-badge">🔥</span><div class="rifa-timer" data-id="${r.id}">⏱️...</div></div><div class="rifa-content"><h3 class="rifa-title">${r.titulo}</h3><div class="rifa-stats"><div class="stat"><div class="stat-value">$${r.precioBoleto||1}</div><div class="stat-label">Boleto</div></div><div class="stat"><div class="stat-value">${r.tipoPremio==='dinero'?'$':''}${r.premio}</div><div class="stat-label">Premio</div></div><div class="stat"><div class="stat-value">${disp}</div><div class="stat-label">Disp</div></div></div><div class="progress-bar"><div class="progress-fill" style="width:${prog}%"></div></div><button class="btn-participar" onclick="abrirModalParticipar('${r.id}')" ${disp<=0?'disabled':''}>${disp<=0?'Agotada':'🎟️ Comprar'}</button></div></div>`}).join('');actualizarTemporizadores()}
         function actualizarTemporizadores(){document.querySelectorAll('.rifa-timer').forEach(t=>{const r=rifas.find(x=>x.id===t.dataset.id);if(!r)return;let ff;if(r.fechaFin&&r.fechaFin.toDate)ff=r.fechaFin.toDate();else if(r.fechaCreacion){const fi=r.fechaCreacion.toDate?r.fechaCreacion.toDate():new Date(r.fechaCreacion);ff=new Date(fi.getTime()+((r.dias||7)*86400000))}else{t.textContent='⏱️--';return}const df=ff-new Date();if(df<=0){t.textContent='⏱️Fin';return}const d=Math.floor(df/86400000),h=Math.floor((df%86400000)/3600000),m=Math.floor((df%3600000)/60000);t.textContent=d>0?`⏱️${d}d${h}h`:`⏱️${h}h${m}m`})}
         async function cargarGanadores(){try{const s=await db.collection('ganadores').orderBy('fecha','desc').limit(5).get();const l=document.getElementById('ganadoresList');if(s.empty){l.innerHTML='<div class="empty-state"><span>🏆</span><p>Próximamente</p></div>';return}l.innerHTML='';s.forEach(d=>{const g=d.data();l.innerHTML+=`<div class="ganador-item"><div class="ganador-icon">${g.icono||'🏆'}</div><div class="ganador-info"><div class="ganador-nombre">${g.nombre}</div><div class="ganador-premio">Ganó: ${g.premio}</div></div></div>`})}catch{}}
 
-        function abrirModalParticipar(id){if(!currentUser){mostrarToast('Inicia sesión','error');abrirModal('modalLogin');return}rifaSeleccionada=rifas.find(r=>r.id===id);if(!rifaSeleccionada)return;cantidadBoletos=1;comprobanteBase64=null;document.getElementById('modalParticiparTitle').textContent=`🎟️ ${rifaSeleccionada.titulo}`;document.getElementById('precioBoletoPaso1').textContent=`$${rifaSeleccionada.precioBoleto||1}`;document.getElementById('pasoSeleccion').style.display='block';document.getElementById('pasoPago').style.display='none';document.getElementById('fileUploadZone').classList.remove('has-file');document.getElementById('fileUploadText').textContent='Click para subir';document.getElementById('comprobantePreview').style.display='none';document.getElementById('idOrdenPago').value='';actualizarDisplayBoletos();abrirModal('modalParticipar')}
+        function abrirModalParticipar(id){if(!currentUser){mostrarToast('Inicia sesión','error');abrirModal('modalLogin');return}rifaSeleccionada=rifas.find(r=>r.id===id);if(!rifaSeleccionada)return;cantidadBoletos=1;comprobanteBase64=null;document.getElementById('modalParticiparTitle').textContent=`🎟️ ${rifaSeleccionada.titulo}`;document.getElementById('precioBoletoPaso1').textContent=`$${rifaSeleccionada.precioBoleto||1}`;document.getElementById('pasoSeleccion').style.display='block';document.getElementById('pasoPago').style.display='none';document.getElementById('fileUploadZone').classList.remove('has-file');document.getElementById('fileUploadText').textContent='Click para subir';document.getElementById('comprobantePreview').style.display='none';document.getElementById('idOrdenPago').value='';document.getElementById('cantidadBoletosDisplay').style.display='block';document.getElementById('cantidadBoletosInput').style.display='none';actualizarDisplayBoletos();abrirModal('modalParticipar')}
         function cambiarCantidadBoletos(d){const disp=rifaSeleccionada.totalBoletos-(rifaSeleccionada.boletosVendidos||0);cantidadBoletos=Math.max(1,Math.min(cantidadBoletos+d,disp,50));actualizarDisplayBoletos()}
+        function habilitarEdicionCantidad(){const display=document.getElementById('cantidadBoletosDisplay'),input=document.getElementById('cantidadBoletosInput'),disp=rifaSeleccionada.totalBoletos-(rifaSeleccionada.boletosVendidos||0);display.style.display='none';input.style.display='block';input.max=Math.min(disp,50);input.value=cantidadBoletos;input.focus();input.select()}
+        function confirmarCantidadManual(){const display=document.getElementById('cantidadBoletosDisplay'),input=document.getElementById('cantidadBoletosInput'),disp=rifaSeleccionada.totalBoletos-(rifaSeleccionada.boletosVendidos||0);let valor=parseInt(input.value)||1;valor=Math.max(1,Math.min(valor,disp,50));cantidadBoletos=valor;display.style.display='block';input.style.display='none';actualizarDisplayBoletos()}
         function actualizarDisplayBoletos(){const p=rifaSeleccionada.precioBoleto||1;document.getElementById('cantidadBoletosDisplay').textContent=cantidadBoletos;document.getElementById('totalPagarBoletos').textContent=`$${(cantidadBoletos*p).toFixed(2)}`}
         function irPasoPago(){document.getElementById('montoPagar').textContent=`$${(cantidadBoletos*(rifaSeleccionada.precioBoleto||1)).toFixed(2)}`;document.getElementById('pasoSeleccion').style.display='none';document.getElementById('pasoPago').style.display='block'}
         function volverPasoSeleccion(){document.getElementById('pasoSeleccion').style.display='block';document.getElementById('pasoPago').style.display='none'}
-        async function previewComprobante(e){
-            const f=e.target.files[0];if(!f)return;
-            try{
-                document.getElementById('fileUploadText').textContent='Procesando...';
-                comprobanteBase64=await fileToBase64(f);
-                document.getElementById('fileUploadZone').classList.add('has-file');
-                document.getElementById('fileUploadText').textContent='✓ Listo';
-                if(f.type.startsWith('image/')){
-                    document.getElementById('comprobantePreview').src=comprobanteBase64;
-                    document.getElementById('comprobantePreview').style.display='block';
-                }
-            }catch(er){console.error(er);mostrarToast('Error al cargar','error')}
-        }
-
-        async function enviarComprobante(){
-            const idO=document.getElementById('idOrdenPago').value.trim();
-            if(!idO){mostrarToast('Ingresa el ID de orden','error');return}
-            if(!comprobanteBase64){mostrarToast('Sube el comprobante','error');return}
-            const btn=document.getElementById('btnEnviarComprobante');btn.disabled=true;btn.textContent='Enviando...';
-            try{
-                const p=rifaSeleccionada.precioBoleto||1,tot=cantidadBoletos*p,com=rifaSeleccionada.comisionesActivas?(p*(rifaSeleccionada.comisionPorcentaje||10)/100):0.10;
-                await db.collection('compras').add({
-                    usuarioId:currentUser.uid,
-                    usuarioNombre:`${userData.nombre} ${userData.apellido}`,
-                    usuarioEmail:userData.email,
-                    rifaId:rifaSeleccionada.id,
-                    rifaTitulo:rifaSeleccionada.titulo,
-                    cantidad:cantidadBoletos,
-                    precioUnitario:p,
-                    total:tot,
-                    idOrden:idO,
-                    comisionPorBoleto:com,
-                    referidorId:userData.referidoPor||null,
-                    comprobanteBase64:comprobanteBase64,
-                    estado:'pendiente',
-                    fecha:firebase.firestore.FieldValue.serverTimestamp()
-                });
-                cerrarModal('modalParticipar');comprobanteBase64=null;mostrarToast('¡Enviado! Espera aprobación','success');
-            }catch(er){console.error('Error enviar:',er);mostrarToast('Error: '+er.message,'error')}
-            btn.disabled=false;btn.textContent='Enviar Comprobante';
-        }
+        async function previewComprobante(e){const f=e.target.files[0];if(!f)return;try{document.getElementById('fileUploadText').textContent='Procesando...';comprobanteBase64=await fileToBase64(f);document.getElementById('fileUploadZone').classList.add('has-file');document.getElementById('fileUploadText').textContent='✓ Listo';if(f.type.startsWith('image/')){document.getElementById('comprobantePreview').src=comprobanteBase64;document.getElementById('comprobantePreview').style.display='block'}}catch(er){console.error(er);mostrarToast('Error al cargar','error')}}
+        async function enviarComprobante(){const idO=document.getElementById('idOrdenPago').value.trim();if(!idO){mostrarToast('Ingresa el ID de orden','error');return}if(!comprobanteBase64){mostrarToast('Sube el comprobante','error');return}const btn=document.getElementById('btnEnviarComprobante');btn.disabled=true;btn.textContent='Enviando...';try{const p=rifaSeleccionada.precioBoleto||1,tot=cantidadBoletos*p,com=rifaSeleccionada.comisionesActivas?(p*(rifaSeleccionada.comisionPorcentaje||10)/100):0.10;await db.collection('compras').add({usuarioId:currentUser.uid,usuarioNombre:`${userData.nombre} ${userData.apellido}`,usuarioEmail:userData.email,rifaId:rifaSeleccionada.id,rifaTitulo:rifaSeleccionada.titulo,cantidad:cantidadBoletos,precioUnitario:p,total:tot,idOrden:idO,comisionPorBoleto:com,referidorId:userData.referidoPor||null,comprobanteBase64,estado:'pendiente',fecha:firebase.firestore.FieldValue.serverTimestamp()});cerrarModal('modalParticipar');comprobanteBase64=null;mostrarToast('¡Enviado!','success')}catch(er){console.error(er);mostrarToast('Error','error')}btn.disabled=false;btn.textContent='Enviar'}
 
         function toggleSupportChat(){event.stopPropagation();document.getElementById('supportChat').classList.toggle('show')}
         async function enviarSoporte(){const m=document.getElementById('soporteMensaje').value.trim();if(!m){mostrarToast('Escribe mensaje','error');return}try{await db.collection('soporte').add({usuarioId:currentUser?.uid||'anon',usuarioNombre:userData?`${userData.nombre} ${userData.apellido}`:'Anon',usuarioEmail:userData?.email||'No reg',mensaje:m,leido:false,fecha:firebase.firestore.FieldValue.serverTimestamp()});document.getElementById('soporteMensaje').value='';document.getElementById('supportChat').classList.remove('show');mostrarToast('¡Enviado!','success')}catch{mostrarToast('Error','error')}}
-
-        async function cambiarAvatar(e){const f=e.target.files[0];if(!f)return;try{const b=await fileToBase64(f, 200);await db.collection('usuarios').doc(currentUser.uid).update({avatarBase64:b});userData.avatarBase64=b;actualizarUIUsuario();document.getElementById('profileAvatarContent').innerHTML=`<img src="${b}">`;mostrarToast('¡Actualizado!','success')}catch(er){console.error(er);mostrarToast('Error','error')}}
+        async function cambiarAvatar(e){const f=e.target.files[0];if(!f)return;try{const b=await fileToBase64(f,200);await db.collection('usuarios').doc(currentUser.uid).update({avatarBase64:b});userData.avatarBase64=b;actualizarUIUsuario();document.getElementById('profileAvatarContent').innerHTML=`<img src="${b}">`;mostrarToast('¡Actualizado!','success')}catch(er){console.error(er);mostrarToast('Error','error')}}
         async function actualizarPerfil(e){e.preventDefault();try{await db.collection('usuarios').doc(currentUser.uid).update({nombre:document.getElementById('editNombre').value.trim(),apellido:document.getElementById('editApellido').value.trim(),balanceEmail:document.getElementById('editBalanceEmail').value.trim()||null});await cargarDatosUsuario();actualizarUIUsuario();cerrarModal('modalPerfil');mostrarToast('¡Guardado!','success')}catch{mostrarToast('Error','error')}}
         function cargarModalPerfil(){if(!userData)return;document.getElementById('profileNombreCompleto').textContent=`${userData.nombre} ${userData.apellido}`;document.getElementById('profileEmail').textContent=userData.email;document.getElementById('editNombre').value=userData.nombre||'';document.getElementById('editApellido').value=userData.apellido||'';document.getElementById('editBalanceEmail').value=userData.balanceEmail||'';document.getElementById('profileAvatarContent').innerHTML=userData.avatarBase64?`<img src="${userData.avatarBase64}">`:(userData.nombre?.charAt(0).toUpperCase()||'👤')}
-
         function cambiarTabBoletos(t,b){document.querySelectorAll('#modalMisBoletos .modal-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('listaMisBoletosAprobados').style.display=t==='aprobados'?'block':'none';document.getElementById('listaMisBoletospendientes').style.display=t==='pendientes'?'block':'none'}
-        
-        async function cargarModalMisBoletos(){
-            if(!currentUser)return;
-            const la=document.getElementById('listaMisBoletosAprobados');
-            const lp=document.getElementById('listaMisBoletospendientes');
-            la.innerHTML=lp.innerHTML='<div class="loading"><div class="spinner"></div></div>';
-            
-            try{
-                // Boletos aprobados
-                const a=await db.collection('compras').where('usuarioId','==',currentUser.uid).where('estado','==','aprobado').get();
-                if(a.empty){
-                    la.innerHTML='<div class="empty-state"><span>🎟️</span><p>Sin boletos aprobados</p></div>';
-                } else {
-                    la.innerHTML='';
-                    a.forEach(d=>{
-                        const c=d.data();
-                        const numeros = c.numerosBoleto || [];
-                        const numerosHTML = numeros.length > 0 
-                            ? `<div class="boletos-numeros">${numeros.map(n=>`<span class="boleto-numero">#${String(n).padStart(3,'0')}</span>`).join('')}</div>`
-                            : '<small style="opacity:.6">Números pendientes</small>';
-                        la.innerHTML+=`
-                            <div class="boleto-card">
-                                <div class="boleto-header">
-                                    <span class="boleto-rifa">${c.rifaTitulo}</span>
-                                    <span class="boleto-estado aprobado">✓ Aprobado</span>
-                                </div>
-                                <div class="boleto-info">
-                                    <span>${c.cantidad} boleto(s) • $${c.total}</span>
-                                </div>
-                                ${numerosHTML}
-                            </div>`;
-                    });
-                }
-                
-                // Boletos pendientes
-                const p=await db.collection('compras').where('usuarioId','==',currentUser.uid).where('estado','==','pendiente').get();
-                if(p.empty){
-                    lp.innerHTML='<div class="empty-state"><span>⏳</span><p>Sin pagos pendientes</p></div>';
-                } else {
-                    lp.innerHTML='';
-                    p.forEach(d=>{
-                        const c=d.data();
-                        lp.innerHTML+=`
-                            <div class="boleto-card pendiente">
-                                <div class="boleto-header">
-                                    <span class="boleto-rifa">${c.rifaTitulo}</span>
-                                    <span class="boleto-estado pendiente">⏳ Pendiente</span>
-                                </div>
-                                <div class="boleto-info">
-                                    <span>${c.cantidad} boleto(s) • $${c.total}</span>
-                                </div>
-                                <small style="opacity:.6">ID Orden: ${c.idOrden || 'N/A'}</small>
-                            </div>`;
-                    });
-                }
-            }catch(er){console.error(er);la.innerHTML='<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>'}
-        }
-        async function cargarModalMisPremios(){
-            if(!currentUser)return;
-            const l=document.getElementById('listaMisPremios');
-            l.innerHTML='<div class="loading"><div class="spinner"></div></div>';
-            try{
-                const p=await db.collection('ganadores').where('usuarioId','==',currentUser.uid).get();
-                if(p.empty){
-                    l.innerHTML='<div class="empty-state"><span>🏆</span><p>Aún no has ganado</p></div>';
-                } else {
-                    l.innerHTML='';
-                    p.forEach(d=>{
-                        const x=d.data();
-                        const fecha = x.fecha?.toDate ? x.fecha.toDate().toLocaleDateString() : '';
-                        l.innerHTML+=`
-                            <div class="boleto-card" style="border-color:var(--success);background:rgba(6,255,165,.05)">
-                                <div class="boleto-header">
-                                    <span class="boleto-rifa">${x.icono||'🎁'} ${x.rifaTitulo||'Sorteo'}</span>
-                                    <span class="boleto-estado aprobado">🏆 Ganador</span>
-                                </div>
-                                <div style="text-align:center;margin:.8rem 0">
-                                    <p style="font-size:.8rem;opacity:.7">Número Ganador</p>
-                                    <span class="boleto-numero" style="font-size:1.2rem">#${String(x.numeroGanador||0).padStart(3,'0')}</span>
-                                </div>
-                                <div class="boleto-info">
-                                    <span>Premio: ${x.tipoPremio==='dinero'?'$':''}${x.premio}</span>
-                                </div>
-                                <small style="opacity:.6">${fecha}</small>
-                            </div>`;
-                    });
-                }
-            }catch(er){console.error(er);l.innerHTML='<div class="empty-state"><span>❌</span><p>Error</p></div>'}
-        }
-        async function cargarModalReferidos(){if(!userData)return;document.getElementById('miCodigoReferido').textContent=userData.codigoReferido||'------';try{const r=await db.collection('usuarios').where('referidoPor','==',currentUser.uid).get();document.getElementById('totalReferidos').textContent=r.size;const c=await db.collection('compras').where('referidorId','==',currentUser.uid).where('estado','==','aprobado').get();let b=0,d=0;c.forEach(x=>{const y=x.data();b+=y.cantidad||0;d+=(y.cantidad||0)*(y.comisionPorBoleto||0.1)});document.getElementById('boletosReferidos').textContent=b;document.getElementById('dineroReferidos').textContent=`$${d.toFixed(2)}`}catch{}}
+
+        async function cargarModalMisBoletos(){if(!currentUser)return;const la=document.getElementById('listaMisBoletosAprobados'),lp=document.getElementById('listaMisBoletospendientes');la.innerHTML=lp.innerHTML='<div class="loading"><div class="spinner"></div></div>';try{const a=await db.collection('compras').where('usuarioId','==',currentUser.uid).where('estado','==','aprobado').get();if(a.empty){la.innerHTML='<div class="empty-state"><span>🎟️</span><p>Sin boletos</p></div>'}else{la.innerHTML='';a.forEach(d=>{const c=d.data(),numeros=c.numerosBoleto||[],numerosHTML=numeros.length>0?`<div class="boletos-numeros">${numeros.map(n=>`<span class="boleto-numero">#${String(n).padStart(3,'0')}</span>`).join('')}</div>`:'<small style="opacity:.6">Pendiente</small>';la.innerHTML+=`<div class="boleto-card"><div class="boleto-header"><span class="boleto-rifa">${c.rifaTitulo}</span><span class="boleto-estado aprobado">✓</span></div><div class="boleto-info">${c.cantidad} boleto(s) • $${c.total}</div>${numerosHTML}</div>`})}const p=await db.collection('compras').where('usuarioId','==',currentUser.uid).where('estado','==','pendiente').get();if(p.empty){lp.innerHTML='<div class="empty-state"><span>⏳</span><p>Sin pendientes</p></div>'}else{lp.innerHTML='';p.forEach(d=>{const c=d.data();lp.innerHTML+=`<div class="boleto-card pendiente"><div class="boleto-header"><span class="boleto-rifa">${c.rifaTitulo}</span><span class="boleto-estado pendiente">⏳</span></div><div class="boleto-info">${c.cantidad} boleto(s) • $${c.total}</div><small style="opacity:.6">ID: ${c.idOrden||'N/A'}</small></div>`})}}catch(er){console.error(er);la.innerHTML='<div class="empty-state"><span>❌</span><p>Error</p></div>'}}
+
+        async function cargarModalMisPremios(){if(!currentUser)return;const l=document.getElementById('listaMisPremios');l.innerHTML='<div class="loading"><div class="spinner"></div></div>';try{const p=await db.collection('ganadores').where('usuarioId','==',currentUser.uid).get();if(p.empty){l.innerHTML='<div class="empty-state"><span>🏆</span><p>Aún no has ganado</p></div>'}else{l.innerHTML='';p.forEach(d=>{const x={id:d.id,...d.data()},fecha=x.fecha?.toDate?x.fecha.toDate().toLocaleDateString():'',cobrado=x.cobrado||false,solicitado=x.solicitadoCobro||false;let btn='';if(cobrado)btn='<span style="color:var(--success);font-size:.8rem;display:block;margin-top:.5rem">✓ Cobrado</span>';else if(solicitado)btn='<span style="color:var(--warning);font-size:.8rem;display:block;margin-top:.5rem">⏳ En proceso</span>';else btn=`<button class="btn-cobrar" onclick="solicitarCobroPremio('${x.id}','${x.rifaTitulo}','${x.premio}','${x.tipoPremio}')">💰 Cobrar Premio</button>`;l.innerHTML+=`<div class="boleto-card" style="border-color:var(--success);background:rgba(6,255,165,.05)"><div class="boleto-header"><span class="boleto-rifa">${x.icono||'🎁'} ${x.rifaTitulo||'Sorteo'}</span><span class="boleto-estado aprobado">🏆</span></div><div style="text-align:center;margin:.8rem 0"><p style="font-size:.8rem;opacity:.7">Número Ganador</p><span class="boleto-numero" style="font-size:1.2rem">#${String(x.numeroGanador||0).padStart(3,'0')}</span></div><div class="boleto-info">Premio: ${x.tipoPremio==='dinero'?'$':''}${x.premio}</div><small style="opacity:.6">${fecha}</small>${btn}</div>`})}}catch(er){console.error(er);l.innerHTML='<div class="empty-state"><span>❌</span><p>Error</p></div>'}}
+
+        async function solicitarCobroPremio(ganadorId,rifaTitulo,premio,tipoPremio){if(!userData.balanceEmail){mostrarToast('Configura tu email Binance','error');cerrarModal('modalMisPremios');abrirModal('modalPerfil');return}if(!confirm(`¿Solicitar cobro?\n\nPremio: ${tipoPremio==='dinero'?'$':''}${premio}\nSe enviará a: ${userData.balanceEmail}`))return;try{await db.collection('ganadores').doc(ganadorId).update({solicitadoCobro:true,fechaSolicitudCobro:firebase.firestore.FieldValue.serverTimestamp()});await db.collection('cobrosPremios').add({ganadorId,usuarioId:currentUser.uid,usuarioNombre:`${userData.nombre} ${userData.apellido}`,usuarioEmail:userData.email,binanceEmail:userData.balanceEmail,rifaTitulo,premio,tipoPremio,estado:'pendiente',fecha:firebase.firestore.FieldValue.serverTimestamp()});mostrarToast('¡Solicitud enviada!','success');cargarModalMisPremios()}catch(er){console.error(er);mostrarToast('Error','error')}}
+
+        async function cargarModalReferidos(){if(!userData)return;document.getElementById('miCodigoReferido').textContent=userData.codigoReferido||'------';try{const r=await db.collection('usuarios').where('referidoPor','==',currentUser.uid).get();document.getElementById('totalReferidos').textContent=r.size;const c=await db.collection('compras').where('referidorId','==',currentUser.uid).where('estado','==','aprobado').get();let b=0,totalGanado=0;c.forEach(x=>{const y=x.data();b+=y.cantidad||0;totalGanado+=(y.cantidad||0)*(y.comisionPorBoleto||0.1)});document.getElementById('boletosReferidos').textContent=b;document.getElementById('dineroReferidos').textContent=`$${totalGanado.toFixed(2)}`;const retiros=await db.collection('retiros').where('usuarioId','==',currentUser.uid).where('estado','==','aprobado').get();let totalRetirado=0;retiros.forEach(d=>{totalRetirado+=d.data().monto||0});saldoReferidosActual=Math.max(0,totalGanado-totalRetirado);document.getElementById('saldoDisponibleRetiro').textContent=saldoReferidosActual.toFixed(2);const btnRetiro=document.getElementById('btnSolicitarRetiro');if(saldoReferidosActual<5){btnRetiro.disabled=true;btnRetiro.textContent='Mínimo $5'}else{btnRetiro.disabled=false;btnRetiro.textContent='💸 Solicitar Retiro'}}catch(er){console.error(er)}}
+
+        async function solicitarRetiro(){const montoInput=document.getElementById('montoRetiro'),monto=parseFloat(montoInput.value);if(!userData.balanceEmail){mostrarToast('Configura tu email Binance','error');cerrarModal('modalReferidos');abrirModal('modalPerfil');return}if(isNaN(monto)||monto<5){mostrarToast('Mínimo $5.00 USD','error');return}if(monto>saldoReferidosActual){mostrarToast(`Saldo insuficiente: $${saldoReferidosActual.toFixed(2)}`,'error');return}if(!confirm(`¿Retirar $${monto.toFixed(2)}?\n\nSe enviará a: ${userData.balanceEmail}`))return;const btn=document.getElementById('btnSolicitarRetiro');btn.disabled=true;btn.textContent='Procesando...';try{await db.collection('retiros').add({usuarioId:currentUser.uid,usuarioNombre:`${userData.nombre} ${userData.apellido}`,usuarioEmail:userData.email,binanceEmail:userData.balanceEmail,monto,estado:'pendiente',fecha:firebase.firestore.FieldValue.serverTimestamp()});montoInput.value='';mostrarToast('¡Solicitud enviada!','success');cargarModalReferidos()}catch(er){console.error(er);mostrarToast('Error','error')}btn.disabled=false;btn.textContent='💸 Solicitar Retiro'}
 
         function mostrarPanelAdmin(){if(!userData||(userData.email!==ADMIN_EMAIL&&!userData.esAdmin))return;document.getElementById('mainContent').style.display='none';document.getElementById('adminPanel').classList.add('active');document.getElementById('userDropdown').classList.remove('show');cargarDashboardAdmin();cargarBadges()}
         function cerrarPanelAdmin(){document.getElementById('mainContent').style.display='block';document.getElementById('adminPanel').classList.remove('active')}
-        async function cargarBadges(){try{const c=await db.collection('usuarios').where('activo','==',false).get(),p=await db.collection('compras').where('estado','==','pendiente').get(),s=await db.collection('soporte').where('leido','==',false).get();document.getElementById('badgeCuentas').textContent=c.size;document.getElementById('badgePagos').textContent=p.size;document.getElementById('badgeSoporte').textContent=s.size}catch{}}
-        function cambiarTabAdmin(t,b){document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('#adminPanel .admin-content > div').forEach(x=>x.style.display='none');b.classList.add('active');document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).style.display='block';if(t==='dashboard')cargarDashboardAdmin();if(t==='cuentas')cargarCuentasAdmin();if(t==='pagos')cargarPagosAdmin();if(t==='rifas')cargarRifasAdmin();if(t==='ganadores')cargarGanadoresAdmin();if(t==='usuarios')cargarUsuariosAdmin();if(t==='compras')cargarComprasAdmin();if(t==='soporte')cargarSoporteAdmin()}
+        async function cargarBadges(){try{const c=await db.collection('usuarios').where('activo','==',false).get(),p=await db.collection('compras').where('estado','==','pendiente').get(),s=await db.collection('soporte').where('leido','==',false).get(),ret=await db.collection('retiros').where('estado','==','pendiente').get(),cob=await db.collection('cobrosPremios').where('estado','==','pendiente').get();document.getElementById('badgeCuentas').textContent=c.size;document.getElementById('badgePagos').textContent=p.size;document.getElementById('badgeSoporte').textContent=s.size;document.getElementById('badgeRetiros').textContent=ret.size;document.getElementById('badgeCobros').textContent=cob.size}catch{}}
+        function cambiarTabAdmin(t,b){document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('#adminPanel .admin-content > div').forEach(x=>x.style.display='none');b.classList.add('active');document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).style.display='block';if(t==='dashboard')cargarDashboardAdmin();if(t==='cuentas')cargarCuentasAdmin();if(t==='pagos')cargarPagosAdmin();if(t==='retiros')cargarRetirosAdmin();if(t==='cobros')cargarCobrosAdmin();if(t==='rifas')cargarRifasAdmin();if(t==='ganadores')cargarGanadoresAdmin();if(t==='usuarios')cargarUsuariosAdmin();if(t==='compras')cargarComprasAdmin();if(t==='soporte')cargarSoporteAdmin()}
+        async function cargarDashboardAdmin(){try{const[u,ra,c,cp,pp]=await Promise.all([db.collection('usuarios').get(),db.collection('rifas').where('activa','==',true).get(),db.collection('compras').where('estado','==','aprobado').get(),db.collection('usuarios').where('activo','==',false).get(),db.collection('compras').where('estado','==','pendiente').get()]);let b=0,ing=0;c.forEach(d=>{const x=d.data();b+=x.cantidad||0;ing+=x.total||0});document.getElementById('dashboardStats').innerHTML=`<div class="stat-card"><div class="stat-card-value">${u.size}</div><div class="stat-card-label">Usuarios</div></div><div class="stat-card"><div class="stat-card-value">${ra.size}</div><div class="stat-card-label">Rifas</div></div><div class="stat-card"><div class="stat-card-value">${b}</div><div class="stat-card-label">Boletos</div></div><div class="stat-card"><div class="stat-card-value">$${ing.toFixed(0)}</div><div class="stat-card-label">Ingresos</div></div><div class="stat-card"><div class="stat-card-value">${cp.size}</div><div class="stat-card-label">Cuentas Pend</div></div><div class="stat-card"><div class="stat-card-value">${pp.size}</div><div class="stat-card-label">Pagos Pend</div></div>`}catch{}}
 
-        async function cargarDashboardAdmin(){try{const[u,ra,c,cp,pp]=await Promise.all([db.collection('usuarios').get(),db.collection('rifas').where('activa','==',true).get(),db.collection('compras').where('estado','==','aprobado').get(),db.collection('usuarios').where('activo','==',false).get(),db.collection('compras').where('estado','==','pendiente').get()]);let b=0,ing=0,com=0;c.forEach(d=>{const x=d.data();b+=x.cantidad||0;ing+=x.total||0;if(x.referidorId)com+=(x.cantidad||0)*(x.comisionPorBoleto||0.1)});document.getElementById('dashboardStats').innerHTML=`<div class="stat-card"><div class="stat-card-value">${u.size}</div><div class="stat-card-label">Usuarios</div></div><div class="stat-card"><div class="stat-card-value">${ra.size}</div><div class="stat-card-label">Rifas</div></div><div class="stat-card"><div class="stat-card-value">${b}</div><div class="stat-card-label">Boletos</div></div><div class="stat-card"><div class="stat-card-value">$${ing.toFixed(0)}</div><div class="stat-card-label">Ingresos</div></div><div class="stat-card"><div class="stat-card-value">${cp.size}</div><div class="stat-card-label">Cuentas Pend</div></div><div class="stat-card"><div class="stat-card-value">${pp.size}</div><div class="stat-card-label">Pagos Pend</div></div>`}catch{}}
-
-        async function cargarCuentasAdmin(){
-            // Primero limpiar cuentas expiradas (más de 48 horas sin activar)
-            await limpiarCuentasExpiradas();
-            
-            const tb=document.getElementById('cuentasAdminBody');tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';
-            try{
-                const s=await db.collection('usuarios').where('activo','==',false).get();
-                tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay pendientes 🎉</td></tr>':'';
-                s.forEach(d=>{
-                    const u={id:d.id,...d.data()};
-                    const fechaReg = u.fechaRegistro?.toDate ? u.fechaRegistro.toDate().toLocaleDateString() : 'N/A';
-                    tb.innerHTML+=`<tr>
-                        <td>${u.nombre} ${u.apellido}<br><small style="opacity:.6">${fechaReg}</small></td>
-                        <td>${u.email}</td>
-                        <td><button class="btn-small btn-view" onclick="verImagen('${u.documentoBase64}')">Ver</button></td>
-                        <td>
-                            <button class="btn-small btn-approve" onclick="activarCuenta('${u.id}')">✓ Activar</button>
-                            <button class="btn-small btn-reject" onclick="rechazarCuenta('${u.id}','${u.email}')">✗ Rechazar</button>
-                        </td>
-                    </tr>`;
-                });
-            }catch(er){console.error(er)}
-        }
-        
-        async function limpiarCuentasExpiradas(){
-            try{
-                const ahora = new Date();
-                const snapshot = await db.collection('usuarios').where('activo','==',false).get();
-                
-                for(const doc of snapshot.docs){
-                    const data = doc.data();
-                    // Si tiene fechaExpiracion y ya pasó, o si no tiene y pasaron 48h desde registro
-                    let expirada = false;
-                    
-                    if(data.fechaExpiracion){
-                        const fechaExp = data.fechaExpiracion.toDate ? data.fechaExpiracion.toDate() : new Date(data.fechaExpiracion);
-                        expirada = ahora > fechaExp;
-                    } else if(data.fechaRegistro){
-                        const fechaReg = data.fechaRegistro.toDate ? data.fechaRegistro.toDate() : new Date(data.fechaRegistro);
-                        const hace48h = new Date(fechaReg.getTime() + 48 * 60 * 60 * 1000);
-                        expirada = ahora > hace48h;
-                    }
-                    
-                    if(expirada && data.email !== ADMIN_EMAIL){
-                        console.log('Eliminando cuenta expirada:', data.email);
-                        await doc.ref.delete();
-                    }
-                }
-            }catch(er){console.error('Error limpiando cuentas:', er)}
-        }
-        
-        async function activarCuenta(id){
-            if(!confirm('¿Activar esta cuenta?'))return;
-            try{
-                await db.collection('usuarios').doc(id).update({
-                    activo:true,
-                    fechaExpiracion: null,
-                    fechaActivacion: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                mostrarToast('¡Cuenta activada!','success');
-                cargarCuentasAdmin();
-                cargarBadges();
-            }catch(er){
-                console.error(er);
-                mostrarToast('Error al activar','error');
-            }
-        }
-        
-        async function rechazarCuenta(id, email){
-            if(!confirm(`¿Rechazar y eliminar la cuenta de ${email}?\n\nEl usuario podrá registrarse nuevamente con este correo.`))return;
-            try{
-                // Eliminar documento de Firestore
-                await db.collection('usuarios').doc(id).delete();
-                
-                // Nota: La cuenta en Firebase Auth permanecerá pero sin datos en Firestore
-                // El usuario podrá re-registrarse y se creará nuevo documento
-                
-                mostrarToast('Cuenta rechazada y eliminada','success');
-                cargarCuentasAdmin();
-                cargarBadges();
-            }catch(er){
-                console.error(er);
-                mostrarToast('Error al rechazar','error');
-            }
-        }
-
+        async function cargarCuentasAdmin(){const tb=document.getElementById('cuentasAdminBody');tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('usuarios').where('activo','==',false).get();tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay pendientes 🎉</td></tr>':'';s.forEach(d=>{const u={id:d.id,...d.data()};tb.innerHTML+=`<tr><td>${u.nombre} ${u.apellido}</td><td>${u.email}</td><td><button class="btn-small btn-view" onclick="verImagen('${u.documentoBase64}')">Ver</button></td><td><button class="btn-small btn-approve" onclick="activarCuenta('${u.id}')">✓</button><button class="btn-small btn-reject" onclick="rechazarCuenta('${u.id}')">✗</button></td></tr>`})}catch(er){console.error(er)}}
+        async function activarCuenta(id){if(!confirm('¿Activar?'))return;try{await db.collection('usuarios').doc(id).update({activo:true,fechaExpiracion:null});mostrarToast('¡Activada!','success');cargarCuentasAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
+        async function rechazarCuenta(id){if(!confirm('¿Rechazar y eliminar?'))return;try{await db.collection('usuarios').doc(id).delete();mostrarToast('Eliminada','success');cargarCuentasAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
         async function cargarPagosAdmin(){const tb=document.getElementById('pagosAdminBody');tb.innerHTML='<tr><td colspan="7"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('compras').where('estado','==','pendiente').get();tb.innerHTML=s.empty?'<tr><td colspan="7" style="text-align:center">No hay pendientes 🎉</td></tr>':'';s.forEach(d=>{const c={id:d.id,...d.data()};tb.innerHTML+=`<tr><td>${c.usuarioNombre}</td><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td>$${c.total}</td><td>${c.idOrden||'N/A'}</td><td><button class="btn-small btn-view" onclick="verImagen('${c.comprobanteBase64}')">Ver</button></td><td><button class="btn-small btn-approve" onclick="aprobarPago('${c.id}')">✓</button><button class="btn-small btn-reject" onclick="rechazarPago('${c.id}')">✗</button></td></tr>`})}catch{}}
         function verImagen(b){document.getElementById('imagenViewer').src=b;abrirModal('modalVerImagen')}
-        
-        // Generar números de boleto aleatorios únicos
-        async function generarNumerosBoleto(rifaId, cantidad, totalBoletos) {
-            // Obtener todos los boletos ya asignados en esta rifa
-            const comprasExistentes = await db.collection('compras')
-                .where('rifaId', '==', rifaId)
-                .where('estado', '==', 'aprobado')
-                .get();
-            
-            const numerosUsados = new Set();
-            comprasExistentes.forEach(doc => {
-                const data = doc.data();
-                if (data.numerosBoleto) {
-                    data.numerosBoleto.forEach(n => numerosUsados.add(n));
-                }
-            });
-            
-            // Generar números disponibles
-            const disponibles = [];
-            for (let i = 1; i <= totalBoletos; i++) {
-                if (!numerosUsados.has(i)) disponibles.push(i);
-            }
-            
-            // Mezclar y tomar la cantidad necesaria
-            for (let i = disponibles.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [disponibles[i], disponibles[j]] = [disponibles[j], disponibles[i]];
-            }
-            
-            return disponibles.slice(0, cantidad).sort((a, b) => a - b);
-        }
-        
-        async function aprobarPago(id){
-            if(!confirm('¿Aprobar pago y asignar boletos?'))return;
-            try{
-                const cd=await db.collection('compras').doc(id).get();
-                const c=cd.data();
-                
-                // Obtener datos de la rifa
-                const rifaDoc = await db.collection('rifas').doc(c.rifaId).get();
-                const rifa = rifaDoc.data();
-                
-                // Generar números aleatorios
-                const numeros = await generarNumerosBoleto(c.rifaId, c.cantidad, rifa.totalBoletos);
-                
-                // Actualizar compra con números asignados
-                await db.collection('compras').doc(id).update({
-                    estado:'aprobado',
-                    numerosBoleto: numeros,
-                    fechaAprobacion: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                
-                // Actualizar contador de rifa
-                await db.collection('rifas').doc(c.rifaId).update({
-                    boletosVendidos: firebase.firestore.FieldValue.increment(c.cantidad)
-                });
-                
-                mostrarToast(`¡Aprobado! Boletos: ${numeros.join(', ')}`,'success');
-                cargarPagosAdmin();cargarBadges();cargarRifas();
-            }catch(er){console.error(er);mostrarToast('Error: '+er.message,'error')}
-        }
+
+        async function generarNumerosBoleto(rifaId,cantidad,totalBoletos){const comprasExistentes=await db.collection('compras').where('rifaId','==',rifaId).where('estado','==','aprobado').get();const numerosUsados=new Set();comprasExistentes.forEach(doc=>{const data=doc.data();if(data.numerosBoleto)data.numerosBoleto.forEach(n=>numerosUsados.add(n))});const disponibles=[];for(let i=1;i<=totalBoletos;i++)if(!numerosUsados.has(i))disponibles.push(i);for(let i=disponibles.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[disponibles[i],disponibles[j]]=[disponibles[j],disponibles[i]]}return disponibles.slice(0,cantidad).sort((a,b)=>a-b)}
+        async function aprobarPago(id){if(!confirm('¿Aprobar?'))return;try{const cd=await db.collection('compras').doc(id).get(),c=cd.data(),rifaDoc=await db.collection('rifas').doc(c.rifaId).get(),rifa=rifaDoc.data(),numeros=await generarNumerosBoleto(c.rifaId,c.cantidad,rifa.totalBoletos);await db.collection('compras').doc(id).update({estado:'aprobado',numerosBoleto:numeros,fechaAprobacion:firebase.firestore.FieldValue.serverTimestamp()});await db.collection('rifas').doc(c.rifaId).update({boletosVendidos:firebase.firestore.FieldValue.increment(c.cantidad)});mostrarToast(`¡Aprobado! Boletos: ${numeros.join(', ')}`,'success');cargarPagosAdmin();cargarBadges();cargarRifas()}catch(er){console.error(er);mostrarToast('Error','error')}}
         async function rechazarPago(id){if(!confirm('¿Rechazar?'))return;try{await db.collection('compras').doc(id).update({estado:'rechazado'});mostrarToast('Rechazado','success');cargarPagosAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
 
-        async function cargarRifasAdmin(){
-            const tb=document.getElementById('rifasAdminBody');
-            tb.innerHTML='<tr><td colspan="6"><div class="spinner" style="margin:1rem auto"></div></td></tr>';
-            try{
-                const s=await db.collection('rifas').get();
-                tb.innerHTML=s.empty?'<tr><td colspan="6" style="text-align:center">No hay rifas</td></tr>':'';
-                s.forEach(d=>{
-                    const r={id:d.id,...d.data()};
-                    const puedesSortear = r.boletosVendidos > 0 && !r.finalizada;
-                    const btnSorteo = puedesSortear 
-                        ? `<button class="btn-small btn-sorteo" onclick="realizarSorteo('${r.id}')">🎲</button>`
-                        : (r.finalizada ? '<span style="color:var(--success);font-size:.7rem">✓ Sorteada</span>' : '');
-                    tb.innerHTML+=`<tr>
-                        <td>${r.icono||'🎁'} ${r.titulo}</td>
-                        <td>${r.tipoPremio==='dinero'?'$':''}${r.premio}</td>
-                        <td>${r.boletosVendidos||0}/${r.totalBoletos}</td>
-                        <td><span class="status-badge ${r.activa?'status-active':'status-inactive'}">${r.activa?'Activa':(r.finalizada?'Finalizada':'Inact')}</span></td>
-                        <td>${btnSorteo}</td>
-                        <td>
-                            <button class="btn-small btn-edit" onclick="editarRifaAdmin('${r.id}')">✏️</button>
-                            <button class="btn-small btn-view" onclick="toggleRifaAdmin('${r.id}',${r.activa})">${r.activa?'⏸️':'▶️'}</button>
-                            <button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">🗑️</button>
-                        </td>
-                    </tr>`;
-                });
-            }catch(er){console.error(er)}
-        }
-        
-        // Sistema de Sorteo
-        async function realizarSorteo(rifaId) {
-            if(!confirm('⚠️ ¿Realizar el sorteo ahora?\n\nEsta acción es IRREVERSIBLE y seleccionará un ganador al azar.')) return;
-            
-            try {
-                // Obtener rifa
-                const rifaDoc = await db.collection('rifas').doc(rifaId).get();
-                const rifa = rifaDoc.data();
-                
-                if(rifa.finalizada) {
-                    mostrarToast('Esta rifa ya fue sorteada', 'error');
-                    return;
-                }
-                
-                // Obtener todas las compras aprobadas
-                const comprasSnapshot = await db.collection('compras')
-                    .where('rifaId', '==', rifaId)
-                    .where('estado', '==', 'aprobado')
-                    .get();
-                
-                if(comprasSnapshot.empty) {
-                    mostrarToast('No hay boletos vendidos', 'error');
-                    return;
-                }
-                
-                // Recopilar todos los boletos
-                const todosLosBoletos = [];
-                comprasSnapshot.forEach(doc => {
-                    const compra = {id: doc.id, ...doc.data()};
-                    if(compra.numerosBoleto) {
-                        compra.numerosBoleto.forEach(num => {
-                            todosLosBoletos.push({
-                                numero: num,
-                                compraId: compra.id,
-                                usuarioId: compra.usuarioId,
-                                usuarioNombre: compra.usuarioNombre,
-                                usuarioEmail: compra.usuarioEmail
-                            });
-                        });
-                    }
-                });
-                
-                if(todosLosBoletos.length === 0) {
-                    mostrarToast('No hay boletos asignados', 'error');
-                    return;
-                }
-                
-                // Seleccionar ganador aleatorio
-                const indiceGanador = Math.floor(Math.random() * todosLosBoletos.length);
-                const boletoGanador = todosLosBoletos[indiceGanador];
-                
-                // Guardar ganador
-                await db.collection('ganadores').add({
-                    rifaId: rifaId,
-                    rifaTitulo: rifa.titulo,
-                    icono: rifa.icono || '🎁',
-                    premio: rifa.premio,
-                    tipoPremio: rifa.tipoPremio,
-                    usuarioId: boletoGanador.usuarioId,
-                    nombre: boletoGanador.usuarioNombre,
-                    email: boletoGanador.usuarioEmail,
-                    numeroGanador: boletoGanador.numero,
-                    totalBoletos: todosLosBoletos.length,
-                    fecha: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                
-                // Marcar rifa como finalizada
-                await db.collection('rifas').doc(rifaId).update({
-                    finalizada: true,
-                    activa: false,
-                    ganadorId: boletoGanador.usuarioId,
-                    numeroGanador: boletoGanador.numero,
-                    fechaSorteo: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                
-                // Mostrar resultado
-                mostrarResultadoSorteo({
-                    rifaTitulo: rifa.titulo,
-                    premio: rifa.premio,
-                    tipoPremio: rifa.tipoPremio,
-                    ganadorNombre: boletoGanador.usuarioNombre,
-                    ganadorEmail: boletoGanador.usuarioEmail,
-                    numeroGanador: boletoGanador.numero,
-                    totalBoletos: todosLosBoletos.length
-                });
-                
-                cargarRifasAdmin();
-                cargarRifas();
-                cargarGanadores();
-                
-            } catch(er) {
-                console.error(er);
-                mostrarToast('Error en sorteo: ' + er.message, 'error');
-            }
-        }
-        
-        function mostrarResultadoSorteo(data) {
-            const modal = document.getElementById('modalResultadoSorteo');
-            document.getElementById('sorteoRifaTitulo').textContent = data.rifaTitulo;
-            document.getElementById('sorteoPremio').textContent = (data.tipoPremio === 'dinero' ? '$' : '') + data.premio;
-            document.getElementById('sorteoNumeroGanador').textContent = '#' + String(data.numeroGanador).padStart(3, '0');
-            document.getElementById('sorteoGanadorNombre').textContent = data.ganadorNombre;
-            document.getElementById('sorteoGanadorEmail').textContent = data.ganadorEmail;
-            document.getElementById('sorteoTotalBoletos').textContent = data.totalBoletos + ' boletos participaron';
-            modal.classList.add('active');
-            lanzarConfetti();
-        }
-        
-        function lanzarConfetti() {
-            const colors = ['#FF6B35', '#FFD23F', '#00B4D8', '#06FFA5', '#9B5DE5', '#FF5252'];
-            const container = document.createElement('div');
-            container.className = 'confetti';
-            document.body.appendChild(container);
-            
-            for (let i = 0; i < 100; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'confetti-piece';
-                piece.style.left = Math.random() * 100 + '%';
-                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-                piece.style.animationDelay = Math.random() * 2 + 's';
-                piece.style.animationDuration = (2 + Math.random() * 2) + 's';
-                container.appendChild(piece);
-            }
-            
-            setTimeout(() => container.remove(), 5000);
-        }
+        async function cargarRetirosAdmin(){const tb=document.getElementById('retirosAdminBody');tb.innerHTML='<tr><td colspan="5"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('retiros').where('estado','==','pendiente').get();tb.innerHTML=s.empty?'<tr><td colspan="5" style="text-align:center">No hay retiros 🎉</td></tr>':'';s.forEach(d=>{const r={id:d.id,...d.data()},fecha=r.fecha?.toDate?r.fecha.toDate().toLocaleDateString():'N/A';tb.innerHTML+=`<tr><td>${r.usuarioNombre}<br><small style="opacity:.6">${r.usuarioEmail}</small></td><td style="font-family:monospace;font-size:.8rem">${r.binanceEmail}</td><td style="color:var(--success);font-weight:600">$${r.monto.toFixed(2)}</td><td>${fecha}</td><td><button class="btn-small btn-approve" onclick="aprobarRetiro('${r.id}')">✓ Pagado</button><button class="btn-small btn-reject" onclick="rechazarRetiro('${r.id}')">✗</button></td></tr>`})}catch(er){console.error(er)}}
+        async function aprobarRetiro(id){if(!confirm('¿Confirmar pago?'))return;try{await db.collection('retiros').doc(id).update({estado:'aprobado',fechaAprobacion:firebase.firestore.FieldValue.serverTimestamp()});mostrarToast('¡Pagado!','success');cargarRetirosAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
+        async function rechazarRetiro(id){if(!confirm('¿Rechazar?'))return;try{await db.collection('retiros').doc(id).update({estado:'rechazado'});mostrarToast('Rechazado','success');cargarRetirosAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
 
-        async function cargarUsuariosAdmin(){
-            const tb=document.getElementById('usuariosAdminBody');
-            tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';
-            try{
-                const s=await db.collection('usuarios').where('activo','==',true).get();
-                tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay usuarios</td></tr>':'';
-                s.forEach(d=>{
-                    const u={id:d.id,...d.data()};
-                    // No mostrar botón eliminar para el admin
-                    const btnEliminar = u.email !== ADMIN_EMAIL 
-                        ? `<button class="btn-small btn-delete" onclick="eliminarUsuario('${u.id}','${u.nombre} ${u.apellido}')">🗑️</button>`
-                        : '';
-                    tb.innerHTML+=`<tr>
-                        <td>${u.nombre} ${u.apellido}</td>
-                        <td>${u.email}</td>
-                        <td>${u.totalReferidos||0}</td>
-                        <td>
-                            <button class="btn-small btn-view" onclick="verUsuarioAdmin('${u.id}')">👁️</button>
-                            ${btnEliminar}
-                        </td>
-                    </tr>`;
-                });
-            }catch(er){console.error(er)}
-        }
-        
-        async function eliminarUsuario(userId, nombreUsuario) {
-            if(!confirm(`⚠️ ¿Eliminar a "${nombreUsuario}"?\n\nEsta acción eliminará:\n- Su cuenta\n- Sus compras\n- Sus boletos\n\n¡Esta acción es IRREVERSIBLE!`)) return;
-            
-            try {
-                // Obtener compras aprobadas para actualizar contadores de rifas
-                const comprasAprobadas = await db.collection('compras')
-                    .where('usuarioId', '==', userId)
-                    .where('estado', '==', 'aprobado')
-                    .get();
-                
-                // Actualizar contadores de rifas
-                for (const doc of comprasAprobadas.docs) {
-                    const compra = doc.data();
-                    await db.collection('rifas').doc(compra.rifaId).update({
-                        boletosVendidos: firebase.firestore.FieldValue.increment(-compra.cantidad)
-                    });
-                }
-                
-                // Eliminar todas las compras del usuario
-                const todasCompras = await db.collection('compras').where('usuarioId', '==', userId).get();
-                const batch = db.batch();
-                todasCompras.forEach(doc => batch.delete(doc.ref));
-                
-                // Eliminar de ganadores si existe
-                const ganadores = await db.collection('ganadores').where('usuarioId', '==', userId).get();
-                ganadores.forEach(doc => batch.delete(doc.ref));
-                
-                // Eliminar mensajes de soporte
-                const soporte = await db.collection('soporte').where('usuarioId', '==', userId).get();
-                soporte.forEach(doc => batch.delete(doc.ref));
-                
-                await batch.commit();
-                
-                // Eliminar usuario
-                await db.collection('usuarios').doc(userId).delete();
-                
-                mostrarToast(`Usuario "${nombreUsuario}" eliminado`, 'success');
-                cargarUsuariosAdmin();
-                cargarDashboardAdmin();
-                cargarRifas();
-            } catch(er) {
-                console.error(er);
-                mostrarToast('Error al eliminar: ' + er.message, 'error');
-            }
-        }
+        async function cargarCobrosAdmin(){const tb=document.getElementById('cobrosAdminBody');tb.innerHTML='<tr><td colspan="6"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('cobrosPremios').where('estado','==','pendiente').get();tb.innerHTML=s.empty?'<tr><td colspan="6" style="text-align:center">No hay cobros 🎉</td></tr>':'';s.forEach(d=>{const c={id:d.id,...d.data()},fecha=c.fecha?.toDate?c.fecha.toDate().toLocaleDateString():'N/A';tb.innerHTML+=`<tr><td>${c.usuarioNombre}<br><small style="opacity:.6">${c.usuarioEmail}</small></td><td style="color:var(--success);font-weight:600">${c.tipoPremio==='dinero'?'$':''}${c.premio}</td><td>${c.rifaTitulo}</td><td style="font-family:monospace;font-size:.8rem">${c.binanceEmail}</td><td>${fecha}</td><td><button class="btn-small btn-approve" onclick="aprobarCobro('${c.id}','${c.ganadorId}')">✓ Pagado</button><button class="btn-small btn-reject" onclick="rechazarCobro('${c.id}','${c.ganadorId}')">✗</button></td></tr>`})}catch(er){console.error(er)}}
+        async function aprobarCobro(cobroId,ganadorId){if(!confirm('¿Confirmar pago?'))return;try{await db.collection('cobrosPremios').doc(cobroId).update({estado:'aprobado',fechaAprobacion:firebase.firestore.FieldValue.serverTimestamp()});await db.collection('ganadores').doc(ganadorId).update({cobrado:true,fechaCobro:firebase.firestore.FieldValue.serverTimestamp()});mostrarToast('¡Pagado!','success');cargarCobrosAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
+        async function rechazarCobro(cobroId,ganadorId){if(!confirm('¿Rechazar?'))return;try{await db.collection('cobrosPremios').doc(cobroId).update({estado:'rechazado'});await db.collection('ganadores').doc(ganadorId).update({solicitadoCobro:false});mostrarToast('Rechazado','success');cargarCobrosAdmin();cargarBadges()}catch{mostrarToast('Error','error')}}
 
-        async function cargarComprasAdmin(){
-            const tb=document.getElementById('comprasAdminBody');
-            tb.innerHTML='<tr><td colspan="5"><div class="spinner" style="margin:1rem auto"></div></td></tr>';
-            try{
-                const s=await db.collection('compras').where('estado','==','aprobado').get();
-                tb.innerHTML=s.empty?'<tr><td colspan="5" style="text-align:center">No hay compras</td></tr>':'';
-                s.forEach(d=>{
-                    const c=d.data();
-                    const numeros = c.numerosBoleto ? c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', ') : 'N/A';
-                    tb.innerHTML+=`<tr>
-                        <td>${c.usuarioNombre}</td>
-                        <td>${c.rifaTitulo}</td>
-                        <td>${c.cantidad}</td>
-                        <td style="font-size:.7rem;max-width:150px;word-wrap:break-word">${numeros}</td>
-                        <td>$${c.total}</td>
-                    </tr>`;
-                });
-            }catch(er){console.error(er)}
-        }
+        async function cargarRifasAdmin(){const tb=document.getElementById('rifasAdminBody');tb.innerHTML='<tr><td colspan="6"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('rifas').get();tb.innerHTML=s.empty?'<tr><td colspan="6" style="text-align:center">No hay rifas</td></tr>':'';s.forEach(d=>{const r={id:d.id,...d.data()},puedesSortear=r.boletosVendidos>0&&!r.finalizada,btnSorteo=puedesSortear?`<button class="btn-small btn-sorteo" onclick="realizarSorteo('${r.id}')">🎲</button>`:(r.finalizada?'<span style="color:var(--success);font-size:.7rem">✓</span>':'');tb.innerHTML+=`<tr><td>${r.icono||'🎁'} ${r.titulo}</td><td>${r.tipoPremio==='dinero'?'$':''}${r.premio}</td><td>${r.boletosVendidos||0}/${r.totalBoletos}</td><td><span class="status-badge ${r.activa?'status-active':'status-inactive'}">${r.activa?'Activa':'Inact'}</span></td><td>${btnSorteo}</td><td><button class="btn-small btn-edit" onclick="editarRifaAdmin('${r.id}')">✏️</button><button class="btn-small btn-view" onclick="toggleRifaAdmin('${r.id}',${r.activa})">${r.activa?'⏸️':'▶️'}</button><button class="btn-small btn-delete" onclick="eliminarRifaAdmin('${r.id}')">🗑️</button></td></tr>`})}catch(er){console.error(er)}}
 
+        async function realizarSorteo(rifaId){if(!confirm('⚠️ ¿Realizar sorteo? Es IRREVERSIBLE'))return;try{const rifaDoc=await db.collection('rifas').doc(rifaId).get(),rifa=rifaDoc.data();if(rifa.finalizada){mostrarToast('Ya sorteada','error');return}const comprasSnapshot=await db.collection('compras').where('rifaId','==',rifaId).where('estado','==','aprobado').get();if(comprasSnapshot.empty){mostrarToast('Sin boletos','error');return}const todosLosBoletos=[];comprasSnapshot.forEach(doc=>{const compra={id:doc.id,...doc.data()};if(compra.numerosBoleto)compra.numerosBoleto.forEach(num=>{todosLosBoletos.push({numero:num,compraId:compra.id,usuarioId:compra.usuarioId,usuarioNombre:compra.usuarioNombre,usuarioEmail:compra.usuarioEmail})})});if(todosLosBoletos.length===0){mostrarToast('Sin boletos asignados','error');return}const indiceGanador=Math.floor(Math.random()*todosLosBoletos.length),boletoGanador=todosLosBoletos[indiceGanador];await db.collection('ganadores').add({rifaId,rifaTitulo:rifa.titulo,icono:rifa.icono||'🎁',premio:rifa.premio,tipoPremio:rifa.tipoPremio,usuarioId:boletoGanador.usuarioId,nombre:boletoGanador.usuarioNombre,email:boletoGanador.usuarioEmail,numeroGanador:boletoGanador.numero,totalBoletos:todosLosBoletos.length,cobrado:false,solicitadoCobro:false,fecha:firebase.firestore.FieldValue.serverTimestamp()});await db.collection('rifas').doc(rifaId).update({finalizada:true,activa:false,ganadorId:boletoGanador.usuarioId,numeroGanador:boletoGanador.numero,fechaSorteo:firebase.firestore.FieldValue.serverTimestamp()});mostrarResultadoSorteo({rifaTitulo:rifa.titulo,premio:rifa.premio,tipoPremio:rifa.tipoPremio,ganadorNombre:boletoGanador.usuarioNombre,ganadorEmail:boletoGanador.usuarioEmail,numeroGanador:boletoGanador.numero,totalBoletos:todosLosBoletos.length});cargarRifasAdmin();cargarRifas();cargarGanadores()}catch(er){console.error(er);mostrarToast('Error','error')}}
+        function mostrarResultadoSorteo(data){document.getElementById('sorteoRifaTitulo').textContent=data.rifaTitulo;document.getElementById('sorteoPremio').textContent=(data.tipoPremio==='dinero'?'$':'')+data.premio;document.getElementById('sorteoNumeroGanador').textContent='#'+String(data.numeroGanador).padStart(3,'0');document.getElementById('sorteoGanadorNombre').textContent=data.ganadorNombre;document.getElementById('sorteoGanadorEmail').textContent=data.ganadorEmail;document.getElementById('sorteoTotalBoletos').textContent=data.totalBoletos+' boletos participaron';document.getElementById('modalResultadoSorteo').classList.add('active');lanzarConfetti()}
+        function lanzarConfetti(){const colors=['#FF6B35','#FFD23F','#00B4D8','#06FFA5','#9B5DE5','#FF5252'],container=document.createElement('div');container.className='confetti';document.body.appendChild(container);for(let i=0;i<100;i++){const piece=document.createElement('div');piece.className='confetti-piece';piece.style.left=Math.random()*100+'%';piece.style.background=colors[Math.floor(Math.random()*colors.length)];piece.style.animationDelay=Math.random()*2+'s';piece.style.animationDuration=(2+Math.random()*2)+'s';container.appendChild(piece)}setTimeout(()=>container.remove(),5000)}
+
+        async function cargarUsuariosAdmin(){const tb=document.getElementById('usuariosAdminBody');tb.innerHTML='<tr><td colspan="4"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('usuarios').where('activo','==',true).get();tb.innerHTML=s.empty?'<tr><td colspan="4" style="text-align:center">No hay usuarios</td></tr>':'';s.forEach(d=>{const u={id:d.id,...d.data()},btnEliminar=u.email!==ADMIN_EMAIL?`<button class="btn-small btn-delete" onclick="eliminarUsuario('${u.id}','${u.nombre} ${u.apellido}')">🗑️</button>`:'';tb.innerHTML+=`<tr><td>${u.nombre} ${u.apellido}</td><td>${u.email}</td><td>${u.totalReferidos||0}</td><td><button class="btn-small btn-view" onclick="verUsuarioAdmin('${u.id}')">👁️</button>${btnEliminar}</td></tr>`})}catch(er){console.error(er)}}
+        async function eliminarUsuario(userId,nombre){if(!confirm(`¿Eliminar "${nombre}"?`))return;try{const compras=await db.collection('compras').where('usuarioId','==',userId).get();for(const doc of compras.docs){const c=doc.data();if(c.estado==='aprobado')await db.collection('rifas').doc(c.rifaId).update({boletosVendidos:firebase.firestore.FieldValue.increment(-c.cantidad)})}const batch=db.batch();compras.forEach(doc=>batch.delete(doc.ref));const ganadores=await db.collection('ganadores').where('usuarioId','==',userId).get();ganadores.forEach(doc=>batch.delete(doc.ref));await batch.commit();await db.collection('usuarios').doc(userId).delete();mostrarToast('Eliminado','success');cargarUsuariosAdmin();cargarRifas()}catch(er){console.error(er);mostrarToast('Error','error')}}
+        async function verUsuarioAdmin(id){try{const ud=await db.collection('usuarios').doc(id).get(),u={id,...ud.data()},cs=await db.collection('compras').where('usuarioId','==',id).get();let h=`<p><strong>${u.nombre} ${u.apellido}</strong><br><small style="opacity:.7">${u.email}</small><br><small>Tel: ${u.telefono||'N/A'}</small><br><small>Binance: ${u.balanceEmail||'No'}</small></p><h4 style="margin:1rem 0 .5rem;font-size:.9rem">Compras (${cs.size})</h4><table class="admin-table"><thead><tr><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th></tr></thead><tbody>`;if(cs.empty)h+='<tr><td colspan="4" style="text-align:center;opacity:.6">Sin compras</td></tr>';else cs.forEach(d=>{const c=d.data(),numeros=c.numerosBoleto?c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', '):'Pend';h+=`<tr><td>${c.rifaTitulo}</td><td style="font-size:.7rem">${numeros}</td><td>$${c.total}</td><td><span class="status-badge ${c.estado==='aprobado'?'status-active':'status-inactive'}">${c.estado}</span></td></tr>`});h+='</tbody></table>';document.getElementById('detalleUsuarioContent').innerHTML=h;abrirModal('modalVerUsuario')}catch(er){console.error(er);mostrarToast('Error','error')}}
+        async function cargarComprasAdmin(){const tb=document.getElementById('comprasAdminBody');tb.innerHTML='<tr><td colspan="5"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('compras').where('estado','==','aprobado').get();tb.innerHTML=s.empty?'<tr><td colspan="5" style="text-align:center">No hay compras</td></tr>':'';s.forEach(d=>{const c=d.data(),numeros=c.numerosBoleto?c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', '):'N/A';tb.innerHTML+=`<tr><td>${c.usuarioNombre}</td><td>${c.rifaTitulo}</td><td>${c.cantidad}</td><td style="font-size:.7rem;max-width:150px;word-wrap:break-word">${numeros}</td><td>$${c.total}</td></tr>`})}catch(er){console.error(er)}}
         async function cargarSoporteAdmin(){const ct=document.getElementById('soporteAdminBody');ct.innerHTML='<div class="loading"><div class="spinner"></div></div>';try{const s=await db.collection('soporte').orderBy('fecha','desc').limit(20).get();ct.innerHTML=s.empty?'<div class="empty-state"><span>💬</span><p>Sin mensajes</p></div>':'';s.forEach(d=>{const x={id:d.id,...d.data()};ct.innerHTML+=`<div class="ganador-item" style="border-color:${x.leido?'var(--success)':'var(--warning)'}"><div class="ganador-icon">${x.leido?'✅':'📩'}</div><div class="ganador-info"><div class="ganador-nombre">${x.usuarioNombre} <small style="opacity:.6">(${x.usuarioEmail})</small></div><div class="ganador-premio">${x.mensaje}</div></div>${!x.leido?`<button class="btn-small btn-approve" onclick="marcarLeidoSoporte('${x.id}')">✓</button>`:''}</div>`})}catch{}}
         async function marcarLeidoSoporte(id){await db.collection('soporte').doc(id).update({leido:true});cargarSoporteAdmin();cargarBadges()}
-
-        // Gestión de Ganadores
-        async function cargarGanadoresAdmin(){
-            const ct=document.getElementById('ganadoresAdminBody');
-            ct.innerHTML='<div class="loading"><div class="spinner"></div></div>';
-            try{
-                const s=await db.collection('ganadores').orderBy('fecha','desc').get();
-                if(s.empty){
-                    ct.innerHTML='<div class="empty-state"><span>🏆</span><p>No hay ganadores registrados</p></div>';
-                    return;
-                }
-                ct.innerHTML='';
-                s.forEach(d=>{
-                    const g={id:d.id,...d.data()};
-                    const fecha = g.fecha?.toDate ? g.fecha.toDate().toLocaleDateString() : 'N/A';
-                    ct.innerHTML+=`
-                        <div class="ganador-admin-card">
-                            <div class="ganador-admin-header">
-                                <span class="ganador-admin-rifa">${g.icono||'🎁'} ${g.rifaTitulo}</span>
-                                <span class="ganador-admin-fecha">${fecha}</span>
-                            </div>
-                            <div class="ganador-admin-body">
-                                <div class="ganador-admin-info">
-                                    <div class="ganador-admin-numero">#${String(g.numeroGanador||0).padStart(3,'0')}</div>
-                                    <div class="ganador-admin-datos">
-                                        <strong>${g.nombre}</strong>
-                                        <small>${g.email}</small>
-                                    </div>
-                                </div>
-                                <div class="ganador-admin-premio">
-                                    <span>Premio:</span>
-                                    <strong>${g.tipoPremio==='dinero'?'$':''}${g.premio}</strong>
-                                </div>
-                            </div>
-                            <div class="ganador-admin-actions">
-                                <button class="btn-small btn-delete" onclick="eliminarGanador('${g.id}','${g.rifaId}','${g.nombre}')">🗑️ Eliminar Ganador</button>
-                            </div>
-                        </div>`;
-                });
-            }catch(er){console.error(er);ct.innerHTML='<div class="empty-state"><span>❌</span><p>Error al cargar</p></div>'}
-        }
-        
-        async function eliminarGanador(ganadorId, rifaId, nombreGanador) {
-            if(!confirm(`⚠️ ¿Eliminar a "${nombreGanador}" como ganador?\n\nEsto:\n- Quitará el registro de ganador\n- Permitirá volver a sortear la rifa\n\n¿Continuar?`)) return;
-            
-            try {
-                // Eliminar registro de ganador
-                await db.collection('ganadores').doc(ganadorId).delete();
-                
-                // Reactivar la rifa para poder sortear de nuevo
-                if(rifaId) {
-                    await db.collection('rifas').doc(rifaId).update({
-                        finalizada: false,
-                        activa: false,
-                        ganadorId: null,
-                        numeroGanador: null,
-                        fechaSorteo: null
-                    });
-                }
-                
-                mostrarToast('Ganador eliminado correctamente', 'success');
-                cargarGanadoresAdmin();
-                cargarRifasAdmin();
-                cargarGanadores(); // Actualizar lista pública
-            } catch(er) {
-                console.error(er);
-                mostrarToast('Error: ' + er.message, 'error');
-            }
-        }
-
-        async function verUsuarioAdmin(id){
-            try{
-                const ud=await db.collection('usuarios').doc(id).get();
-                const u={id,...ud.data()};
-                const cs=await db.collection('compras').where('usuarioId','==',id).get();
-                
-                // Botón eliminar (no mostrar si es admin)
-                const btnEliminar = u.email !== ADMIN_EMAIL 
-                    ? `<button class="btn-submit" style="background:var(--danger);margin-top:1rem" onclick="eliminarUsuario('${u.id}','${u.nombre} ${u.apellido}');cerrarModal('modalVerUsuario')">🗑️ Eliminar Usuario</button>`
-                    : '';
-                
-                let h=`<p><strong>${u.nombre} ${u.apellido}</strong><br>
-                    <small style="opacity:.7">${u.email}</small><br>
-                    <small>Tel: ${u.telefono || 'N/A'}</small><br>
-                    <small>Binance: ${u.balanceEmail||'No configurado'}</small><br>
-                    <small>Código Referido: ${u.codigoReferido||'N/A'}</small></p>
-                    <h4 style="margin:1rem 0 .5rem;font-size:.9rem">Compras (${cs.size})</h4>
-                    <table class="admin-table">
-                        <thead><tr><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th></tr></thead>
-                        <tbody>`;
-                
-                if(cs.empty) {
-                    h += '<tr><td colspan="4" style="text-align:center;opacity:.6">Sin compras</td></tr>';
-                } else {
-                    cs.forEach(d=>{
-                        const c=d.data();
-                        const numeros = c.numerosBoleto ? c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', ') : 'Pendiente';
-                        h+=`<tr>
-                            <td>${c.rifaTitulo}</td>
-                            <td style="font-size:.7rem">${numeros}</td>
-                            <td>$${c.total}</td>
-                            <td><span class="status-badge ${c.estado==='aprobado'?'status-active':'status-inactive'}">${c.estado}</span></td>
-                        </tr>`;
-                    });
-                }
-                
-                h+=`</tbody></table>${btnEliminar}`;
-                document.getElementById('detalleUsuarioContent').innerHTML=h;
-                abrirModal('modalVerUsuario');
-            }catch(er){console.error(er);mostrarToast('Error','error')}
-        }
+        async function cargarGanadoresAdmin(){const ct=document.getElementById('ganadoresAdminBody');ct.innerHTML='<div class="loading"><div class="spinner"></div></div>';try{const s=await db.collection('ganadores').orderBy('fecha','desc').get();if(s.empty){ct.innerHTML='<div class="empty-state"><span>🏆</span><p>No hay ganadores</p></div>';return}ct.innerHTML='';s.forEach(d=>{const g={id:d.id,...d.data()},fecha=g.fecha?.toDate?g.fecha.toDate().toLocaleDateString():'N/A',estadoCobro=g.cobrado?'<span style="color:var(--success);font-size:.75rem">✓ Cobrado</span>':(g.solicitadoCobro?'<span style="color:var(--warning);font-size:.75rem">⏳ Pend</span>':'<span style="opacity:.6;font-size:.75rem">Sin solicitar</span>');ct.innerHTML+=`<div class="ganador-admin-card"><div class="ganador-admin-header"><span class="ganador-admin-rifa">${g.icono||'🎁'} ${g.rifaTitulo}</span><span class="ganador-admin-fecha">${fecha}</span></div><div class="ganador-admin-body"><div class="ganador-admin-info"><div class="ganador-admin-numero">#${String(g.numeroGanador||0).padStart(3,'0')}</div><div class="ganador-admin-datos"><strong>${g.nombre}</strong><small>${g.email}</small></div></div><div class="ganador-admin-premio"><span>Premio:</span><strong>${g.tipoPremio==='dinero'?'$':''}${g.premio}</strong><div style="margin-top:.3rem">${estadoCobro}</div></div></div><div class="ganador-admin-actions"><button class="btn-small btn-delete" onclick="eliminarGanador('${g.id}','${g.rifaId}')">🗑️ Eliminar</button></div></div>`})}catch(er){console.error(er);ct.innerHTML='<div class="empty-state"><span>❌</span><p>Error</p></div>'}}
+        async function eliminarGanador(ganadorId,rifaId){if(!confirm('¿Eliminar ganador?'))return;try{await db.collection('ganadores').doc(ganadorId).delete();if(rifaId)await db.collection('rifas').doc(rifaId).update({finalizada:false,activa:false,ganadorId:null,numeroGanador:null,fechaSorteo:null});mostrarToast('Eliminado','success');cargarGanadoresAdmin();cargarRifasAdmin();cargarGanadores()}catch(er){console.error(er);mostrarToast('Error','error')}}
 
         function toggleComisiones(){comisionesActivas=!comisionesActivas;document.getElementById('toggleComisiones').classList.toggle('active',comisionesActivas);document.getElementById('comisionesConfig').style.display=comisionesActivas?'block':'none'}
         function abrirModalNuevaRifa(){rifaEditando=null;comisionesActivas=false;document.getElementById('modalRifaTitle').textContent='➕ Nueva Rifa';document.getElementById('toggleComisiones').classList.remove('active');document.getElementById('comisionesConfig').style.display='none';document.querySelector('#modalNuevaRifa form').reset();document.getElementById('rifaIcono').value='🎁';document.getElementById('rifaPremio').value='100';document.getElementById('rifaPrecioBoleto').value='1';document.getElementById('rifaTotalBoletos').value='100';document.getElementById('rifaDias').value='7';abrirModal('modalNuevaRifa')}
         async function editarRifaAdmin(id){try{const d=await db.collection('rifas').doc(id).get(),r=d.data();rifaEditando=id;document.getElementById('modalRifaTitle').textContent='✏️ Editar';document.getElementById('rifaTitulo').value=r.titulo;document.getElementById('rifaDescripcion').value=r.descripcion||'';document.getElementById('rifaIcono').value=r.icono||'🎁';document.getElementById('rifaTipoPremio').value=r.tipoPremio||'dinero';document.getElementById('rifaPremio').value=r.premio;document.getElementById('rifaPrecioBoleto').value=r.precioBoleto||1;document.getElementById('rifaTotalBoletos').value=r.totalBoletos;document.getElementById('rifaDias').value=r.dias||7;comisionesActivas=r.comisionesActivas||false;document.getElementById('toggleComisiones').classList.toggle('active',comisionesActivas);document.getElementById('comisionesConfig').style.display=comisionesActivas?'block':'none';document.getElementById('rifaComisionPorcentaje').value=r.comisionPorcentaje||10;abrirModal('modalNuevaRifa')}catch{}}
-
-        async function guardarRifa(e){
-            e.preventDefault();const btn=document.getElementById('btnGuardarRifa');btn.disabled=true;btn.textContent='Guardando...';
-            try{
-                let imgB64=null;const imgF=document.getElementById('rifaImagen').files[0];
-                if(imgF){imgB64=await fileToBase64(imgF, 400)}
-                const datos={titulo:document.getElementById('rifaTitulo').value,descripcion:document.getElementById('rifaDescripcion').value,icono:document.getElementById('rifaIcono').value,tipoPremio:document.getElementById('rifaTipoPremio').value,premio:document.getElementById('rifaPremio').value,precioBoleto:parseFloat(document.getElementById('rifaPrecioBoleto').value),totalBoletos:parseInt(document.getElementById('rifaTotalBoletos').value),dias:parseInt(document.getElementById('rifaDias').value),comisionesActivas,comisionPorcentaje:comisionesActivas?parseInt(document.getElementById('rifaComisionPorcentaje').value):0};
-                if(imgB64)datos.imagenBase64=imgB64;
-                if(rifaEditando){await db.collection('rifas').doc(rifaEditando).update(datos)}
-                else{datos.boletosVendidos=0;datos.activa=true;datos.finalizada=false;datos.fechaCreacion=firebase.firestore.FieldValue.serverTimestamp();datos.fechaFin=new Date(Date.now()+datos.dias*86400000);await db.collection('rifas').add(datos)}
-                cerrarModal('modalNuevaRifa');rifaEditando=null;cargarRifasAdmin();cargarRifas();mostrarToast('¡Guardado!','success');
-            }catch(er){console.error(er);mostrarToast('Error: '+er.message,'error')}
-            btn.disabled=false;btn.textContent='Guardar';
-        }
+        async function guardarRifa(e){e.preventDefault();const btn=document.getElementById('btnGuardarRifa');btn.disabled=true;btn.textContent='Guardando...';try{let imgB64=null;const imgF=document.getElementById('rifaImagen').files[0];if(imgF)imgB64=await fileToBase64(imgF,400);const datos={titulo:document.getElementById('rifaTitulo').value,descripcion:document.getElementById('rifaDescripcion').value,icono:document.getElementById('rifaIcono').value,tipoPremio:document.getElementById('rifaTipoPremio').value,premio:document.getElementById('rifaPremio').value,precioBoleto:parseFloat(document.getElementById('rifaPrecioBoleto').value),totalBoletos:parseInt(document.getElementById('rifaTotalBoletos').value),dias:parseInt(document.getElementById('rifaDias').value),comisionesActivas,comisionPorcentaje:comisionesActivas?parseInt(document.getElementById('rifaComisionPorcentaje').value):0};if(imgB64)datos.imagenBase64=imgB64;if(rifaEditando){await db.collection('rifas').doc(rifaEditando).update(datos)}else{datos.boletosVendidos=0;datos.activa=true;datos.finalizada=false;datos.fechaCreacion=firebase.firestore.FieldValue.serverTimestamp();datos.fechaFin=new Date(Date.now()+datos.dias*86400000);await db.collection('rifas').add(datos)}cerrarModal('modalNuevaRifa');rifaEditando=null;cargarRifasAdmin();cargarRifas();mostrarToast('¡Guardado!','success')}catch(er){console.error(er);mostrarToast('Error','error')}btn.disabled=false;btn.textContent='Guardar'}
         async function toggleRifaAdmin(id,a){await db.collection('rifas').doc(id).update({activa:!a});cargarRifasAdmin();cargarRifas()}
         async function eliminarRifaAdmin(id){if(!confirm('¿Eliminar?'))return;await db.collection('rifas').doc(id).delete();cargarRifasAdmin();cargarRifas()}
 
