@@ -504,7 +504,7 @@
                 <div id="pagoQR" style="display:none">
                     <div class="payment-qr-box">
                         <img id="qrBinanceImg" class="payment-qr-img" src="" alt="QR Binance">
-                        <p class="payment-qr-text">Escanea con la app de Binance</p>
+                        <p class="payment-qr-text">Escanea con la cámara</p>
                     </div>
                     <div class="form-group"><label>🔢 ID de Orden *</label><input type="text" id="idOrdenPagoQR" placeholder="Ej: 123456789"></div>
                     <div class="form-group">
@@ -813,17 +813,19 @@
         }
         
         async function solicitarEnlacePago(){
+            if(!currentUser||!userData){mostrarToast('Inicia sesión','error');return}
+            if(!rifaSeleccionada){mostrarToast('Selecciona una rifa','error');return}
             const btn = document.getElementById('btnSolicitarEnlace');
             btn.disabled=true;btn.textContent='Enviando...';
             try{
                 const p=rifaSeleccionada.precioBoleto||1,tot=cantidadBoletos*p;
                 await db.collection('solicitudesEnlace').add({
                     usuarioId:currentUser.uid,
-                    usuarioNombre:`${userData.nombre} ${userData.apellido}`,
-                    usuarioEmail:userData.email,
-                    usuarioTelefono: userData.telefono || 'No disponible',
+                    usuarioNombre:(userData.nombre||'')+' '+(userData.apellido||''),
+                    usuarioEmail:userData.email||'',
+                    usuarioTelefono:userData.telefono||'No disponible',
                     rifaId:rifaSeleccionada.id,
-                    rifaTitulo:rifaSeleccionada.titulo,
+                    rifaTitulo:rifaSeleccionada.titulo||'',
                     cantidad:cantidadBoletos,
                     total:tot,
                     estado:'pendiente',
@@ -832,7 +834,7 @@
                 document.getElementById('enlaceFormulario').style.display='none';
                 document.getElementById('enlaceEnviado').style.display='block';
                 mostrarToast('¡Solicitud enviada!','success');
-            }catch(er){console.error(er);mostrarToast('Error','error')}
+            }catch(er){console.error('Error solicitarEnlace:',er);mostrarToast('Error: '+er.message,'error')}
             btn.disabled=false;btn.textContent='📤 Solicitar Enlace';
         }
 
