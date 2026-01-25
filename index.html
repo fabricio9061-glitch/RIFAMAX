@@ -218,6 +218,25 @@
         .rango-oro{background:linear-gradient(135deg,#FFD700,#FFA500);color:#333}
         .rango-platino{background:linear-gradient(135deg,#E5E4E2,#A9A9A9);color:#333}
         .rango-diamante{background:linear-gradient(135deg,#B9F2FF,#00CED1);color:#333}
+        .reglas-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+        .regla-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;overflow:hidden;transition:.3s}
+        .regla-card:hover{border-color:var(--primary);transform:translateY(-3px)}
+        .regla-header{background:linear-gradient(135deg,rgba(255,107,53,.2),rgba(255,210,63,.1));padding:1rem;display:flex;align-items:center;gap:.8rem;border-bottom:1px solid rgba(255,255,255,.1)}
+        .regla-icon{font-size:1.8rem}
+        .regla-header h3{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--secondary);margin:0}
+        .regla-content{padding:1rem}
+        .regla-content p,.regla-content li{font-size:.85rem;line-height:1.6;margin-bottom:.5rem}
+        .regla-content ol,.regla-content ul{padding-left:1.2rem}
+        .regla-content ol li{margin-bottom:.6rem}
+        .regla-nota{background:rgba(0,180,216,.1);border:1px solid var(--accent);border-radius:8px;padding:.8rem;margin-top:1rem;font-size:.8rem}
+        .metodos-lista{display:flex;flex-direction:column;gap:.8rem}
+        .metodo-item{display:flex;align-items:center;gap:.8rem;padding:.6rem;background:rgba(255,255,255,.05);border-radius:8px}
+        .metodo-logo{width:28px;height:28px;object-fit:contain;flex-shrink:0}
+        .metodo-item span{font-size:.85rem}
+        .rangos-table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.85rem}
+        .rangos-table th,.rangos-table td{padding:.5rem;text-align:left;border-bottom:1px solid rgba(255,255,255,.1)}
+        .rangos-table th{background:rgba(0,0,0,.2);font-size:.75rem}
+        .payment-logo{width:24px;height:24px;object-fit:contain;vertical-align:middle}
         .comision-info{background:rgba(155,93,229,.1);border:1px solid var(--purple);border-radius:8px;padding:.6rem;margin-top:.6rem;font-size:.75rem}
         .comision-actual{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--success)}
         @media(max-width:768px){header{flex-direction:column;gap:.8rem;padding:.8rem 4%}.logo{font-size:1.8rem}nav{width:100%;justify-content:center;flex-wrap:wrap;gap:.5rem}.hero{padding:2rem 4% 1.5rem}.hero h1{font-size:1.9rem}.section{padding:1.5rem 4%}.rifas-grid{gap:1.2rem}.rifa-card{width:100%;max-width:400px}.modal-content{padding:1.2rem;margin:.5rem}.form-row{grid-template-columns:1fr}.payment-options{grid-template-columns:repeat(2,1fr)}}
@@ -232,6 +251,7 @@
         <nav>
             <a href="#rifas">Rifas</a>
             <a href="#ganadores">Ganadores</a>
+            <a href="#reglas" style="color:var(--secondary)">📋 Reglas</a>
             <a href="https://www.instagram.com/mal_ave_/" target="_blank" style="color:var(--accent)">📸 @mal_ave_</a>
             <div class="nav-buttons auth-buttons" id="authButtons">
                 <button class="btn-login" onclick="abrirModal('modalLogin')">Entrar</button>
@@ -264,6 +284,142 @@
         <section class="section" id="ganadores">
             <h2 class="section-title">🏆 Ganadores</h2>
             <div id="ganadoresList"><div class="loading"><div class="spinner"></div></div></div>
+        </section>
+        
+        <section class="section" id="reglas">
+            <h2 class="section-title">📋 Reglas y Funcionamiento</h2>
+            <div class="reglas-container">
+                <div class="regla-card">
+                    <div class="regla-header">
+                        <span class="regla-icon">🎰</span>
+                        <h3>¿Cómo Funcionan las Rifas?</h3>
+                    </div>
+                    <div class="regla-content">
+                        <ol>
+                            <li><strong>Elige una rifa:</strong> Explora las rifas activas y selecciona la que más te guste.</li>
+                            <li><strong>Compra boletos:</strong> Selecciona la cantidad de boletos que deseas (puedes comprar todos los disponibles).</li>
+                            <li><strong>Realiza el pago:</strong> Elige tu método de pago preferido y envía el comprobante.</li>
+                            <li><strong>Espera aprobación:</strong> El admin verificará tu pago y te asignará números de boleto.</li>
+                            <li><strong>Sorteo:</strong> Cuando la rifa termine o se vendan todos los boletos, se realizará el sorteo.</li>
+                            <li><strong>¡Gana!</strong> Si tu número sale ganador, podrás cobrar tu premio desde "Mis Premios".</li>
+                        </ol>
+                        <div class="regla-nota">
+                            <strong>📌 Nota:</strong> Los números de boleto se asignan aleatoriamente al aprobar el pago. El sorteo es 100% aleatorio y transparente.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="regla-card">
+                    <div class="regla-header">
+                        <span class="regla-icon">💳</span>
+                        <h3>Métodos de Pago</h3>
+                    </div>
+                    <div class="regla-content">
+                        <div class="metodos-lista">
+                            <div class="metodo-item">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Binance_Logo.svg/960px-Binance_Logo.svg.png" alt="Binance" class="metodo-logo">
+                                <span><strong>Binance Pay:</strong> Envía USDT y adjunta el ID de orden.</span>
+                            </div>
+                            <div class="metodo-item">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Paypal_2014_logo.png" alt="PayPal" class="metodo-logo">
+                                <span><strong>PayPal:</strong> Envía USD y adjunta el ID de transacción.</span>
+                            </div>
+                            <div class="metodo-item">
+                                <img src="https://capatec.org.pa/directorio/wp-content/uploads/2023/06/PQfLj0tAG8A3-Logo-Zinli-01-4-1024x1024.png" alt="Zinli" class="metodo-logo">
+                                <span><strong>Zinli:</strong> Envía USD y adjunta el comprobante.</span>
+                            </div>
+                            <div class="metodo-item">
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/free-skrill-logo-icon-svg-download-png-675731.png?f=webp" alt="Skrill" class="metodo-logo">
+                                <span><strong>Skrill:</strong> Envía USD y adjunta el comprobante.</span>
+                            </div>
+                        </div>
+                        <div class="regla-nota">
+                            <strong>⏱️ Tiempo:</strong> Los pagos se verifican en un plazo de 1-24 horas hábiles.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="regla-card">
+                    <div class="regla-header">
+                        <span class="regla-icon">🤝</span>
+                        <h3>Sistema de Referidos</h3>
+                    </div>
+                    <div class="regla-content">
+                        <p>¡Invita amigos y gana dinero por cada boleto que compren!</p>
+                        <ul>
+                            <li><strong>Tu código único:</strong> Cada usuario tiene un código de referido exclusivo.</li>
+                            <li><strong>Compártelo:</strong> Cuando alguien se registra con tu código, se convierte en tu referido.</li>
+                            <li><strong>Gana comisiones:</strong> Cada vez que un referido compra boletos, tú ganas una comisión.</li>
+                            <li><strong>Sin límites:</strong> No hay límite de referidos ni de ganancias.</li>
+                        </ul>
+                        <div class="regla-nota">
+                            <strong>💡 Tip:</strong> Comparte tu código en redes sociales para maximizar tus ganancias.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="regla-card">
+                    <div class="regla-header">
+                        <span class="regla-icon">📈</span>
+                        <h3>Sistema de Rangos y Comisiones</h3>
+                    </div>
+                    <div class="regla-content">
+                        <p>Tu comisión aumenta automáticamente según la cantidad de referidos:</p>
+                        <table class="rangos-table">
+                            <thead>
+                                <tr><th>Rango</th><th>Referidos</th><th>Comisión/Boleto</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><span class="rango-badge rango-bronce">🥉 Bronce</span></td><td>0+</td><td>$0.10</td></tr>
+                                <tr><td><span class="rango-badge rango-plata">🥈 Plata</span></td><td>50+</td><td>$0.12</td></tr>
+                                <tr><td><span class="rango-badge rango-oro">🥇 Oro</span></td><td>100+</td><td>$0.15</td></tr>
+                                <tr><td><span class="rango-badge rango-platino">💎 Platino</span></td><td>150+</td><td>$0.17</td></tr>
+                                <tr><td><span class="rango-badge rango-diamante">💠 Diamante</span></td><td>200+</td><td>$0.20</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="regla-nota">
+                            <strong>⭐ Bonificación:</strong> El administrador puede otorgar comisiones especiales a usuarios destacados.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="regla-card">
+                    <div class="regla-header">
+                        <span class="regla-icon">💸</span>
+                        <h3>Retiros de Ganancias</h3>
+                    </div>
+                    <div class="regla-content">
+                        <ul>
+                            <li><strong>Mínimo para retirar:</strong> $5.00 USD</li>
+                            <li><strong>Métodos disponibles:</strong> Binance, PayPal, Zinli, Skrill</li>
+                            <li><strong>Configura tu perfil:</strong> Debes tener configurado el email del método elegido.</li>
+                            <li><strong>Tiempo de procesamiento:</strong> 1-48 horas hábiles.</li>
+                            <li><strong>Sin comisiones:</strong> No cobramos comisión por retiros.</li>
+                        </ul>
+                        <div class="regla-nota">
+                            <strong>📧 Importante:</strong> Asegúrate de que tu email de pago esté correctamente configurado en tu perfil antes de solicitar un retiro.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="regla-card">
+                    <div class="regla-header">
+                        <span class="regla-icon">🏆</span>
+                        <h3>Cobro de Premios</h3>
+                    </div>
+                    <div class="regla-content">
+                        <ul>
+                            <li><strong>Notificación:</strong> Si ganas, verás el premio en "Mis Premios".</li>
+                            <li><strong>Solicitar cobro:</strong> Haz clic en "Cobrar Premio" para solicitar el pago.</li>
+                            <li><strong>Verificación:</strong> El admin verificará y procesará el pago.</li>
+                            <li><strong>Recibe tu premio:</strong> Recibirás el premio en el método de pago configurado.</li>
+                        </ul>
+                        <div class="regla-nota">
+                            <strong>⚠️ Requisito:</strong> Debes tener al menos un email de pago configurado en tu perfil para cobrar premios.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -483,7 +639,7 @@
                 
                 <div class="payment-options">
                     <div class="payment-option active" onclick="seleccionarMetodoPago('binance')" id="opcionBinance">
-                        <div class="payment-option-icon">🟡</div>
+                        <div class="payment-option-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Binance_Logo.svg/960px-Binance_Logo.svg.png" class="payment-logo" alt="Binance"></div>
                         <div class="payment-option-label">Binance</div>
                     </div>
                     <div class="payment-option" onclick="seleccionarMetodoPago('qr')" id="opcionQR">
@@ -491,15 +647,15 @@
                         <div class="payment-option-label">QR</div>
                     </div>
                     <div class="payment-option" onclick="seleccionarMetodoPago('paypal')" id="opcionPaypal">
-                        <div class="payment-option-icon">🅿️</div>
+                        <div class="payment-option-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Paypal_2014_logo.png" class="payment-logo" alt="PayPal"></div>
                         <div class="payment-option-label">PayPal</div>
                     </div>
                     <div class="payment-option" onclick="seleccionarMetodoPago('zinli')" id="opcionZinli">
-                        <div class="payment-option-icon">💜</div>
+                        <div class="payment-option-icon"><img src="https://capatec.org.pa/directorio/wp-content/uploads/2023/06/PQfLj0tAG8A3-Logo-Zinli-01-4-1024x1024.png" class="payment-logo" alt="Zinli"></div>
                         <div class="payment-option-label">Zinli</div>
                     </div>
                     <div class="payment-option" onclick="seleccionarMetodoPago('skrill')" id="opcionSkrill">
-                        <div class="payment-option-icon">🟠</div>
+                        <div class="payment-option-icon"><img src="https://cdn.iconscout.com/icon/free/png-256/free-skrill-logo-icon-svg-download-png-675731.png?f=webp" class="payment-logo" alt="Skrill"></div>
                         <div class="payment-option-label">Skrill</div>
                     </div>
                     <div class="payment-option" onclick="seleccionarMetodoPago('enlace')" id="opcionEnlace">
@@ -511,7 +667,7 @@
                 <!-- Binance Email -->
                 <div id="pagoBinance">
                     <div class="payment-box">
-                        <p style="font-size:.85rem;font-weight:600;color:var(--secondary)">🟡 Binance Pay</p>
+                        <p style="font-size:.85rem;font-weight:600;color:var(--secondary)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Binance_Logo.svg/960px-Binance_Logo.svg.png" class="payment-logo" style="margin-right:5px"> Binance Pay</p>
                         <p style="font-size:.75rem;margin:.3rem 0">Envía USDT a:</p>
                         <div class="payment-email" onclick="copiarEmail('Fabricio9061@gmail.com')">Fabricio9061@gmail.com</div>
                     </div>
@@ -548,7 +704,7 @@
                 <!-- PayPal -->
                 <div id="pagoPaypal" style="display:none">
                     <div class="payment-box">
-                        <p style="font-size:.85rem;font-weight:600;color:#0070BA">🅿️ PayPal</p>
+                        <p style="font-size:.85rem;font-weight:600;color:#0070BA"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Paypal_2014_logo.png" class="payment-logo" style="margin-right:5px"> PayPal</p>
                         <p style="font-size:.75rem;margin:.3rem 0">Envía a:</p>
                         <div class="payment-email" onclick="copiarEmail('Fabricio9061@gmail.com')">Fabricio9061@gmail.com</div>
                         <p style="font-size:.7rem;margin-top:.3rem;opacity:.8">o usuario: <span class="payment-email" onclick="copiarEmail('@AnibalMv1')">@AnibalMv1</span></p>
@@ -568,7 +724,7 @@
                 <!-- Zinli -->
                 <div id="pagoZinli" style="display:none">
                     <div class="payment-box">
-                        <p style="font-size:.85rem;font-weight:600;color:#8B5CF6">💜 Zinli</p>
+                        <p style="font-size:.85rem;font-weight:600;color:#8B5CF6"><img src="https://capatec.org.pa/directorio/wp-content/uploads/2023/06/PQfLj0tAG8A3-Logo-Zinli-01-4-1024x1024.png" class="payment-logo" style="margin-right:5px"> Zinli</p>
                         <p style="font-size:.75rem;margin:.3rem 0">Envía a:</p>
                         <div class="payment-email" onclick="copiarEmail('Fabricio9061@gmail.com')">Fabricio9061@gmail.com</div>
                     </div>
@@ -587,7 +743,7 @@
                 <!-- Skrill -->
                 <div id="pagoSkrill" style="display:none">
                     <div class="payment-box">
-                        <p style="font-size:.85rem;font-weight:600;color:#862165">🟠 Skrill</p>
+                        <p style="font-size:.85rem;font-weight:600;color:#862165"><img src="https://cdn.iconscout.com/icon/free/png-256/free-skrill-logo-icon-svg-download-png-675731.png?f=webp" class="payment-logo" style="margin-right:5px"> Skrill</p>
                         <p style="font-size:.75rem;margin:.3rem 0">Envía a:</p>
                         <div class="payment-email" onclick="copiarEmail('Fabricio9061@gmail.com')">Fabricio9061@gmail.com</div>
                     </div>
@@ -665,9 +821,9 @@
             <p id="comisionUsuarioNombre" style="text-align:center;margin-bottom:1rem"></p>
             <div class="form-group">
                 <label>Comisión por boleto ($)</label>
-                <input type="number" id="nuevaComision" step="0.01" min="0.01" max="0.30" value="0.10">
+                <input type="number" id="nuevaComision" step="0.01" min="0.01" value="0.10">
             </div>
-            <p style="font-size:.7rem;opacity:.6;text-align:center">Rango: $0.01 - $0.30</p>
+            <p style="font-size:.7rem;opacity:.6;text-align:center">Mínimo: $0.01 (sin límite máximo)</p>
             <button class="btn-submit" onclick="guardarComisionUsuario()">Guardar</button>
         </div>
     </div>
@@ -713,7 +869,7 @@
         </div>
     </div>
 
-    <footer><p>RifaMax | Versión: 6.0.0 | © 2025 Anibal Malave</p></footer>
+    <footer><p>RifaMax | Versión: 6.1.0 | © 2025 Anibal Malave</p></footer>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -741,7 +897,7 @@
         let comprobantes={binance:null,qr:null,paypal:null,zinli:null,skrill:null};
         
         function calcularComisionPorRango(totalReferidos,comisionManual=null){
-            if(comisionManual!==null&&comisionManual!==undefined)return Math.min(comisionManual,COMISION_MAX);
+            if(comisionManual!==null&&comisionManual!==undefined)return comisionManual;
             let comision=0.10;
             for(const rango of RANGOS_COMISION){if(totalReferidos>=rango.min)comision=rango.comision}
             return comision;
@@ -1075,7 +1231,7 @@
         async function cargarUsuariosAdmin(){const tb=document.getElementById('usuariosAdminBody');tb.innerHTML='<tr><td colspan="5"><div class="spinner" style="margin:1rem auto"></div></td></tr>';try{const s=await db.collection('usuarios').where('activo','==',true).get();tb.innerHTML=s.empty?'<tr><td colspan="5" style="text-align:center">No hay usuarios</td></tr>':'';s.forEach(d=>{const u={id:d.id,...d.data()},comision=calcularComisionPorRango(u.totalReferidos||0,u.comisionManual),rango=obtenerRango(u.totalReferidos||0),btnEliminar=u.email!==ADMIN_EMAIL?'<button class="btn-small btn-delete" onclick="eliminarUsuario(\''+u.id+'\',\''+u.nombre+' '+u.apellido+'\')">🗑️</button>':'';tb.innerHTML+='<tr><td>'+u.nombre+' '+u.apellido+'</td><td>'+u.email+'</td><td>'+(u.totalReferidos||0)+'</td><td><span class="rango-badge '+rango.clase+'">$'+comision.toFixed(2)+'</span><button class="btn-small btn-edit" onclick="abrirEditarComision(\''+u.id+'\',\''+u.nombre+' '+u.apellido+'\','+comision+')" style="margin-left:.3rem">✏️</button></td><td><button class="btn-small btn-view" onclick="verUsuarioAdmin(\''+u.id+'\')">👁️</button>'+btnEliminar+'</td></tr>'})}catch(er){console.error(er)}}
         
         function abrirEditarComision(userId,nombre,comisionActual){usuarioEditandoComision=userId;document.getElementById('comisionUsuarioNombre').textContent=nombre;document.getElementById('nuevaComision').value=comisionActual;abrirModal('modalEditarComision')}
-        async function guardarComisionUsuario(){const nuevaComision=parseFloat(document.getElementById('nuevaComision').value);if(isNaN(nuevaComision)||nuevaComision<0.01||nuevaComision>0.30){mostrarToast('Comisión debe estar entre $0.01 y $0.30','error');return}try{await db.collection('usuarios').doc(usuarioEditandoComision).update({comisionManual:nuevaComision});cerrarModal('modalEditarComision');mostrarToast('¡Comisión actualizada!','success');cargarUsuariosAdmin()}catch(er){console.error(er);mostrarToast('Error','error')}}
+        async function guardarComisionUsuario(){const nuevaComision=parseFloat(document.getElementById('nuevaComision').value);if(isNaN(nuevaComision)||nuevaComision<0.01){mostrarToast('Comisión debe ser al menos $0.01','error');return}try{await db.collection('usuarios').doc(usuarioEditandoComision).update({comisionManual:nuevaComision});cerrarModal('modalEditarComision');mostrarToast('¡Comisión actualizada!','success');cargarUsuariosAdmin()}catch(er){console.error(er);mostrarToast('Error','error')}}
         
         async function eliminarUsuario(userId,nombre){if(!confirm('¿Eliminar "'+nombre+'"?'))return;try{const compras=await db.collection('compras').where('usuarioId','==',userId).get();for(const doc of compras.docs){const c=doc.data();if(c.estado==='aprobado')await db.collection('rifas').doc(c.rifaId).update({boletosVendidos:firebase.firestore.FieldValue.increment(-c.cantidad)})}const batch=db.batch();compras.forEach(doc=>batch.delete(doc.ref));const ganadores=await db.collection('ganadores').where('usuarioId','==',userId).get();ganadores.forEach(doc=>batch.delete(doc.ref));await batch.commit();await db.collection('usuarios').doc(userId).delete();mostrarToast('Eliminado','success');cargarUsuariosAdmin();cargarRifas()}catch(er){console.error(er);mostrarToast('Error','error')}}
         async function verUsuarioAdmin(id){try{const ud=await db.collection('usuarios').doc(id).get(),u={id,...ud.data()},cs=await db.collection('compras').where('usuarioId','==',id).get();let h='<p><strong>'+u.nombre+' '+u.apellido+'</strong><br><small style="opacity:.7">'+u.email+'</small><br><small>Tel: '+(u.telefono||'N/A')+'</small></p><h4 style="margin:1rem 0 .5rem;font-size:.9rem">Compras ('+cs.size+')</h4><table class="admin-table"><thead><tr><th>Rifa</th><th>Boletos</th><th>Total</th><th>Estado</th></tr></thead><tbody>';if(cs.empty)h+='<tr><td colspan="4" style="text-align:center;opacity:.6">Sin compras</td></tr>';else cs.forEach(d=>{const c=d.data(),numeros=c.numerosBoleto?c.numerosBoleto.map(n=>'#'+String(n).padStart(3,'0')).join(', '):'Pend';h+='<tr><td>'+c.rifaTitulo+'</td><td style="font-size:.7rem">'+numeros+'</td><td>$'+c.total+'</td><td><span class="status-badge '+(c.estado==='aprobado'?'status-active':'status-inactive')+'">'+c.estado+'</span></td></tr>'});h+='</tbody></table>';document.getElementById('detalleUsuarioContent').innerHTML=h;abrirModal('modalVerUsuario')}catch(er){console.error(er);mostrarToast('Error','error')}}
